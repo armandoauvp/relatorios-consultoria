@@ -6,7 +6,7 @@
 <title>Diagnóstico de Carteira — AUVP Private Banking</title>
 <style>
 :root{
-  --brand:#666666; --accent:#8C939A;
+  --brand:#666666; --accent:#0F6470; --accent-dk:#FFFFFF;
   --ph:rgba(140,147,154,.26); --ph-dk:rgba(255,255,255,.24);
   --warn-bg:rgba(90,97,104,.14); --warn-fg:#4A5257; --warn-bd:rgba(90,97,104,.34);
   --c1:#3E5074; --c2:#0F8A51; --c3:#0DA2E7; --c4:#F6A823; --c5:#8C47D1; --c6:#E23670; --c7:#E64D19; --c8:#669E2E;
@@ -47,6 +47,10 @@ strong{font-weight:700}
 .dark .ph{background:var(--ph-dk);color:#fff}
 /* capas e divisórias são monocromáticas: nada de dourado sobre a arte da capa */
 .cover .ph,.divider .ph{background:rgba(255,255,255,.18);color:#fff}
+/* Texto padrão num título é título: sai na caixa e no espaçamento do título,
+   e na capa também perde o realce de lacuna. */
+:is(h1,h2,.cv-sub) .ph.pronto{text-transform:inherit;letter-spacing:inherit}
+.cover .ph.pronto,.divider .ph.pronto{background:none}
 .mut{color:var(--ink-2)}
 .rule{height:1px;background:linear-gradient(90deg,rgba(255,255,255,.18),rgba(255,255,255,.95))}
 .grain{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E");opacity:.22;pointer-events:none}
@@ -435,6 +439,11 @@ table.tb{width:100%;border-collapse:collapse;font-size:8.2pt}
 .page.dark .pill{background:rgba(255,255,255,.08);color:#fff;border-color:rgba(255,255,255,.24)}
 .page.dark .note{background:rgba(255,255,255,.06);border-left-color:rgba(255,255,255,.4)}
 
+
+/* o mesmo painel dos slides, na escala do A4 */
+.painel{background:var(--soft);border-top:1.33px solid var(--brand);padding:4mm 5mm}
+.painel>:last-child{margin-bottom:0}
+.painel h3:first-child{margin-top:0}
 
 </style>
 </head>

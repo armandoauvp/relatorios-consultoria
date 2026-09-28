@@ -1,7 +1,7 @@
 # Modelos de relatórios — AUVP Capital e AUVP Private Banking
 
 Modelos de uso dos relatórios e apresentações entregues aos clientes, prontos para
-serem preenchidos e exportados em PDF. São **31 arquivos HTML independentes**: cada
+serem preenchidos e exportados em PDF. São **39 arquivos HTML independentes**: cada
 um traz o próprio CSS, a própria fonte e a própria paleta, abre com duplo clique em
 qualquer navegador e não depende de nenhum outro arquivo do repositório.
 
@@ -12,7 +12,7 @@ Os modelos são **gerados** a partir de `gerador/`, e não editados à mão. Par
 acrescentar uma página, um documento ou um segmento, veja
 [`CONSTRUCAO.md`](CONSTRUCAO.md).
 
-## Os 37 modelos
+## Os 39 modelos
 
 Seis documentos existem nos quatro segmentos. A apresentação do consultor varia por plano
 da consultoria e por segmento, e a versão em branco sai também sem a data no cabeçalho.
@@ -27,11 +27,22 @@ da consultoria e por segmento, e a versão em branco sai também sem a data no c
 | Carta de apresentação | 16:9 | 13 | ✓ | ✓ | ✓ | ✓ |
 | Apresentação do consultor | folha 210 mm × altura do texto | 1 | 3 planos | ✓ | ✓ | ✓ |
 | Apresentação do consultor (uma página) | A4 retrato | 1 | ✓ | ✓ | ✓ | ✓ |
+| Wealth Planning: proposta | 16:9 | 7 | | | ✓ | |
+| Wealth Planning: snapshot | 16:9 | 10 | | | ✓ | |
 
 A apresentação de cada consultor existe duas vezes: com e sem a data no pé, esta
 última no sufixo `-sem-data`. É o documento que a pessoa manda para um cliente novo a
 qualquer momento, e uma data carimbada nele nasce vencida. Os planos e as versões em branco
 continuam só com data: ali ela diz de quando são as condições comerciais.
+
+Os dois materiais da **AUVP Wealth** — a proposta do Estudo Preliminar de Wealth Planning
+e o snapshot patrimonial — eram feitos no Gamma, com identidade própria. Passam a sair no
+desenho do Private Banking, com o mesmo conteúdo e a mesma ordem de páginas, e só existem
+no Private. Na proposta quase tudo é texto da casa; no snapshot quase tudo é do cliente, e
+o que é posição da casa (as regras de dividendos e altas rendas, os temas de governança a
+examinar) vem escrito e editável. Os próximos materiais da Wealth entram do mesmo jeito,
+um módulo `gerador/d_wealth_*.py` cada, ou são montados na apresentação em branco do
+Private com os blocos "Inclui e não inclui", "Etapas em linha" e "Perfil e indicadores".
 
 Nomes de arquivo: `modelos/<documento>-<variante>.html`. Na maioria a variante é o
 segmento — `consultoria`, `alta-renda`, `private`, `assessoria`. Na apresentação do
@@ -239,7 +250,7 @@ mesmo arquivo no navegador: os campos ainda não preenchidos ficam destacados.
 
 **2. Gerar o PDF.**
 
-A pasta `pdf/` já traz um PDF de cada um dos 37 modelos, numa subpasta por produto, para quem só quer ler o
+A pasta `pdf/` já traz um PDF de cada um dos 39 modelos, numa subpasta por produto, para quem só quer ler o
 resultado sem instalar nada. Para regerar depois de editar um modelo:
 
 ```sh
@@ -287,9 +298,12 @@ Extraído dos arquivos em `assets relatórios/` e do `MODELO SLIDES AUVP CAPITAL
   cards, os marcadores numéricos das linhas do tempo e os marcadores das listas de
   planos. Nunca em capas. Os rótulos que antecedem os títulos (`.eyebrow`) são só
   texto, sem traço.
-- **Private Banking não usa amarelo em lugar nenhum.** O acento é o neutro `#8C939A`, e
-  com ele saem do amarelo também o realce dos campos preenchíveis e o selo de atenção
-  do diagnóstico. São tokens de tema (`--accent`, `--ph`, `--warn-*`), então a regra
+- **Private Banking não usa amarelo em lugar nenhum.** A cor pontual é um azul-turquesa
+  escuro, `#0F6470`, nos mesmos lugares em que os outros segmentos usam o amarelo —
+  número de etapa, fio de card, marcador de lista — e só neles; o resto fica nos
+  cinzas. No fundo escuro ele passa a branco (`--accent-dk`), porque ali some. O realce
+  dos campos preenchíveis e o selo de atenção do diagnóstico continuam neutros: são
+  aviso para quem preenche, não cor do documento. São tokens de tema (`--accent`, `--ph`, `--warn-*`), então a regra
   vale para qualquer elemento novo sem precisar ser lembrada caso a caso. Vermelho e
   verde continuam disponíveis como sinal semântico — gravidade de risco, retorno
   positivo ou negativo — onde a cor ajuda a leitura.
@@ -489,7 +503,7 @@ conversa em volta deles.
 ## Estrutura do repositório
 
 ```
-modelos/                        37 modelos HTML independentes
+modelos/                        39 modelos HTML independentes
 pdf/<produto>/                  um PDF de cada modelo, versionado (saída do npm run pdf)
 scripts/render.mjs              HTML -> PDF via Playwright
 scripts/altura.mjs              mede o conteúdo das folhas longas e ajusta a altura

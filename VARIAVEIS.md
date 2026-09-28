@@ -23,22 +23,22 @@ Estes se repetem na maior parte dos modelos. Vale manter um arquivo único com e
 
 | Variável | O que é | Em quantos modelos |
 | --- | --- | --- |
-| `razao_social` | Razão social da empresa emissora | 28 de 37 |
-| `cnpj` | CNPJ da empresa emissora | 28 de 37 |
-| `registro_cvm_empresa` | Registro da empresa na CVM | 4 de 37 |
-| `canal_ouvidoria` | Telefone ou e-mail da ouvidoria | 28 de 37 |
-| `disclaimer_regulatorio` | Texto legal aprovado pelo compliance, específico do segmento | 28 de 37 |
-| `nome_cliente` | Nome do cliente destinatário | 28 de 37 |
-| `nome_responsavel` | Consultor, assessor ou banker responsável | 28 de 37 |
-| `registro_cvm_ou_ancord` | Registro do responsável (CVM 19 / Ancord) | 16 de 37 |
-| `email_contato` | E-mail de contato exibido no documento | 32 de 37 |
-| `whatsapp_contato` | WhatsApp direto do responsável | 12 de 37 |
-| `canal_atendimento` | Canal e horário de atendimento | 16 de 37 |
-| `link_agendamento` | URL de agendamento (a mesma do QR code) | 12 de 37 |
-| `mes_referencia` | Mês de referência, ex.: Agosto de 2026 | 12 de 37 |
-| `data_posicao` | Data da posição consolidada | 8 de 37 |
-| `perfil_investidor` | Perfil de suitability do cliente | 12 de 37 |
-| `patrimonio_total` | Patrimônio total sob acompanhamento | 8 de 37 |
+| `razao_social` | Razão social da empresa emissora | 28 de 39 |
+| `cnpj` | CNPJ da empresa emissora | 28 de 39 |
+| `registro_cvm_empresa` | Registro da empresa na CVM | 4 de 39 |
+| `canal_ouvidoria` | Telefone ou e-mail da ouvidoria | 28 de 39 |
+| `disclaimer_regulatorio` | Texto legal aprovado pelo compliance, específico do segmento | 28 de 39 |
+| `nome_cliente` | Nome do cliente destinatário | 30 de 39 |
+| `nome_responsavel` | Consultor, assessor ou banker responsável | 30 de 39 |
+| `registro_cvm_ou_ancord` | Registro do responsável (CVM 19 / Ancord) | 16 de 39 |
+| `email_contato` | E-mail de contato exibido no documento | 33 de 39 |
+| `whatsapp_contato` | WhatsApp direto do responsável | 13 de 39 |
+| `canal_atendimento` | Canal e horário de atendimento | 16 de 39 |
+| `link_agendamento` | URL de agendamento (a mesma do QR code) | 12 de 39 |
+| `mes_referencia` | Mês de referência, ex.: Agosto de 2026 | 12 de 39 |
+| `data_posicao` | Data da posição consolidada | 8 de 39 |
+| `perfil_investidor` | Perfil de suitability do cliente | 12 de 39 |
+| `patrimonio_total` | Patrimônio total sob acompanhamento | 8 de 39 |
 
 ## Apresentação do consultor — Me Diz o Que Fazer
 
@@ -736,6 +736,60 @@ acao_3_descricao                  acao_3_prazo                      acao_4_prior
 acao_4_descricao                  acao_4_prazo                      pendencia_1_titulo
 pendencia_1_detalhe               pendencia_2_titulo                pendencia_2_detalhe
 data_proxima_reuniao              formato_reuniao                   mensagem_encerramento
+```
+</details>
+
+## undefined
+
+Arquivos: `modelos/wealth-proposta-private.html`
+
+Variantes: — &middot; 7 variáveis
+
+<details><summary>Ver as 3 variáveis específicas deste documento</summary>
+
+```
+data_proposta                     valor_epwp                        valor_roadmap
+```
+</details>
+
+## undefined
+
+Arquivos: `modelos/wealth-snapshot-private.html`
+
+Variantes: — &middot; 89 variáveis
+
+<details><summary>Ver as 87 variáveis específicas deste documento</summary>
+
+```
+data_snapshot                     perfil_1                          perfil_2
+perfil_3                          perfil_4                          perfil_5
+perfil_6                          perfil_7                          perfil_8
+ind_1_valor                       ind_2_valor                       ind_3_valor
+ind_4_valor                       ind_5_valor                       ind_6_valor
+ind_7_valor                       ind_8_valor                       conclusao_1_titulo
+conclusao_1_texto                 conclusao_2_titulo                conclusao_2_texto
+conclusao_3_titulo                conclusao_3_texto                 conclusao_4_titulo
+conclusao_4_texto                 nucleo_pf_texto                   nucleo_imob_texto
+nucleo_geracao_texto              nucleo_empresas_texto             consumo_dado_1
+consumo_dado_2                    consumo_dado_3                    consumo_dado_4
+consumo_dado_5                    consumo_dado_6                    consumo_leitura
+consumo_criterio_6                ir_contexto_1                     ir_contexto_2
+ir_contexto_3                     ir_contexto_4                     ir_contexto_5
+sucessao_elemento_1               sucessao_elemento_2               sucessao_elemento_3
+sucessao_elemento_4               sucessao_elemento_5               sucessao_elemento_6
+sucessao_elemento_7               sucessao_questao_1                sucessao_questao_2
+sucessao_questao_3                sucessao_questao_4                sucessao_questao_5
+sucessao_questao_6                sucessao_questao_7                governanca_contexto_1
+governanca_contexto_2             governanca_contexto_3             governanca_contexto_4
+governanca_contexto_5             eficiencia_contexto_1             eficiencia_contexto_2
+eficiencia_contexto_3             eficiencia_contexto_4             fr_1_prioridade
+fr_1_frente                       fr_1_conteudo                     fr_2_prioridade
+fr_2_frente                       fr_2_conteudo                     fr_3_prioridade
+fr_3_frente                       fr_3_conteudo                     fr_4_prioridade
+fr_4_frente                       fr_4_conteudo                     fr_5_prioridade
+fr_5_frente                       fr_5_conteudo                     fr_6_prioridade
+fr_6_frente                       fr_6_conteudo                     roadmap_1_texto
+roadmap_2_texto                   roadmap_3_texto                   roadmap_4_texto
 ```
 </details>
 

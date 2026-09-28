@@ -13,7 +13,7 @@
   {
    "chave": "private",
    "nome": "Private Banking",
-   "descricao": "Marca própria, paleta em cinzas, sem amarelo."
+   "descricao": "Marca própria, paleta em cinzas com azul-turquesa escuro pontual, sem amarelo."
   },
   {
    "chave": "assessoria",
@@ -399,6 +399,39 @@
      "paginas": 11,
      "campos": 154,
      "imagens": 4
+    }
+   ]
+  },
+  {
+   "chave": "wealth-proposta",
+   "nome": "Wealth Planning: proposta",
+   "formato": "slide",
+   "descricao": "Proposta do Estudo Preliminar de Wealth Planning (EPWP): escopo, frentes, entregáveis e investimento.",
+   "variantes": [
+    {
+     "sufixo": "private",
+     "rotulo": "Private Banking",
+     "arquivo": "wealth-proposta-private.html",
+     "paginas": 7,
+     "campos": 10,
+     "imagens": 0
+    }
+   ]
+  },
+  {
+   "chave": "wealth-snapshot",
+   "nome": "Wealth Planning: snapshot",
+   "formato": "slide",
+   "blocos": true,
+   "descricao": "Fotografia patrimonial do caso, conclusões preliminares e frentes de evolução.",
+   "variantes": [
+    {
+     "sufixo": "private",
+     "rotulo": "Private Banking",
+     "arquivo": "wealth-snapshot-private.html",
+     "paginas": 10,
+     "campos": 140,
+     "imagens": 0
     }
    ]
   }

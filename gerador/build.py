@@ -23,6 +23,8 @@ import d_livre
 import d_macro
 import d_mensal
 import d_mensal_apresentacao
+import d_wealth_proposta
+import d_wealth_snapshot
 
 OUT = os.path.join(ROOT, "modelos")
 
@@ -64,6 +66,15 @@ DOCUMENTOS = [
          titulo="Documento livre — %s", builder=d_livre.build),
     dict(chave="apresentacao-livre", formato="slide",
          titulo="Apresentação livre — %s", builder=d_livre.build_slide),
+    # Os materiais da AUVP Wealth, que eram feitos no Gamma com identidade
+    # própria e passam a sair no desenho do Private Banking. Só existem no
+    # Private: a Wealth atende a mesma família que o Private atende.
+    dict(chave="wealth-proposta", formato="slide",
+         titulo="Wealth Planning, proposta — %s", builder=d_wealth_proposta.build,
+         variantes=[("private", THEMES["private"]["nome_full"], "private")]),
+    dict(chave="wealth-snapshot", formato="slide",
+         titulo="Wealth Planning Snapshot — %s", builder=d_wealth_snapshot.build,
+         variantes=[("private", THEMES["private"]["nome_full"], "private")]),
 ]
 
 

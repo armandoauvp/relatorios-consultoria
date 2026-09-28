@@ -141,6 +141,78 @@ def _marcos_campos(i):
                               _campo(i, "marco_%d_texto" % k, "Item %d — texto" % k))])
 
 
+# ------------------------------------------------ vindos da AUVP Wealth
+# Os três desenhos que os materiais da Wealth feitos no Gamma mais repetem: o
+# que entra e o que fica de fora, a sequência de frentes e a fotografia em
+# números. Servem para trazer os próximos desses materiais para cá sem pedir
+# módulo novo no gerador.
+
+def _escopo_html(i):
+    return """<div class="cols2" style="align-items:start">
+  <div>
+    <h2>%s</h2>
+    <ul class="lista">%s</ul>
+  </div>
+  <div class="painel">
+    <h2>%s</h2>
+    <ul class="lista">%s</ul>
+  </div>
+</div>""" % (ph(_c(i, "titulo_a")),
+             "".join("<li>%s</li>" % ph(_c(i, "a_%d" % k)) for k in range(1, 7)),
+             ph(_c(i, "titulo_b")),
+             "".join("<li>%s</li>" % ph(_c(i, "b_%d" % k)) for k in range(1, 7)))
+
+
+def _escopo_campos(i):
+    return _junta(_campo(i, "titulo_a", "Título da coluna da esquerda", "Ex.: O que compreende"),
+                  *[_campo(i, "a_%d" % k, "Esquerda — item %d" % k) for k in range(1, 7)],
+                  _campo(i, "titulo_b", "Título do painel da direita", "Ex.: O que não compreende"),
+                  *[_campo(i, "b_%d" % k, "Direita — item %d" % k) for k in range(1, 7)])
+
+
+def _etapas_html(i):
+    return """<h2>%s</h2>
+<ol class="steps" style="--n:4">%s</ol>""" % (
+        ph(_c(i, "titulo")),
+        "".join("<li><h4>%s</h4><p>%s</p></li>"
+                % (ph(_c(i, "etapa_%d_titulo" % k)), ph(_c(i, "etapa_%d_texto" % k)))
+                for k in (1, 2, 3, 4)))
+
+
+def _etapas_campos(i):
+    return _junta(_campo(i, "titulo", "Título do bloco", "Ex.: Roadmap integrado"),
+                  *[c for k in (1, 2, 3, 4)
+                    for c in (_campo(i, "etapa_%d_titulo" % k, "Etapa %d — título" % k),
+                              _campo(i, "etapa_%d_texto" % k, "Etapa %d — texto" % k))])
+
+
+def _fotografia_html(i):
+    return """<div class="cols2" style="grid-template-columns:1fr 1.5fr;align-items:start">
+  <div class="painel">
+    <h2>%s</h2>
+    <ul class="lista">%s</ul>
+  </div>
+  <div>
+    <h2>%s</h2>
+    %s
+  </div>
+</div>""" % (ph(_c(i, "titulo_a")),
+             "".join("<li>%s</li>" % ph(_c(i, "item_%d" % k)) for k in range(1, 7)),
+             ph(_c(i, "titulo_b")),
+             table(["Indicador", "Valor"],
+                   [[ph(_c(i, "ind_%d" % k)), ph(_c(i, "valor_%d" % k))] for k in range(1, 7)],
+                   nums=[1], sm=True, widths=[62, 38]))
+
+
+def _fotografia_campos(i):
+    return _junta(_campo(i, "titulo_a", "Título do painel", "Ex.: Perfil"),
+                  *[_campo(i, "item_%d" % k, "Painel — item %d" % k) for k in range(1, 7)],
+                  _campo(i, "titulo_b", "Título da tabela", "Ex.: Indicadores principais"),
+                  *[c for k in range(1, 7)
+                    for c in (_campo(i, "ind_%d" % k, "Indicador %d" % k),
+                              _campo(i, "valor_%d" % k, "Indicador %d — valor" % k))])
+
+
 # ------------------------------------------------------------- destaque
 
 def _destaque_html(i):
@@ -234,6 +306,14 @@ _reg("texto2", "Texto em duas colunas", "Um título e dois parágrafos lado a la
 _reg("topicos", "Tópicos", "Um título e até cinco tópicos.", _topicos_html, _topicos_campos)
 _reg("marcos", "Linha do tempo", "Quatro itens em sequência, com título e texto.",
      _marcos_html, _marcos_campos)
+_reg("escopo", "Inclui e não inclui",
+     "Duas listas lado a lado, a da direita em painel: o que entra e o que fica de fora.",
+     _escopo_html, _escopo_campos)
+_reg("etapas", "Etapas em linha", "Um título e quatro etapas numeradas, lado a lado.",
+     _etapas_html, _etapas_campos)
+_reg("fotografia", "Perfil e indicadores",
+     "Um painel de tópicos e uma tabela de indicador e valor, como na fotografia patrimonial.",
+     _fotografia_html, _fotografia_campos)
 _reg("destaque", "Destaque", "Uma caixa com o fio da marca, para o que não pode passar batido.",
      _destaque_html, _destaque_campos)
 _reg("kpis", "Números", "Quatro números com rótulo e nota.", _kpis_html, _kpis_campos)
