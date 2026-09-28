@@ -11,7 +11,7 @@
 export const PRODUTOS = [
   { chave: 'consultoria', nome: 'Consultoria', descricao: 'Consultoria de investimentos AUVP Capital.' },
   { chave: 'alta-renda', nome: 'Alta Renda', descricao: 'Clientes de alta renda, identidade em verde quase preto.' },
-  { chave: 'private', nome: 'Private Banking', descricao: 'Marca própria, paleta em cinzas, sem amarelo.' },
+  { chave: 'private', nome: 'Private Banking', descricao: 'Marca própria, paleta em cinzas com azul-turquesa escuro pontual, sem amarelo.' },
   { chave: 'assessoria', nome: 'Assessoria', descricao: 'Assessoria de investimentos, verde mais claro.' },
 ];
 
@@ -43,6 +43,13 @@ export const DOCUMENTOS = [
     descricao: 'Capa de relatório e página de avisos; as páginas do meio você monta com os blocos.' },
   { chave: 'apresentacao-livre', nome: 'Apresentação em branco (16:9)', formato: 'slide', blocos: true,
     descricao: 'Capa de apresentação e slide de avisos; os slides do meio você monta com os blocos.' },
+  // Os materiais da AUVP Wealth, antes feitos no Gamma. Só existem no Private.
+  // O snapshot aceita páginas montadas: cada caso traz um tema que o anterior
+  // não tinha — internacionalização, um imóvel no exterior, uma cisão.
+  { chave: 'wealth-proposta', nome: 'Wealth Planning: proposta', formato: 'slide',
+    descricao: 'Proposta do Estudo Preliminar de Wealth Planning (EPWP): escopo, frentes, entregáveis e investimento.' },
+  { chave: 'wealth-snapshot', nome: 'Wealth Planning: snapshot', formato: 'slide', blocos: true,
+    descricao: 'Fotografia patrimonial do caso, conclusões preliminares e frentes de evolução.' },
 ];
 
 // Ordem dos planos da consultoria na ferramenta, do autoatendimento à

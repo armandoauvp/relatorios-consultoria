@@ -6,7 +6,7 @@
 <title>Apresentação Geral — AUVP Capital · Alta Renda</title>
 <style>
 :root{
-  --brand:#010F08; --accent:#EFBF4F;
+  --brand:#010F08; --accent:#EFBF4F; --accent-dk:#EFBF4F;
   --ph:rgba(239,191,79,.24); --ph-dk:rgba(239,191,79,.26);
   --warn-bg:rgba(239,191,79,.18); --warn-fg:#8A6A12; --warn-bd:rgba(239,191,79,.5);
   --c1:#0F8A51; --c2:#8C47D1; --c3:#F6A823; --c4:#0DA2E7; --c5:#E23670; --c6:#E64D19; --c7:#669E2E; --c8:#3E5074;
@@ -47,6 +47,10 @@ strong{font-weight:700}
 .dark .ph{background:var(--ph-dk);color:#fff}
 /* capas e divisórias são monocromáticas: nada de dourado sobre a arte da capa */
 .cover .ph,.divider .ph{background:rgba(255,255,255,.18);color:#fff}
+/* Texto padrão num título é título: sai na caixa e no espaçamento do título,
+   e na capa também perde o realce de lacuna. */
+:is(h1,h2,.cv-sub) .ph.pronto{text-transform:inherit;letter-spacing:inherit}
+.cover .ph.pronto,.divider .ph.pronto{background:none}
 .mut{color:var(--ink-2)}
 .rule{height:1px;background:linear-gradient(90deg,rgba(255,255,255,.18),rgba(255,255,255,.95))}
 .grain{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E");opacity:.22;pointer-events:none}
@@ -74,7 +78,7 @@ strong{font-weight:700}
 .slide.dark .lead,.slide.dark .mut,.slide.dark .card p{color:rgba(255,255,255,.8)}
 .slide.dark .kpi{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.16);border-top-color:#fff}
 .slide.dark .kpi .k,.slide.dark .kpi .s{color:rgba(255,255,255,.72)}
-.slide.dark .note{background:rgba(255,255,255,.07);border-left-color:var(--accent)}
+.slide.dark .note{background:rgba(255,255,255,.07);border-left-color:var(--accent-dk)}
 .slide .in{position:relative;z-index:3;height:100%;display:flex;flex-direction:column}
 
 .pg-head{flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;gap:10mm;
@@ -329,6 +333,42 @@ table.tb{width:100%;border-collapse:collapse;font-size:9.5pt}
 .slide.dark .stats .n{color:#fff}
 .stats .l{font-size:8.4pt;color:var(--ink-2);line-height:1.35;margin-top:2mm}
 .slide.dark .stats .l{color:rgba(255,255,255,.75)}
+
+/* ---------- painel ----------
+   A coluna que pede mais atenção do que a vizinha: o que não está incluído, a
+   leitura de um caso. Os materiais da AUVP Wealth feitos no Gamma pintavam essa
+   coluna de verde cheio; aqui ela é fundo de apoio com o fio da marca no topo,
+   o mesmo recurso do indicador, sem cor nova. */
+.painel{background:var(--soft);border-top:1.33px solid var(--brand);padding:5mm 6mm}
+.painel>:last-child{margin-bottom:0}
+.painel h3:first-child{margin-top:0}
+.slide.dark .painel{background:rgba(255,255,255,.06);border-top-color:#fff}
+.slide.dark .legal{color:rgba(255,255,255,.7)}
+
+/* ---------- núcleos patrimoniais ----------
+   Quatro núcleos em volta de um centro. O centro repete os anéis da capa, em
+   fio, e os núcleos encostam nele: os de cima pelo pé, os de baixo pelo topo.
+   Sem fios de ligação — com textos de tamanhos diferentes eles nunca chegam no
+   mesmo ponto do anel. */
+.nucleos{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:1fr 80mm 1fr;
+  grid-template-rows:1fr 1fr;gap:8mm 10mm}
+.nucleo{min-width:0;max-width:92mm;border-top:1.33px solid var(--brand);padding-top:3mm}
+.nucleo h4{font-size:12pt;font-weight:700;margin:0 0 1.5mm}
+.nucleo p{font-size:9.5pt;color:var(--ink-2);margin:0;line-height:1.45}
+.nucleo.esq{grid-column:1;justify-self:end;text-align:right}
+.nucleo.dir{grid-column:3;justify-self:start}
+.nucleo.cima{grid-row:1;align-self:end}
+.nucleo.baixo{grid-row:2;align-self:start}
+.nc-centro{grid-column:2;grid-row:1 / span 2;align-self:center;justify-self:center;position:relative;
+  width:80mm;aspect-ratio:1;border:1px solid var(--line);border-radius:50%;
+  display:flex;align-items:center;justify-content:center}
+.nc-centro::before{content:"";position:absolute;inset:10mm;border:1px solid var(--line);border-radius:50%}
+.nc-centro .disco{position:relative;width:42mm;aspect-ratio:1;border-radius:50%;color:#fff;
+  background:linear-gradient(225deg,var(--brand) 0%,#000 100%);display:flex;align-items:center;
+  justify-content:center;text-align:center;padding:5mm;font-size:9pt;font-weight:700;
+  letter-spacing:.06em;text-transform:uppercase;line-height:1.25}
+.nc-centro .disco .ph{background:rgba(255,255,255,.18);color:#fff}
+.nc-centro .disco .ph.pronto{background:none;text-transform:inherit;letter-spacing:inherit}
 
 </style>
 </head>

@@ -156,7 +156,8 @@ Definidos em `tokens()` a partir do dicionário do tema, em `gerador/common.py`.
 | Token | Para quê |
 | --- | --- |
 | `--brand` | cor principal do segmento: capa, cabeçalho de tabela, títulos de seção |
-| `--accent` | acento, sempre em linha fina; neutro no Private Banking |
+| `--accent` | acento, sempre em linha fina; azul-turquesa escuro no Private Banking |
+| `--accent-dk` | o acento sobre fundo escuro; igual ao `--accent`, exceto no Private, onde é branco |
 | `--c1` … `--c6` | sequência de cores dos gráficos |
 | `--ph`, `--ph-dk` | realce dos campos preenchíveis, em fundo claro e escuro |
 | `--warn-bg`, `--warn-fg`, `--warn-bd` | selo de atenção |

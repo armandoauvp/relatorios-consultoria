@@ -45,9 +45,13 @@ THEMES = {
         nome="Private Banking", nome_full="AUVP Private Banking", rotulo="",
         brand="#666666", ink="#16181A", ink2="#54595E", line="#E4E6E8", soft="#F4F5F6",
         logo=LOGO_PRIVATE, logo_ratio=1123.56/172.44, marca="AUVP Private Banking",
-        # Private Banking não usa amarelo: o acento é neutro, e com ele o realce dos
-        # campos preenchíveis e o selo de atenção também saem do amarelo.
-        accent="#8C939A", ph="rgba(140,147,154,.26)", ph_dk="rgba(255,255,255,.24)",
+        # Private Banking não usa amarelo. A cor pontual é um azul-turquesa
+        # escuro — número de etapa, fio de card, marcador de lista —, e o resto
+        # fica nos cinzas. O realce dos campos preenchíveis e o selo de atenção
+        # continuam neutros: são aviso para quem preenche, não cor do documento.
+        # No fundo escuro o turquesa some, e ali o acento passa a branco.
+        accent="#0F6470", accent_dk="#FFFFFF",
+        ph="rgba(140,147,154,.26)", ph_dk="rgba(255,255,255,.24)",
         warn_bg="rgba(90,97,104,.14)", warn_fg="#4A5257", warn_bd="rgba(90,97,104,.34)",
         chart=['#3E5074', '#0F8A51', '#0DA2E7', '#F6A823', '#8C47D1', '#E23670', '#E64D19', '#669E2E'],
         cadencia="mensal",
@@ -89,7 +93,7 @@ GRAIN = ("url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' wid
 
 def tokens(t):
     return """:root{
-  --brand:%(brand)s; --accent:%(accent)s;
+  --brand:%(brand)s; --accent:%(accent)s; --accent-dk:%(accent_dk)s;
   --ph:%(ph)s; --ph-dk:%(ph_dk)s;
   --warn-bg:%(warn_bg)s; --warn-fg:%(warn_fg)s; --warn-bd:%(warn_bd)s;
   %(chart_vars)s
@@ -97,7 +101,7 @@ def tokens(t):
   --paper:#FFFFFF; --pos:#1F7A4C; --neg:#B3402F;
   --g-pos:#047B4A; --g-neg:#DC2828; --g-neu:#F1EDE4;
   --g-seq-1:#E2F3E9; --g-seq-2:#ABE3C7; --g-seq-3:#5CD69D; --g-seq-4:#19B370; --g-seq-5:#023620;
-}""" % dict(t, chart_vars=" ".join(
+}""" % dict(t, accent_dk=t.get("accent_dk", t["accent"]), chart_vars=" ".join(
         "--c%d:%s;" % (i, c) for i, c in enumerate(t["chart"], start=1)))
 
 
@@ -200,6 +204,10 @@ strong{font-weight:700}
 .dark .ph{background:var(--ph-dk);color:#fff}
 /* capas e divisórias são monocromáticas: nada de dourado sobre a arte da capa */
 .cover .ph,.divider .ph{background:rgba(255,255,255,.18);color:#fff}
+/* Texto padrão num título é título: sai na caixa e no espaçamento do título,
+   e na capa também perde o realce de lacuna. */
+:is(h1,h2,.cv-sub) .ph.pronto{text-transform:inherit;letter-spacing:inherit}
+.cover .ph.pronto,.divider .ph.pronto{background:none}
 .mut{color:var(--ink-2)}
 .rule{height:1px;background:linear-gradient(90deg,rgba(255,255,255,.18),rgba(255,255,255,.95))}
 .grain{position:absolute;inset:0;background-image:%(grain)s;opacity:.22;pointer-events:none}
@@ -405,7 +413,7 @@ CSS_SLIDE = BASE + """
 .slide.dark .lead,.slide.dark .mut,.slide.dark .card p{color:rgba(255,255,255,.8)}
 .slide.dark .kpi{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.16);border-top-color:#fff}
 .slide.dark .kpi .k,.slide.dark .kpi .s{color:rgba(255,255,255,.72)}
-.slide.dark .note{background:rgba(255,255,255,.07);border-left-color:var(--accent)}
+.slide.dark .note{background:rgba(255,255,255,.07);border-left-color:var(--accent-dk)}
 .slide .in{position:relative;z-index:3;height:100%;display:flex;flex-direction:column}
 
 .pg-head{flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;gap:10mm;
@@ -894,6 +902,51 @@ CSS_A4 += """
 # quanto o conteúdo de cada folha ocupa de fato e reescreve os dois números no
 # arquivo gerado. Por isso cada documento sai com a altura do texto que ele tem,
 # e não com a altura do consultor mais falante.
+CSS_SLIDE += """
+/* ---------- painel ----------
+   A coluna que pede mais atenção do que a vizinha: o que não está incluído, a
+   leitura de um caso. Os materiais da AUVP Wealth feitos no Gamma pintavam essa
+   coluna de verde cheio; aqui ela é fundo de apoio com o fio da marca no topo,
+   o mesmo recurso do indicador, sem cor nova. */
+.painel{background:var(--soft);border-top:1.33px solid var(--brand);padding:5mm 6mm}
+.painel>:last-child{margin-bottom:0}
+.painel h3:first-child{margin-top:0}
+.slide.dark .painel{background:rgba(255,255,255,.06);border-top-color:#fff}
+.slide.dark .legal{color:rgba(255,255,255,.7)}
+
+/* ---------- núcleos patrimoniais ----------
+   Quatro núcleos em volta de um centro. O centro repete os anéis da capa, em
+   fio, e os núcleos encostam nele: os de cima pelo pé, os de baixo pelo topo.
+   Sem fios de ligação — com textos de tamanhos diferentes eles nunca chegam no
+   mesmo ponto do anel. */
+.nucleos{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:1fr 80mm 1fr;
+  grid-template-rows:1fr 1fr;gap:8mm 10mm}
+.nucleo{min-width:0;max-width:92mm;border-top:1.33px solid var(--brand);padding-top:3mm}
+.nucleo h4{font-size:12pt;font-weight:700;margin:0 0 1.5mm}
+.nucleo p{font-size:9.5pt;color:var(--ink-2);margin:0;line-height:1.45}
+.nucleo.esq{grid-column:1;justify-self:end;text-align:right}
+.nucleo.dir{grid-column:3;justify-self:start}
+.nucleo.cima{grid-row:1;align-self:end}
+.nucleo.baixo{grid-row:2;align-self:start}
+.nc-centro{grid-column:2;grid-row:1 / span 2;align-self:center;justify-self:center;position:relative;
+  width:80mm;aspect-ratio:1;border:1px solid var(--line);border-radius:50%;
+  display:flex;align-items:center;justify-content:center}
+.nc-centro::before{content:"";position:absolute;inset:10mm;border:1px solid var(--line);border-radius:50%}
+.nc-centro .disco{position:relative;width:42mm;aspect-ratio:1;border-radius:50%;color:#fff;
+  background:linear-gradient(225deg,var(--brand) 0%,#000 100%);display:flex;align-items:center;
+  justify-content:center;text-align:center;padding:5mm;font-size:9pt;font-weight:700;
+  letter-spacing:.06em;text-transform:uppercase;line-height:1.25}
+.nc-centro .disco .ph{background:rgba(255,255,255,.18);color:#fff}
+.nc-centro .disco .ph.pronto{background:none;text-transform:inherit;letter-spacing:inherit}
+"""
+
+CSS_A4 += """
+/* o mesmo painel dos slides, na escala do A4 */
+.painel{background:var(--soft);border-top:1.33px solid var(--brand);padding:4mm 5mm}
+.painel>:last-child{margin-bottom:0}
+.painel h3:first-child{margin-top:0}
+"""
+
 ALTURA_LONGA = 1420
 
 CSS_LONGA = """

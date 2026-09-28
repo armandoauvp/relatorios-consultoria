@@ -186,6 +186,280 @@
    "tabelas": []
   },
   {
+   "chave": "escopo",
+   "nome": "Inclui e não inclui",
+   "descricao": "Duas listas lado a lado, a da direita em painel: o que entra e o que fica de fora.",
+   "html": "<div class=\"cols2\" style=\"align-items:start\">\n  <div>\n    <h2><span class=\"ph\" data-campo=\"bl@I@_titulo_a\">{{bl@I@_titulo_a}}</span></h2>\n    <ul class=\"lista\"><li><span class=\"ph\" data-campo=\"bl@I@_a_1\">{{bl@I@_a_1}}</span></li><li><span class=\"ph\" data-campo=\"bl@I@_a_2\">{{bl@I@_a_2}}</span></li><li><span class=\"ph\" data-campo=\"bl@I@_a_3\">{{bl@I@_a_3}}</span></li><li><span class=\"ph\" data-campo=\"bl@I@_a_4\">{{bl@I@_a_4}}</span></li><li><span class=\"ph\" data-campo=\"bl@I@_a_5\">{{bl@I@_a_5}}</span></li><li><span class=\"ph\" data-campo=\"bl@I@_a_6\">{{bl@I@_a_6}}</span></li></ul>\n  </div>\n  <div class=\"painel\">\n    <h2><span class=\"ph\" data-campo=\"bl@I@_titulo_b\">{{bl@I@_titulo_b}}</span></h2>\n    <ul class=\"lista\"><li><span class=\"ph\" data-campo=\"bl@I@_b_1\">{{bl@I@_b_1}}</span></li><li><span class=\"ph\" data-campo=\"bl@I@_b_2\">{{bl@I@_b_2}}</span></li><li><span class=\"ph\" data-campo=\"bl@I@_b_3\">{{bl@I@_b_3}}</span></li><li><span class=\"ph\" data-campo=\"bl@I@_b_4\">{{bl@I@_b_4}}</span></li><li><span class=\"ph\" data-campo=\"bl@I@_b_5\">{{bl@I@_b_5}}</span></li><li><span class=\"ph\" data-campo=\"bl@I@_b_6\">{{bl@I@_b_6}}</span></li></ul>\n  </div>\n</div>",
+   "campos": {
+    "bl@I@_titulo_a": {
+     "rotulo": "Título da coluna da esquerda",
+     "dica": "Ex.: O que compreende"
+    },
+    "bl@I@_a_1": {
+     "rotulo": "Esquerda — item 1",
+     "dica": ""
+    },
+    "bl@I@_a_2": {
+     "rotulo": "Esquerda — item 2",
+     "dica": ""
+    },
+    "bl@I@_a_3": {
+     "rotulo": "Esquerda — item 3",
+     "dica": ""
+    },
+    "bl@I@_a_4": {
+     "rotulo": "Esquerda — item 4",
+     "dica": ""
+    },
+    "bl@I@_a_5": {
+     "rotulo": "Esquerda — item 5",
+     "dica": ""
+    },
+    "bl@I@_a_6": {
+     "rotulo": "Esquerda — item 6",
+     "dica": ""
+    },
+    "bl@I@_titulo_b": {
+     "rotulo": "Título do painel da direita",
+     "dica": "Ex.: O que não compreende"
+    },
+    "bl@I@_b_1": {
+     "rotulo": "Direita — item 1",
+     "dica": ""
+    },
+    "bl@I@_b_2": {
+     "rotulo": "Direita — item 2",
+     "dica": ""
+    },
+    "bl@I@_b_3": {
+     "rotulo": "Direita — item 3",
+     "dica": ""
+    },
+    "bl@I@_b_4": {
+     "rotulo": "Direita — item 4",
+     "dica": ""
+    },
+    "bl@I@_b_5": {
+     "rotulo": "Direita — item 5",
+     "dica": ""
+    },
+    "bl@I@_b_6": {
+     "rotulo": "Direita — item 6",
+     "dica": ""
+    }
+   },
+   "tabelas": []
+  },
+  {
+   "chave": "etapas",
+   "nome": "Etapas em linha",
+   "descricao": "Um título e quatro etapas numeradas, lado a lado.",
+   "html": "<h2><span class=\"ph\" data-campo=\"bl@I@_titulo\">{{bl@I@_titulo}}</span></h2>\n<ol class=\"steps\" style=\"--n:4\"><li><h4><span class=\"ph\" data-campo=\"bl@I@_etapa_1_titulo\">{{bl@I@_etapa_1_titulo}}</span></h4><p><span class=\"ph\" data-campo=\"bl@I@_etapa_1_texto\">{{bl@I@_etapa_1_texto}}</span></p></li><li><h4><span class=\"ph\" data-campo=\"bl@I@_etapa_2_titulo\">{{bl@I@_etapa_2_titulo}}</span></h4><p><span class=\"ph\" data-campo=\"bl@I@_etapa_2_texto\">{{bl@I@_etapa_2_texto}}</span></p></li><li><h4><span class=\"ph\" data-campo=\"bl@I@_etapa_3_titulo\">{{bl@I@_etapa_3_titulo}}</span></h4><p><span class=\"ph\" data-campo=\"bl@I@_etapa_3_texto\">{{bl@I@_etapa_3_texto}}</span></p></li><li><h4><span class=\"ph\" data-campo=\"bl@I@_etapa_4_titulo\">{{bl@I@_etapa_4_titulo}}</span></h4><p><span class=\"ph\" data-campo=\"bl@I@_etapa_4_texto\">{{bl@I@_etapa_4_texto}}</span></p></li></ol>",
+   "campos": {
+    "bl@I@_titulo": {
+     "rotulo": "Título do bloco",
+     "dica": "Ex.: Roadmap integrado"
+    },
+    "bl@I@_etapa_1_titulo": {
+     "rotulo": "Etapa 1 — título",
+     "dica": ""
+    },
+    "bl@I@_etapa_1_texto": {
+     "rotulo": "Etapa 1 — texto",
+     "dica": "",
+     "tipo": "longo"
+    },
+    "bl@I@_etapa_2_titulo": {
+     "rotulo": "Etapa 2 — título",
+     "dica": ""
+    },
+    "bl@I@_etapa_2_texto": {
+     "rotulo": "Etapa 2 — texto",
+     "dica": "",
+     "tipo": "longo"
+    },
+    "bl@I@_etapa_3_titulo": {
+     "rotulo": "Etapa 3 — título",
+     "dica": ""
+    },
+    "bl@I@_etapa_3_texto": {
+     "rotulo": "Etapa 3 — texto",
+     "dica": "",
+     "tipo": "longo"
+    },
+    "bl@I@_etapa_4_titulo": {
+     "rotulo": "Etapa 4 — título",
+     "dica": ""
+    },
+    "bl@I@_etapa_4_texto": {
+     "rotulo": "Etapa 4 — texto",
+     "dica": "",
+     "tipo": "longo"
+    }
+   },
+   "tabelas": []
+  },
+  {
+   "chave": "fotografia",
+   "nome": "Perfil e indicadores",
+   "descricao": "Um painel de tópicos e uma tabela de indicador e valor, como na fotografia patrimonial.",
+   "html": "<div class=\"cols2\" style=\"grid-template-columns:1fr 1.5fr;align-items:start\">\n  <div class=\"painel\">\n    <h2><span class=\"ph\" data-campo=\"bl@I@_titulo_a\">{{bl@I@_titulo_a}}</span></h2>\n    <ul class=\"lista\"><li><span class=\"ph\" data-campo=\"bl@I@_item_1\">{{bl@I@_item_1}}</span></li><li><span class=\"ph\" data-campo=\"bl@I@_item_2\">{{bl@I@_item_2}}</span></li><li><span class=\"ph\" data-campo=\"bl@I@_item_3\">{{bl@I@_item_3}}</span></li><li><span class=\"ph\" data-campo=\"bl@I@_item_4\">{{bl@I@_item_4}}</span></li><li><span class=\"ph\" data-campo=\"bl@I@_item_5\">{{bl@I@_item_5}}</span></li><li><span class=\"ph\" data-campo=\"bl@I@_item_6\">{{bl@I@_item_6}}</span></li></ul>\n  </div>\n  <div>\n    <h2><span class=\"ph\" data-campo=\"bl@I@_titulo_b\">{{bl@I@_titulo_b}}</span></h2>\n    <table class=\"tb sm fix\"><colgroup><col style=\"width:62%\"><col style=\"width:38%\"></colgroup><thead><tr><th>Indicador</th><th class=\"num\">Valor</th></tr></thead><tbody><tr><td><span class=\"ph\" data-campo=\"bl@I@_ind_1\">{{bl@I@_ind_1}}</span></td><td class=\"num\"><span class=\"ph\" data-campo=\"bl@I@_valor_1\">{{bl@I@_valor_1}}</span></td></tr><tr><td><span class=\"ph\" data-campo=\"bl@I@_ind_2\">{{bl@I@_ind_2}}</span></td><td class=\"num\"><span class=\"ph\" data-campo=\"bl@I@_valor_2\">{{bl@I@_valor_2}}</span></td></tr><tr><td><span class=\"ph\" data-campo=\"bl@I@_ind_3\">{{bl@I@_ind_3}}</span></td><td class=\"num\"><span class=\"ph\" data-campo=\"bl@I@_valor_3\">{{bl@I@_valor_3}}</span></td></tr><tr><td><span class=\"ph\" data-campo=\"bl@I@_ind_4\">{{bl@I@_ind_4}}</span></td><td class=\"num\"><span class=\"ph\" data-campo=\"bl@I@_valor_4\">{{bl@I@_valor_4}}</span></td></tr><tr><td><span class=\"ph\" data-campo=\"bl@I@_ind_5\">{{bl@I@_ind_5}}</span></td><td class=\"num\"><span class=\"ph\" data-campo=\"bl@I@_valor_5\">{{bl@I@_valor_5}}</span></td></tr><tr><td><span class=\"ph\" data-campo=\"bl@I@_ind_6\">{{bl@I@_ind_6}}</span></td><td class=\"num\"><span class=\"ph\" data-campo=\"bl@I@_valor_6\">{{bl@I@_valor_6}}</span></td></tr></tbody></table>\n  </div>\n</div>",
+   "campos": {
+    "bl@I@_titulo_a": {
+     "rotulo": "Título do painel",
+     "dica": "Ex.: Perfil"
+    },
+    "bl@I@_item_1": {
+     "rotulo": "Painel — item 1",
+     "dica": ""
+    },
+    "bl@I@_item_2": {
+     "rotulo": "Painel — item 2",
+     "dica": ""
+    },
+    "bl@I@_item_3": {
+     "rotulo": "Painel — item 3",
+     "dica": ""
+    },
+    "bl@I@_item_4": {
+     "rotulo": "Painel — item 4",
+     "dica": ""
+    },
+    "bl@I@_item_5": {
+     "rotulo": "Painel — item 5",
+     "dica": ""
+    },
+    "bl@I@_item_6": {
+     "rotulo": "Painel — item 6",
+     "dica": ""
+    },
+    "bl@I@_titulo_b": {
+     "rotulo": "Título da tabela",
+     "dica": "Ex.: Indicadores principais"
+    },
+    "bl@I@_ind_1": {
+     "rotulo": "Indicador 1",
+     "dica": ""
+    },
+    "bl@I@_valor_1": {
+     "rotulo": "Indicador 1 — valor",
+     "dica": "",
+     "tipo": "dinheiro",
+     "exemplo": "R$ 128.400,00"
+    },
+    "bl@I@_ind_2": {
+     "rotulo": "Indicador 2",
+     "dica": ""
+    },
+    "bl@I@_valor_2": {
+     "rotulo": "Indicador 2 — valor",
+     "dica": "",
+     "tipo": "dinheiro",
+     "exemplo": "R$ 128.400,00"
+    },
+    "bl@I@_ind_3": {
+     "rotulo": "Indicador 3",
+     "dica": ""
+    },
+    "bl@I@_valor_3": {
+     "rotulo": "Indicador 3 — valor",
+     "dica": "",
+     "tipo": "dinheiro",
+     "exemplo": "R$ 128.400,00"
+    },
+    "bl@I@_ind_4": {
+     "rotulo": "Indicador 4",
+     "dica": ""
+    },
+    "bl@I@_valor_4": {
+     "rotulo": "Indicador 4 — valor",
+     "dica": "",
+     "tipo": "dinheiro",
+     "exemplo": "R$ 128.400,00"
+    },
+    "bl@I@_ind_5": {
+     "rotulo": "Indicador 5",
+     "dica": ""
+    },
+    "bl@I@_valor_5": {
+     "rotulo": "Indicador 5 — valor",
+     "dica": "",
+     "tipo": "dinheiro",
+     "exemplo": "R$ 128.400,00"
+    },
+    "bl@I@_ind_6": {
+     "rotulo": "Indicador 6",
+     "dica": ""
+    },
+    "bl@I@_valor_6": {
+     "rotulo": "Indicador 6 — valor",
+     "dica": "",
+     "tipo": "dinheiro",
+     "exemplo": "R$ 128.400,00"
+    }
+   },
+   "tabelas": [
+    {
+     "titulo": "{{bl0_titulo_b}}",
+     "cabecalhos": [
+      "Indicador",
+      "Valor"
+     ],
+     "linhas": [
+      [
+       {
+        "c": "bl@I@_ind_1"
+       },
+       {
+        "c": "bl@I@_valor_1"
+       }
+      ],
+      [
+       {
+        "c": "bl@I@_ind_2"
+       },
+       {
+        "c": "bl@I@_valor_2"
+       }
+      ],
+      [
+       {
+        "c": "bl@I@_ind_3"
+       },
+       {
+        "c": "bl@I@_valor_3"
+       }
+      ],
+      [
+       {
+        "c": "bl@I@_ind_4"
+       },
+       {
+        "c": "bl@I@_valor_4"
+       }
+      ],
+      [
+       {
+        "c": "bl@I@_ind_5"
+       },
+       {
+        "c": "bl@I@_valor_5"
+       }
+      ],
+      [
+       {
+        "c": "bl@I@_ind_6"
+       },
+       {
+        "c": "bl@I@_valor_6"
+       }
+      ]
+     ],
+     "rodape": []
+    }
+   ]
+  },
+  {
    "chave": "destaque",
    "nome": "Destaque",
    "descricao": "Uma caixa com o fio da marca, para o que não pode passar batido.",
