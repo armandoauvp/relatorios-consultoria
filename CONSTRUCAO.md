@@ -353,6 +353,51 @@ precisa de outra redação, não de outra regra.
 Auxiliares de grelha, usados como `class`: `.cols2`, `.cols3`, `.cols2u` (1,5 : 1),
 `.center` (usa a sobra vertical do slide), `.gap`.
 
+### O macro automatizado
+
+O relatório macroeconômico se gera a partir de um rascunho JSON, sem passar pelo
+formulário: `npm run macro -- macro/<ano>-<mês>/rascunho.json`. O script
+(`scripts/macro.mjs`) abre a ferramenta num Chromium sem janela, põe o rascunho no estado e
+chama `montarFinal()`, a mesma função do botão "Exportar". Não há segundo desenho: se a
+ferramenta muda, o script muda junto. Quem escreve o rascunho é o Claude, com as instruções de
+`macro/PROMPT.md` e a lista de campos de `macro/CAMPOS.md`, que o `npm run all` refaz a cada
+build. O passo a passo do time está em `macro/README.md`.
+
+### Texto justificado e sem travessão
+
+Todo parágrafo e item de lista sai justificado, com hifenização, em todos os documentos: é a
+regra de `p,li` na base de estilos, e quem precisa de outro alinhamento declara o seu. E
+nenhum texto que chega ao cliente usa travessão: onde havia um, a frase foi reescrita com
+vírgula, dois-pontos ou parênteses. O título do documento separa o nome da variante com dois
+pontos, e o catálogo lê do mesmo jeito. Comentário de código pode usar à vontade: não chega
+ao papel.
+
+A exceção é o diagnóstico de carteira. O texto dele é o do relatório de proposta, escrito
+pelos analistas e pelos líderes, e entra como está, travessões e tudo: não se reescreve.
+
+### Texto que depende de uma escolha
+
+O relatório antigo trazia várias versões de um texto para o consultor apagar as que não
+cabiam: a descrição de cada perfil, o diagnóstico de cada cenário da carteira. Aqui as
+versões vêm todas no modelo, cada uma marcada com o campo e o valor a que pertence:
+
+```html
+<p data-se-campo="perfil_investidor" data-se-valor="Moderado">…</p>
+```
+
+A ferramenta deixa só a que corresponde ao que foi preenchido (`escolherTextos()`, em
+`docs/app.js`). A marca vale também numa página inteira, pelo `attrs` de `page_a4`: é assim
+que cada cenário da carteira ocupa a sua página e só uma fica. Com o campo em branco ficam
+todas, e o aviso de exportação já diz que ele falta.
+
+### Sumário que se escreve sozinho
+
+No macro, as seções correm uma atrás da outra e a página em que cada uma cai depende do texto
+do mês. O título de cada seção leva `data-toc`, e o sumário marcado com `data-auto` é refeito
+pela ferramenta depois de repaginar, com a página real de cada título. Título em branco não
+entra. `data-rotulo` no título troca o nome do cabeçalho corrido dali em diante, e a página
+que continua uma seção leva esse nome com ", continuação".
+
 ## A ferramenta de preenchimento
 
 `docs/` é um site estático, sem build e sem dependência, publicado no GitHub Pages. Ele
@@ -443,6 +488,11 @@ campos renumerados. A tabela de rótulo fixo por linha, como prazo, moeda ou as
 classes da carteira proposta, só perde linhas. O que foi tirado e acrescentado
 fica no rascunho, em `linhas`. Campo de linha tirada não conta como lacuna na
 contagem nem no aviso de exportação.
+
+**Os campos se escondem.** O botão "Ocultar campos", na prévia, fecha o painel da
+esquerda: a prévia ocupa a largura toda, em tamanho real, e se preenche clicando no texto. A
+escolha fica guardada no navegador. Nos espaços de imagem e de gráfico, "Colar imagem" lê a
+imagem copiada, para o consultor colar o gráfico que copiou da planilha sem salvar arquivo.
 
 **A ferramenta avisa quando a página não coube.** A página tem altura fechada e
 `overflow:hidden`: o que passa dela some do arquivo, e sumia calado. Quem

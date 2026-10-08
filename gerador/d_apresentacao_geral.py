@@ -49,6 +49,7 @@ PLANO_CICLO = {
     "consultoria": dict(
         colunas=["Reuniões", "Pauta", "Prazo", "Data sugerida"],
         chip_final=True,
+        nome=2,
         rodape=("Plano do primeiro ciclo. As datas são sugeridas e se ajustam à sua agenda; "
                 "a pauta e o prazo de cada encontro são os mesmos para todo cliente."),
         blocos=[
@@ -73,6 +74,7 @@ PLANO_CICLO = {
     "private": dict(
         colunas=["Etapa", "Prazo", "Objetivo estratégico"],
         chip_final=False,
+        nome=1,
         rodape=("Plano do primeiro ciclo. Os prazos correm a partir do início da consultoria e "
                 "as datas de cada encontro se combinam conforme a sua agenda."),
         blocos=[(None, [
@@ -122,7 +124,7 @@ PLANO_CICLO["assessoria"] = PLANO_CICLO["consultoria"]
 CASA = dict(
     historia=("A AUVP Capital nasceu da metodologia da AUVP Escola. É a mesma leitura de "
               "investimento que ensinou milhares de pessoas a cuidar do próprio dinheiro, "
-              "agora aplicada por um consultor ao lado de quem investe — com a casa remunerada "
+              "agora aplicada por um consultor ao lado de quem investe, com a casa remunerada "
               "pelo cliente, e não pelo produto."),
     fatos=[("Fundação", "2020"),
            ("Modelo de remuneração", "Fee based, percentual sobre o patrimônio orientado"),
@@ -141,7 +143,7 @@ ENTREGAS = [
     ["Relatório mensal da carteira", "Mensal", "E-mail e WhatsApp",
      "Onde o patrimônio está, o que rendeu e o que mudou no mês."],
     ["Relatório macroeconômico", "Mensal", "E-mail e WhatsApp",
-     "O cenário do período e o que ele muda — ou não — na sua estratégia."],
+     "O cenário do período e o que ele muda, ou não, na sua estratégia."],
     ["Carteiras recomendadas", "Quando houver revisão", "Portal e WhatsApp",
      "A alocação sugerida para cada perfil, com o racional de cada classe."],
     ["Recomendações de renda fixa", "Semanal", "WhatsApp",
@@ -188,9 +190,12 @@ def build(t, seg):
         # Os nomes vêm de ENCONTROS, e não de uma lista à parte: o método e o
         # cronograma descrevem a mesma coisa, e nomeá-la de dois jeitos fazia o
         # cliente procurar na tabela uma "Transição" que lá se chama outra coisa.
-        flow=flow([(ph("metodo_%d_prazo" % i), etapa, ph("metodo_%d_detalhe" % i))
-                   for i, etapa in enumerate(
-                       [l[2] for _, itens in plano["blocos"] for l in itens][:5], start=1)]),
+        # Cada etapa é o nome dela no cronograma, e só: prazo e detalhe eram
+        # campos, e o cliente lia aqui um prazo que a tabela do slide seguinte
+        # contava de outro jeito. `nome` diz em que coluna do plano está o nome
+        # da etapa — na consultoria é a pauta, no private é a própria etapa.
+        flow=flow([(None, l[plano["nome"]], None)
+                   for _, itens in plano["blocos"] for l in itens][:5]),
         prazo=ph("prazo_implantacao"))))
 
     # O cronograma vinha num documento à parte, e quem ouvia a proposta saía com
@@ -274,26 +279,25 @@ def build(t, seg):
 <div class="note" style="margin:6mm 0"><p><strong>Nada começa antes da assinatura.</strong> %(assina)s</p></div>
 <div><h2 style="margin-top:0">O que precisamos de você</h2>
 <div class="cols3">%(need)s</div></div></div>""" % dict(
-        flow=flow([(ph("passo_%d_prazo" % i), titulo, ph("passo_%d_detalhe" % i))
+        flow=flow([(None, titulo, ph("passo_%d_detalhe" % i))
                    for i, titulo in enumerate(["Conversa inicial", "Diagnóstico", "Proposta",
                                                "Abertura e transferência"], start=1)]),
         # O aviso da assinatura é da casa e não muda: é o que separa a conversa
         # do serviço, e o cliente precisa ler isso antes da lista do que trazer.
         assina=("A consultoria começa a correr com o contrato assinado. Até lá, tudo o que "
-                "acontece é conversa e diagnóstico — nenhuma recomendação é emitida, nenhuma "
+                "acontece é conversa e diagnóstico: nenhuma recomendação é emitida, nenhuma "
                 "conta é aberta e nada é cobrado."),
         # Eram três, e a terceira acabava sendo "o resto". O que o cliente
         # precisa reunir é uma lista: os documentos, os extratos de cada casa em
         # que ele investe hoje, e as apólices — que quase sempre ficam de fora
         # porque ninguém pensa em seguro como parte do patrimônio, e são elas que
         # dizem o que já está protegido.
-        need="".join('<div class="card"><h4>%s</h4><p>%s</p></div>' % (a, ph(k))
-                     for a, k in [("Documentos e cadastro", "requisito_cadastro"),
-                                  ("Extratos das suas contas", "requisito_extratos"),
-                                  ("Extrato internacional", "requisito_extrato_intl"),
-                                  ("Apólices de seguro", "requisito_apolices"),
-                                  ("Dívidas e compromissos", "requisito_compromissos"),
-                                  ("Objetivos e prazos", "requisito_objetivos")]))))
+        # Só o título de cada item: a descrição era um campo que o consultor
+        # preenchia com o óbvio, e a lista se lê melhor curta.
+        need="".join('<div class="card"><h4>%s</h4></div>' % a
+                     for a in ["Documentos e cadastro", "Extratos das suas contas",
+                               "Extrato internacional", "Apólices de seguro",
+                               "Dívidas e compromissos", "Objetivos e prazos"]))))
 
     S.append(slide(t, "Contato", 14, """<div style="display:flex;gap:16mm;flex:1 1 auto;align-items:center">
   <div style="flex:1 1 auto">
@@ -312,7 +316,7 @@ def build(t, seg):
     <div class="small mut" style="text-align:center;max-width:52mm">%(link)s</div>
   </div>
 </div>""" % dict(chamada=ph("chamada_final", "Ex.: Agende seu diagnóstico gratuito"),
-                 papel=papel.capitalize(), resp=ph("nome_responsavel"), whats=ph("whatsapp_contato"),
+                 papel="Responsável", resp=ph("nome_responsavel"), whats=ph("whatsapp_contato"),
                  email=ph("email_contato"), site=ph("site"), end=ph("endereco_escritorio"),
                  link=ph("link_agendamento")), dark=True))
 

@@ -85,9 +85,9 @@ OPCIONAL = ('<span class="pill" style="margin-left:4mm;vertical-align:middle;'
 # um conservador ou um arrojado ajusta as duas colunas na ferramenta.
 BANDAS = [
     ("Renda fixa", "rf", "40%", "70%", "Preservação, renda e liquidez"),
-    ("Internacional — renda fixa", "irf", "5%", "15%",
+    ("Internacional, renda fixa", "irf", "5%", "15%",
      "Diversificação cambial e renda em moeda forte"),
-    ("Internacional — renda variável", "irv", "5%", "15%", "Crescimento global"),
+    ("Internacional, renda variável", "irv", "5%", "15%", "Crescimento global"),
     ("Ações", "acoes", "10%", "25%", "Crescimento patrimonial de longo prazo"),
     ("Fundos imobiliários", "fii", "5%", "15%", "Renda recorrente isenta"),
     ("Alternativos", "alt", "0%", "10%", "Diversificação fora das classes tradicionais"),
@@ -456,7 +456,7 @@ papel daquela parcela na carteira.</p>
                   sm=True, widths=[13, 29, 29, 29]))))
 
     S.append(slide(t, "Estratégia", 11, """<h1 class="t">Ações, fundos imobiliários e internacional</h1>
-<p class="lead">As três classes têm papéis diferentes — renda, crescimento e proteção cambial —
+<p class="lead">As três classes têm papéis diferentes (renda, crescimento e proteção cambial)
 e por isso são selecionadas por critérios diferentes. O que elas têm em comum é a exigência de
 fundamento: nenhuma posição entra por movimento de preço.</p>
 <div class="center">%(tab)s</div>""" % dict(
@@ -474,25 +474,19 @@ fundamento: nenhuma posição entra por movimento de preço.</p>
     <p class="lead" style="margin-top:4mm">%(trat)s %(cli)s, entendemos que a confiança
     depositada aqui vai além de uma relação comercial: é confiança sobre o que representa anos
     de dedicação e construção.</p>
-    <p>O nosso papel é ser o parceiro estratégico que você não precisa gerenciar — o que cuida
+    <p>O nosso papel é ser o parceiro estratégico que você não precisa gerenciar, o que cuida
     com rigor, comunica com clareza e age com integridade. Você fica com mais espaço para o que
     importa, com a certeza de que o seu patrimônio está sendo tratado com o mesmo cuidado com
     que foi construído.</p>
     <div class="dl" style="margin-top:6mm">
-      <dt>%(papelc)s</dt><dd>%(resp)s</dd>
       <dt>WhatsApp</dt><dd>%(whats)s</dd>
       <dt>E-mail</dt><dd>%(email)s</dd>
     </div>
   </div>
-  <!-- Saiu o QR code de agendamento. A carta chega por e-mail ou WhatsApp e se
-       lê na tela, onde ninguém aponta a câmera para o próprio monitor; o link
-       clicável ao lado fazia o trabalho inteiro sozinho. -->
-  <div style="display:flex;flex-direction:column;align-items:center;gap:4mm">
-    <div class="small mut" style="text-align:center;max-width:52mm">%(link)s</div>
-  </div>
 </div>""" % dict(
-        trat=TRATAMENTO[seg], cli=ph("nome_cliente"), papelc=papel.capitalize(),
-        resp=ph("nome_responsavel"), whats=ph("whatsapp_contato"), email=ph("email_contato"),
-        link=ph("link_agendamento")), dark=True))
+        # Sem o nome do responsável e sem o link de agendamento: o nome já
+        # abre a carta, e agendamento não é como o private marca conversa.
+        trat=TRATAMENTO[seg], cli=ph("nome_cliente"),
+        whats=ph("whatsapp_contato"), email=ph("email_contato")), dark=True))
 
     return S

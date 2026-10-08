@@ -35,45 +35,45 @@ SEGMENTOS = ["consultoria", "alta-renda", "private", "assessoria"]
 # variante passa a ser outra coisa — no caso da apresentação, o consultor.
 DOCUMENTOS = [
     dict(chave="relatorio-mensal", formato="a4",
-         titulo="Relatório Mensal — %s", builder=d_mensal.build),
+         titulo="Relatório Mensal: %s", builder=d_mensal.build),
     dict(chave="diagnostico-carteira", formato="a4",
-         titulo="Diagnóstico de Carteira — %s", builder=d_diagnostico.build),
+         titulo="Diagnóstico de Carteira: %s", builder=d_diagnostico.build),
     dict(chave="relatorio-macroeconomico", formato="a4",
-         titulo="Relatório Macroeconômico — %s", builder=d_macro.build),
+         titulo="Relatório Macroeconômico: %s", builder=d_macro.build),
     dict(chave="apresentacao-geral", formato="slide",
-         titulo="Apresentação Geral — %s", builder=d_apresentacao_geral.build),
+         titulo="Apresentação Geral: %s", builder=d_apresentacao_geral.build),
     dict(chave="relatorio-mensal-apresentacao", formato="slide",
-         titulo="Relatório Mensal (apresentação) — %s", builder=d_mensal_apresentacao.build),
+         titulo="Relatório Mensal (apresentação): %s", builder=d_mensal_apresentacao.build),
     # Vai para quem ouviu a proposta e ainda não decidiu: fica entre a
     # apresentação geral, que é da reunião, e o diagnóstico, que só existe
     # depois do sim.
     dict(chave="carta-apresentacao", formato="slide",
-         titulo="Carta de Apresentação — %s", builder=d_carta_apresentacao.build),
+         titulo="Carta de Apresentação: %s", builder=d_carta_apresentacao.build),
     # A apresentação do consultor varia por plano da consultoria e por
     # segmento, e a em branco sai também sem data. A lista é montada no próprio
     # módulo, e as variantes trazem o tema junto em vez de sair do sufixo.
     dict(chave="apresentacao-consultor", formato="longa",
-         titulo="Apresentação do consultor — %s", builder=d_consultor.build,
+         titulo="Apresentação do consultor: %s", builder=d_consultor.build,
          variantes=d_consultor.variantes(THEMES, SEGMENTOS)),
     # A versão de uma página: só a pessoa, sem o plano e sem data. É o cartão
     # que se manda antes de uma primeira conversa.
     dict(chave="apresentacao-consultor-simples", formato="a4",
-         titulo="Apresentação do consultor — %s", builder=d_consultor_simples.build,
+         titulo="Apresentação do consultor: %s", builder=d_consultor_simples.build,
          variantes=d_consultor_simples.variantes(THEMES, SEGMENTOS)),
     # O documento em branco, para o construtor da ferramenta: capa e fecho, e o
     # meio se monta com os blocos. Um por formato, porque o formato é a capa.
     dict(chave="documento-livre", formato="a4",
-         titulo="Documento livre — %s", builder=d_livre.build),
+         titulo="Documento livre: %s", builder=d_livre.build),
     dict(chave="apresentacao-livre", formato="slide",
-         titulo="Apresentação livre — %s", builder=d_livre.build_slide),
+         titulo="Apresentação livre: %s", builder=d_livre.build_slide),
     # Os materiais da AUVP Wealth, que eram feitos no Gamma com identidade
     # própria e passam a sair no desenho do Private Banking. Só existem no
     # Private: a Wealth atende a mesma família que o Private atende.
     dict(chave="wealth-proposta", formato="slide",
-         titulo="Wealth Planning, proposta — %s", builder=d_wealth_proposta.build,
+         titulo="Wealth Planning, proposta: %s", builder=d_wealth_proposta.build,
          variantes=[("private", THEMES["private"]["nome_full"], "private")]),
     dict(chave="wealth-snapshot", formato="slide",
-         titulo="Wealth Planning Snapshot — %s", builder=d_wealth_snapshot.build,
+         titulo="Wealth Planning Snapshot: %s", builder=d_wealth_snapshot.build,
          variantes=[("private", THEMES["private"]["nome_full"], "private")]),
 ]
 

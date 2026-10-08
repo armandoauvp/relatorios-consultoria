@@ -110,14 +110,17 @@ def cover_a4(t, kicker_light, kicker_bold, bottom_light, bottom_bold, ident_line
         confid=CONFID.replace(" · ", "<br>"), bl=bottom_light, bb=bottom_bold, ident=ident)
 
 
-def page_a4(t, sec, no, body, date_ph=None, dark=False, cls="", data=True):
+def page_a4(t, sec, no, body, date_ph=None, dark=False, cls="", data=True, attrs=""):
     """`data=False` tira a data do cabeçalho.
 
     Vale para material que não é de um período: uma apresentação com data
     carimbada nasce vencida, e quem imprime um lote hoje não quer refazê-lo em
     janeiro.
+
+    `attrs` vai direto no `<section>`: é por onde a página inteira passa a
+    depender de uma escolha (`data-se-campo`, `data-se-valor`).
     """
-    return """<section class="page%(cls)s%(dk)s">
+    return """<section class="page%(cls)s%(dk)s"%(attrs)s>
   %(grain)s
   <header class="pg-head">
     <div class="sec">%(sec)s</div>
@@ -131,7 +134,8 @@ def page_a4(t, sec, no, body, date_ph=None, dark=False, cls="", data=True):
                      grain='<div class="grain"></div>' if dark else "",
                      sec=sec, logo=logo_svg(t, 4.6, ink=not dark),
                      dt='<div class="dt">%s</div>' % ph(date_ph or DATE_PH) if data else "",
-                     body=body, no="%02d" % no, confid=CONFID)
+                     body=body, no="%02d" % no, confid=CONFID,
+                     attrs=(" " + attrs) if attrs else "")
 
 
 # ---------------------------------------------------------------- 16:9
@@ -358,9 +362,11 @@ def timeline(items):
 
 def flow(itens, n=None):
     """Sequência de etapas sobre um trilho contínuo. Cada item é
-    (etiqueta, título, descrição); a etiqueta costuma ser o prazo."""
-    li = "".join('<li><span class="node"></span><span class="tag">%s</span>'
-                 '<h4>%s</h4><p>%s</p></li>' % (a, b, c) for a, b, c in itens)
+    (etiqueta, título, descrição); a etiqueta costuma ser o prazo. Etiqueta ou
+    descrição `None` não saem: há etapas que são só o nome."""
+    li = "".join('<li><span class="node"></span>%s<h4>%s</h4>%s</li>' % (
+        '<span class="tag">%s</span>' % a if a is not None else "", b,
+        "<p>%s</p>" % c if c is not None else "") for a, b, c in itens)
     return '<ol class="flow" style="--n:%d">%s</ol>' % (n or len(itens), li)
 
 

@@ -164,6 +164,9 @@ main { padding: 28px 24px 64px; }
 
 .oficina { display: grid; grid-template-columns: minmax(360px, 460px) 1fr; gap: 22px; align-items: start; }
 @media (max-width: 1000px) { .oficina { grid-template-columns: 1fr; } }
+/* Sem os campos, a prévia fica com a largura toda e se preenche clicando no texto. */
+.oficina.so-previa { grid-template-columns: 1fr; }
+.oficina.so-previa > .painel:not(.previa) { display: none; }
 
 .painel { background: var(--background); border: 1px solid var(--border);
   border-radius: var(--radius); overflow: hidden; }

@@ -162,7 +162,7 @@ def build(t, seg):
                                 ("Renda variável Brasil", "rv_br"), ("Internacional", "intl"),
                                 ("Fundos imobiliários", "fii"), ("Alternativos e private", "alt"),
                                 ("Caixa e liquidez", "caixa")]],
-                  foot=["<strong>Total</strong>", "100,0%", "100,0%", "&mdash;", ph("patrimonio_total"), ""],
+                  foot=["<strong>Total</strong>", "100,0%", "100,0%", "", ph("patrimonio_total"), ""],
                   nums=[1, 2, 3, 4],
                   caption="Meta conforme o diagrama do cerrado / carteira recomendada vigente para o perfil. Desvios acima da banda de tolerância acionam rebalanceamento."),
         ch=chart("Carteira atual x meta", "Duas roscas concêntricas: a interna com a meta, a externa com a posição atual.",
@@ -244,7 +244,7 @@ def build(t, seg):
 
     # ----------------------------------------------------------- ações e FIIs
     add("Ações e FIIs", "Ações e fundos imobiliários", """<h1 class="t">Ações e fundos imobiliários</h1>
-<p class="lead">Como a parte em bolsa está distribuída — por setor, nas ações, e por segmento, nos fundos imobiliários. A relação papel a papel está no extrato da sua conta.</p>
+<p class="lead">Como a parte em bolsa está distribuída: por setor, nas ações, e por segmento, nos fundos imobiliários. A relação papel a papel está no extrato da sua conta.</p>
 <div class="cols2" style="flex:1 1 auto;align-items:stretch">
   %(ch)s
   %(ch2)s

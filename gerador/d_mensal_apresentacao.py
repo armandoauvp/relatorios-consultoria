@@ -91,7 +91,7 @@ def build(t, seg):
                                 ("Renda variável BR", "rv_br"), ("Internacional", "intl"),
                                 ("Fundos imobiliários", "fii"), ("Alternativos", "alt"),
                                 ("Caixa", "caixa")]],
-                  foot=["<strong>Total</strong>", "100,0%", "100,0%", "&mdash;"], nums=[1, 2, 3], sm=True),
+                  foot=["<strong>Total</strong>", "100,0%", "100,0%", ""], nums=[1, 2, 3], sm=True),
         ch=chart("Composição atual", "Rosca com o peso de cada classe.", "donut", "min-height:46mm",
                  series=["Renda fixa", "Multimercado", "Renda variável BR", "Internacional", "FIIs", "Alternativos"]),
         reb=ph("texto_rebalanceamento"))))

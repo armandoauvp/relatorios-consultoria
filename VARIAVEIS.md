@@ -23,18 +23,18 @@ Estes se repetem na maior parte dos modelos. Vale manter um arquivo único com e
 
 | Variável | O que é | Em quantos modelos |
 | --- | --- | --- |
-| `razao_social` | Razão social da empresa emissora | 28 de 39 |
-| `cnpj` | CNPJ da empresa emissora | 28 de 39 |
+| `razao_social` | Razão social da empresa emissora | 24 de 39 |
+| `cnpj` | CNPJ da empresa emissora | 24 de 39 |
 | `registro_cvm_empresa` | Registro da empresa na CVM | 4 de 39 |
-| `canal_ouvidoria` | Telefone ou e-mail da ouvidoria | 28 de 39 |
-| `disclaimer_regulatorio` | Texto legal aprovado pelo compliance, específico do segmento | 28 de 39 |
+| `canal_ouvidoria` | Telefone ou e-mail da ouvidoria | 24 de 39 |
+| `disclaimer_regulatorio` | Texto legal aprovado pelo compliance, específico do segmento | 24 de 39 |
 | `nome_cliente` | Nome do cliente destinatário | 30 de 39 |
 | `nome_responsavel` | Consultor, assessor ou banker responsável | 30 de 39 |
-| `registro_cvm_ou_ancord` | Registro do responsável (CVM 19 / Ancord) | 16 de 39 |
-| `email_contato` | E-mail de contato exibido no documento | 33 de 39 |
+| `registro_cvm_ou_ancord` | Registro do responsável (CVM 19 / Ancord) | 12 de 39 |
+| `email_contato` | E-mail de contato exibido no documento | 29 de 39 |
 | `whatsapp_contato` | WhatsApp direto do responsável | 13 de 39 |
-| `canal_atendimento` | Canal e horário de atendimento | 16 de 39 |
-| `link_agendamento` | URL de agendamento (a mesma do QR code) | 12 de 39 |
+| `canal_atendimento` | Canal e horário de atendimento | 12 de 39 |
+| `link_agendamento` | URL de agendamento (a mesma do QR code) | 8 de 39 |
 | `mes_referencia` | Mês de referência, ex.: Agosto de 2026 | 12 de 39 |
 | `data_posicao` | Data da posição consolidada | 8 de 39 |
 | `perfil_investidor` | Perfil de suitability do cliente | 12 de 39 |
@@ -93,27 +93,20 @@ instagram_consultor
 
 Arquivos: `modelos/apresentacao-geral-alta-renda.html`, `modelos/apresentacao-geral-assessoria.html`, `modelos/apresentacao-geral-consultoria.html`, `modelos/apresentacao-geral-private.html`
 
-Variantes: alta-renda, assessoria, consultoria, private &middot; 56 variáveis
+Variantes: alta-renda, assessoria, consultoria, private &middot; 36 variáveis
 
-<details><summary>Ver as 46 variáveis específicas deste documento</summary>
+<details><summary>Ver as 26 variáveis específicas deste documento</summary>
 
 ```
-subtitulo_apresentacao            data_apresentacao                 metodo_1_prazo
-metodo_1_detalhe                  metodo_2_prazo                    metodo_2_detalhe
-metodo_3_prazo                    metodo_3_detalhe                  metodo_4_prazo
-metodo_4_detalhe                  metodo_5_prazo                    metodo_5_detalhe
-prazo_implantacao                 reuniao_1_data                    reuniao_2_data
-reuniao_3_data                    reuniao_4_data                    reuniao_5_data
-reuniao_6_data                    entregas_detalhe                  pessoa_1_nome
-pessoa_1_cargo                    pessoa_1_bio                      pessoa_2_nome
-pessoa_2_cargo                    pessoa_2_bio                      pessoa_3_nome
-pessoa_3_cargo                    pessoa_3_bio                      passo_1_prazo
-passo_1_detalhe                   passo_2_prazo                     passo_2_detalhe
-passo_3_prazo                     passo_3_detalhe                   passo_4_prazo
-passo_4_detalhe                   requisito_cadastro                requisito_extratos
-requisito_extrato_intl            requisito_apolices                requisito_compromissos
-requisito_objetivos               chamada_final                     site
-endereco_escritorio
+subtitulo_apresentacao            data_apresentacao                 prazo_implantacao
+reuniao_1_data                    reuniao_2_data                    reuniao_3_data
+reuniao_4_data                    reuniao_5_data                    reuniao_6_data
+entregas_detalhe                  pessoa_1_nome                     pessoa_1_cargo
+pessoa_1_bio                      pessoa_2_nome                     pessoa_2_cargo
+pessoa_2_bio                      pessoa_3_nome                     pessoa_3_cargo
+pessoa_3_bio                      passo_1_detalhe                   passo_2_detalhe
+passo_3_detalhe                   passo_4_detalhe                   chamada_final
+site                              endereco_escritorio
 ```
 </details>
 
@@ -190,7 +183,7 @@ capa_linha_livre                  data_documento
 
 Arquivos: `modelos/carta-apresentacao-alta-renda.html`
 
-Variantes: — &middot; 13 variáveis
+Variantes: — &middot; 12 variáveis
 
 <details><summary>Ver as 7 variáveis específicas deste documento</summary>
 
@@ -205,7 +198,7 @@ taxa_anual
 
 Arquivos: `modelos/carta-apresentacao-assessoria.html`
 
-Variantes: — &middot; 13 variáveis
+Variantes: — &middot; 12 variáveis
 
 <details><summary>Ver as 7 variáveis específicas deste documento</summary>
 
@@ -220,7 +213,7 @@ nota_remuneracao
 
 Arquivos: `modelos/carta-apresentacao-consultoria.html`
 
-Variantes: — &middot; 13 variáveis
+Variantes: — &middot; 12 variáveis
 
 <details><summary>Ver as 7 variáveis específicas deste documento</summary>
 
@@ -235,7 +228,7 @@ taxa_anual
 
 Arquivos: `modelos/carta-apresentacao-private.html`
 
-Variantes: — &middot; 13 variáveis
+Variantes: — &middot; 12 variáveis
 
 <details><summary>Ver as 7 variáveis específicas deste documento</summary>
 
@@ -250,117 +243,49 @@ taxa_anual
 
 Arquivos: `modelos/diagnostico-carteira-alta-renda.html`, `modelos/diagnostico-carteira-assessoria.html`, `modelos/diagnostico-carteira-consultoria.html`, `modelos/diagnostico-carteira-private.html`
 
-Variantes: alta-renda, assessoria, consultoria, private &middot; 327 variáveis
+Variantes: alta-renda, assessoria, consultoria, private &middot; 115 variáveis
 
-<details><summary>Ver as 317 variáveis específicas deste documento</summary>
+<details><summary>Ver as 112 variáveis específicas deste documento</summary>
 
 ```
-patrimonio_analisado              data_diagnostico                  etapa_coleta_prazo
-etapa_coleta                      etapa_consolidacao_prazo          etapa_consolidacao
-etapa_analise_prazo               etapa_analise                     etapa_proposta_prazo
-etapa_proposta                    instituicoes_analisadas           data_corte
-documentos_base                   ativos_fora_do_escopo             horizonte_principal
-experiencia_investimentos         relacao_renda_despesa             reserva_emergencia
-capacidade_aporte_mensal          liquidez_minima                   classes_vetadas
-situacao_tributaria               obrigacoes_futuras                outros_patrimonios
-observacoes_perfil                obj_1_descricao                   obj_1_valor
-obj_1_prazo                       obj_1_prioridade                  obj_1_situacao
-obj_2_descricao                   obj_2_valor                       obj_2_prazo
-obj_2_prioridade                  obj_2_situacao                    obj_3_descricao
-obj_3_valor                       obj_3_prazo                       obj_3_prioridade
-obj_3_situacao                    obj_4_descricao                   obj_4_valor
-obj_4_prazo                       obj_4_prioridade                  obj_4_situacao
-qtd_ativos                        qtd_instituicoes                  qtd_contas
-retorno_12m_atual                 retorno_12m_pct_cdi               custo_total_anual
-custo_total_perc                  at_1_classe                       at_1_instituicao
-at_1_valor                        at_1_perc                         at_1_liquidez
-at_1_ret12m                       at_1_custo                        at_2_classe
-at_2_instituicao                  at_2_valor                        at_2_perc
-at_2_liquidez                     at_2_ret12m                       at_2_custo
-at_3_classe                       at_3_instituicao                  at_3_valor
-at_3_perc                         at_3_liquidez                     at_3_ret12m
-at_3_custo                        at_4_classe                       at_4_instituicao
-at_4_valor                        at_4_perc                         at_4_liquidez
-at_4_ret12m                       at_4_custo                        at_5_classe
-at_5_instituicao                  at_5_valor                        at_5_perc
-at_5_liquidez                     at_5_ret12m                       at_5_custo
-at_6_classe                       at_6_instituicao                  at_6_valor
-at_6_perc                         at_6_liquidez                     at_6_ret12m
-at_6_custo                        at_7_classe                       at_7_instituicao
-at_7_valor                        at_7_perc                         at_7_liquidez
-at_7_ret12m                       at_7_custo                        forte_1_titulo
-forte_1_detalhe                   forte_2_titulo                    forte_2_detalhe
-forte_3_titulo                    forte_3_detalhe                   aten_1_gravidade
-aten_1_titulo                     aten_1_motivo                     aten_1_impacto
-aten_1_acao                       aten_2_gravidade                  aten_2_titulo
-aten_2_motivo                     aten_2_impacto                    aten_2_acao
-aten_3_gravidade                  aten_3_titulo                     aten_3_motivo
-aten_3_impacto                    aten_3_acao                       aten_4_gravidade
-aten_4_titulo                     aten_4_motivo                     aten_4_impacto
-aten_4_acao                       aten_5_gravidade                  aten_5_titulo
-aten_5_motivo                     aten_5_impacto                    aten_5_acao
-resumo_diagnostico                emis_1_nome                       emis_1_valor
-emis_1_perc                       emis_1_rating                     emis_1_fgc
-emis_1_limite                     emis_2_nome                       emis_2_valor
-emis_2_perc                       emis_2_rating                     emis_2_fgc
-emis_2_limite                     emis_3_nome                       emis_3_valor
-emis_3_perc                       emis_3_rating                     emis_3_fgc
-emis_3_limite                     emis_4_nome                       emis_4_valor
-emis_4_perc                       emis_4_rating                     emis_4_fgc
-emis_4_limite                     emis_5_nome                       emis_5_valor
-emis_5_perc                       emis_5_rating                     emis_5_fgc
-emis_5_limite                     prazo_1a_valor                    prazo_1a_perc
-prazo_3a_valor                    prazo_3a_perc                     prazo_5a_valor
-prazo_5a_perc                     prazo_5mais_valor                 prazo_5mais_perc
-moeda_brl_valor                   moeda_brl_perc                    moeda_usd_valor
-moeda_usd_perc                    moeda_eur_valor                   moeda_eur_perc
-moeda_out_valor                   moeda_out_perc                    texto_cobertura_fgc
-custo_1_origem                    custo_1_onde                      custo_1_perc
-custo_1_reais                     custo_1_contrapartida             custo_1_recuperavel
-custo_2_origem                    custo_2_onde                      custo_2_perc
-custo_2_reais                     custo_2_contrapartida             custo_2_recuperavel
-custo_3_origem                    custo_3_onde                      custo_3_perc
-custo_3_reais                     custo_3_contrapartida             custo_3_recuperavel
-custo_4_origem                    custo_4_onde                      custo_4_perc
-custo_4_reais                     custo_4_contrapartida             custo_4_recuperavel
-custo_5_origem                    custo_5_onde                      custo_5_perc
-custo_5_reais                     custo_5_contrapartida             custo_5_recuperavel
-custo_recuperavel_total           trib_comecotas_diag               trib_comecotas_op
-trib_isentos_diag                 trib_isentos_op                   trib_prejuizo_diag
-trib_prejuizo_op                  trib_prazo_diag                   trib_prazo_op
-custo_proposto_anual              custo_proposto_perc               economia_estimada_ano
-economia_estimada_10a             prop_caixa_hoje                   prop_caixa_novo
-prop_caixa_var                    prop_caixa_instrumento            prop_caixa_motivo
-prop_rfpos_hoje                   prop_rfpos_novo                   prop_rfpos_var
-prop_rfpos_instrumento            prop_rfpos_motivo                 prop_rfipca_hoje
-prop_rfipca_novo                  prop_rfipca_var                   prop_rfipca_instrumento
-prop_rfipca_motivo                prop_rfpre_hoje                   prop_rfpre_novo
-prop_rfpre_var                    prop_rfpre_instrumento            prop_rfpre_motivo
-prop_multi_hoje                   prop_multi_novo                   prop_multi_var
-prop_multi_instrumento            prop_multi_motivo                 prop_rvbr_hoje
-prop_rvbr_novo                    prop_rvbr_var                     prop_rvbr_instrumento
-prop_rvbr_motivo                  prop_intl_hoje                    prop_intl_novo
-prop_intl_var                     prop_intl_instrumento             prop_intl_motivo
-prop_alt_hoje                     prop_alt_novo                     prop_alt_var
-prop_alt_instrumento              prop_alt_motivo                   texto_o_que_muda
-retorno_esperado_proposta         risco_esperado_proposta           transicao_1_quando
-transicao_1_titulo                transicao_1_detalhe               transicao_2_quando
-transicao_2_titulo                transicao_2_detalhe               transicao_3_quando
-transicao_3_titulo                transicao_3_detalhe               transicao_4_quando
-transicao_4_titulo                transicao_4_detalhe               tr_1_quando
-tr_1_movimento                    tr_1_ativo                        tr_1_valor
-tr_1_custo                        tr_1_destino                      tr_2_quando
-tr_2_movimento                    tr_2_ativo                        tr_2_valor
-tr_2_custo                        tr_2_destino                      tr_3_quando
-tr_3_movimento                    tr_3_ativo                        tr_3_valor
-tr_3_custo                        tr_3_destino                      tr_4_quando
-tr_4_movimento                    tr_4_ativo                        tr_4_valor
-tr_4_custo                        tr_4_destino                      tr_5_quando
-tr_5_movimento                    tr_5_ativo                        tr_5_valor
-tr_5_custo                        tr_5_destino                      restricao_carencia
-restricao_imposto                 restricao_marcacao                premissa_retornos
-premissa_risco                    premissa_macro                    premissa_tributacao
-premissa_custos                   limitacoes_diagnostico
+contexto_cliente                  contexto_trabalho                 contexto_consideracoes
+objetivo_mestre_texto             objetivos_secundarios_texto       pat_financeiro_valor
+pat_financeiro_dist               pat_imobilizado_valor             pat_imobilizado_dist
+pat_liquidez_valor                pat_liquidez_dist                 cenario_carteira
+comentario_carteira               comparacao_1_classe               comparacao_1_atual
+comparacao_1_meta                 comparacao_2_classe               comparacao_2_atual
+comparacao_2_meta                 comparacao_redirecionamento       comparacao_mantidas
+valor_renda_passiva               valor_patrimonio_necessario       valor_patrimonio_inicial
+valor_aporte_mensal               qtd_meses_objetivo                valor_reserva_emergencia
+protecao_gatilho_texto            protecao_seguro_texto             pgbl_situacao
+valor_renda_mensal                protecao_recomendacao             rf_pre_taxa
+rf_pre_valor_atual                rf_pre_perc                       rf_ipca_taxa
+rf_ipca_valor_atual               rf_ipca_perc                      rf_pcdi_taxa
+rf_pcdi_valor_atual               rf_pcdi_perc                      rf_cdimais_taxa
+rf_cdimais_valor_atual            rf_cdimais_perc                   rf_selic_taxa
+rf_selic_valor_atual              rf_selic_perc                     comentario_rf
+comentario_acoes                  comentario_fii                    comentario_intl
+fundos_perc_taxa_adm              fundos_custo_anual                perf_1_benchmark
+perf_1_taxa                       perf_1_valor                      perf_1_perc
+comentario_fundos                 entrada_percentual                entrada_aportes
+entrada_frequencia                entrada_veiculo                   rf_pre_valor
+rf_ipca_valor                     rf_pos_valor                      rf_liquidez_valor
+rf_total                          fii_1_ativo                       fii_1_valor
+fii_1_qtd                         fii_2_ativo                       fii_2_valor
+fii_2_qtd                         fii_3_ativo                       fii_3_valor
+fii_3_qtd                         fii_total                         acao_1_ativo
+acao_1_valor                      acao_1_qtd                        acao_2_ativo
+acao_2_valor                      acao_2_qtd                        acao_3_ativo
+acao_3_valor                      acao_3_qtd                        acao_4_ativo
+acao_4_valor                      acao_4_qtd                        acao_5_ativo
+acao_5_valor                      acao_5_qtd                        acao_total
+intl_1_ativo                      intl_1_valor                      intl_1_qtd
+intl_2_ativo                      intl_2_valor                      intl_2_qtd
+intl_3_ativo                      intl_3_valor                      intl_3_qtd
+intl_4_ativo                      intl_4_valor                      intl_4_qtd
+intl_5_ativo                      intl_5_valor                      intl_5_qtd
+intl_total                        transferencia_etapas_texto        dados_bancarios_texto
+certificacao_responsavel
 ```
 </details>
 
@@ -420,111 +345,70 @@ capa_linha_livre                  data_documento
 
 Arquivos: `modelos/relatorio-macroeconomico-alta-renda.html`, `modelos/relatorio-macroeconomico-assessoria.html`, `modelos/relatorio-macroeconomico-consultoria.html`, `modelos/relatorio-macroeconomico-private.html`
 
-Variantes: alta-renda, assessoria, consultoria, private &middot; 306 variáveis
+Variantes: alta-renda, assessoria, consultoria, private &middot; 181 variáveis
 
-<details><summary>Ver as 300 variáveis específicas deste documento</summary>
+<details><summary>Ver as 175 variáveis específicas deste documento</summary>
 
 ```
-nome_analista                     registro_analista                 tese_central
-fato_1_titulo                     fato_1_detalhe                    fato_2_titulo
-fato_2_detalhe                    fato_3_titulo                     fato_3_detalhe
-fato_4_titulo                     fato_4_detalhe                    fato_5_titulo
-fato_5_detalhe                    mudanca_de_visao                  resumo_internacional
-analise_eua                       analise_europa                    analise_china
-gi_fed_atual                      gi_fed_ant                        gi_fed_cons
-gi_fed_leitura                    gi_cpi_atual                      gi_cpi_ant
-gi_cpi_cons                       gi_cpi_leitura                    gi_payroll_atual
-gi_payroll_ant                    gi_payroll_cons                   gi_payroll_leitura
-gi_ust10_atual                    gi_ust10_ant                      gi_ust10_cons
-gi_ust10_leitura                  gi_bce_atual                      gi_bce_ant
-gi_bce_cons                       gi_bce_leitura                    gi_pibchina_atual
-gi_pibchina_ant                   gi_pibchina_cons                  gi_pibchina_leitura
-gi_brent_atual                    gi_brent_ant                      gi_brent_cons
-gi_brent_leitura                  gi_dxy_atual                      gi_dxy_ant
-gi_dxy_cons                       gi_dxy_leitura                    resumo_brasil_atividade
-analise_atividade                 analise_trabalho                  analise_inflacao
-bi_ipca_mes                       bi_ipca_12m                       bi_ipca_proj
-bi_ipca_meta                      bi_nucleo_mes                     bi_nucleo_12m
-bi_nucleo_proj                    bi_nucleo_meta                    bi_igpm_mes
-bi_igpm_12m                       bi_igpm_proj                      bi_igpm_meta
-bi_pib_mes                        bi_pib_12m                        bi_pib_proj
-bi_pib_meta                       bi_desemp_mes                     bi_desemp_12m
-bi_desemp_proj                    bi_desemp_meta                    bi_massa_mes
-bi_massa_12m                      bi_massa_proj                     bi_massa_meta
-analise_politica_monetaria        selic_atual                       decisao_copom
-placar_copom                      data_proximo_copom                analise_curva_juros
-analise_fiscal                    fi_primario_ult                   fi_primario_12m
-fi_primario_proj                  fi_dbgg_ult                       fi_dbgg_12m
-fi_dbgg_proj                      fi_cambio_ult                     fi_cambio_12m
-fi_cambio_proj                    fi_cc_ult                         fi_cc_12m
-fi_cc_proj                        analise_cambio                    fonte_dados_mercado
-mk_cdi_mes                        mk_cdi_ano                        mk_cdi_12m
-mk_cdi_24m                        mk_cdi_vol                        mk_imab_mes
-mk_imab_ano                       mk_imab_12m                       mk_imab_24m
-mk_imab_vol                       mk_irfm_mes                       mk_irfm_ano
-mk_irfm_12m                       mk_irfm_24m                       mk_irfm_vol
-mk_ibov_mes                       mk_ibov_ano                       mk_ibov_12m
-mk_ibov_24m                       mk_ibov_vol                       mk_small_mes
-mk_small_ano                      mk_small_12m                      mk_small_24m
-mk_small_vol                      mk_ifix_mes                       mk_ifix_ano
-mk_ifix_12m                       mk_ifix_24m                       mk_ifix_vol
-mk_spx_mes                        mk_spx_ano                        mk_spx_12m
-mk_spx_24m                        mk_spx_vol                        mk_ndx_mes
-mk_ndx_ano                        mk_ndx_12m                        mk_ndx_24m
-mk_ndx_vol                        mk_msciem_mes                     mk_msciem_ano
-mk_msciem_12m                     mk_msciem_24m                     mk_msciem_vol
-mk_usd_mes                        mk_usd_ano                        mk_usd_12m
-mk_usd_24m                        mk_usd_vol                        mk_gold_mes
-mk_gold_ano                       mk_gold_12m                       mk_gold_24m
-mk_gold_vol                       mk_btc_mes                        mk_btc_ano
-mk_btc_12m                        mk_btc_24m                        mk_btc_vol
-destaques_positivos               destaques_negativos               ano_corrente
-ano_seguinte                      pj_ipca_a1                        pj_ipca_a2
-pj_ipca_c1                        pj_ipca_c2                        pj_selic_a1
-pj_selic_a2                       pj_selic_c1                       pj_selic_c2
-pj_pib_a1                         pj_pib_a2                         pj_pib_c1
-pj_pib_c2                         pj_cambio_a1                      pj_cambio_a2
-pj_cambio_c1                      pj_cambio_c2                      pj_primario_a1
-pj_primario_a2                    pj_primario_c1                    pj_primario_c2
-pg_fed_a1                         pg_fed_a2                         pg_fed_vies
-pg_cpi_a1                         pg_cpi_a2                         pg_cpi_vies
-pg_pibeua_a1                      pg_pibeua_a2                      pg_pibeua_vies
-pg_pibchina_a1                    pg_pibchina_a2                    pg_pibchina_vies
-divergencia_1_titulo              divergencia_1_racional            divergencia_2_titulo
-divergencia_2_racional            divergencia_3_titulo              divergencia_3_racional
-vis_rfpos_visao                   vis_rfpos_delta                   vis_rfpos_racional
-vis_rfpos_como                    vis_rfipca_visao                  vis_rfipca_delta
-vis_rfipca_racional               vis_rfipca_como                   vis_rfpre_visao
-vis_rfpre_delta                   vis_rfpre_racional                vis_rfpre_como
-vis_multi_visao                   vis_multi_delta                   vis_multi_racional
-vis_multi_como                    vis_rvbr_visao                    vis_rvbr_delta
-vis_rvbr_racional                 vis_rvbr_como                     vis_intl_visao
-vis_intl_delta                    vis_intl_racional                 vis_intl_como
-vis_fii_visao                     vis_fii_delta                     vis_fii_racional
-vis_fii_como                      vis_alt_visao                     vis_alt_delta
-vis_alt_racional                  vis_alt_como                      risco_1_nome
-risco_1_prob                      risco_1_impacto                   risco_1_gatilho
-risco_1_acao                      risco_2_nome                      risco_2_prob
-risco_2_impacto                   risco_2_gatilho                   risco_2_acao
-risco_3_nome                      risco_3_prob                      risco_3_impacto
-risco_3_gatilho                   risco_3_acao                      sintese_posicionamento
-mes_seguinte                      ag_1_data                         ag_1_evento
-ag_1_pais                         ag_1_relevancia                   ag_1_motivo
-ag_2_data                         ag_2_evento                       ag_2_pais
-ag_2_relevancia                   ag_2_motivo                       ag_3_data
-ag_3_evento                       ag_3_pais                         ag_3_relevancia
+registro_analista                 titulo_do_mes                     resumo_executivo
+mes_fechamento                    painel_1_valor                    painel_1_nota
+painel_2_valor                    painel_2_nota                     painel_3_valor
+painel_3_nota                     painel_4_valor                    painel_4_nota
+painel_5_valor                    painel_5_nota                     painel_6_valor
+painel_6_nota                     painel_7_valor                    painel_7_nota
+painel_8_valor                    painel_8_nota                     fonte_painel
+destaque_1_titulo                 destaque_1_texto                  destaque_2_titulo
+destaque_2_texto                  destaque_3_titulo                 destaque_3_texto
+destaque_4_titulo                 destaque_4_texto                  destaque_5_titulo
+destaque_5_texto                  analise_brasil_titulo             analise_brasil_1_subtitulo
+analise_brasil_1_texto            analise_brasil_2_subtitulo        analise_brasil_2_texto
+analise_tema1_titulo              analise_tema1_lead                analise_tema1_1_subtitulo
+analise_tema1_1_texto             analise_tema1_fonte               analise_tema1_col_1
+analise_tema1_col_2               analise_tema1_col_3               analise_tema1_col_4
+analise_tema1_1_1                 analise_tema1_1_2                 analise_tema1_1_3
+analise_tema1_1_4                 analise_tema1_2_1                 analise_tema1_2_2
+analise_tema1_2_3                 analise_tema1_2_4                 analise_tema1_3_1
+analise_tema1_3_2                 analise_tema1_3_3                 analise_tema1_3_4
+analise_tema1_4_1                 analise_tema1_4_2                 analise_tema1_4_3
+analise_tema1_4_4                 analise_tema1_5_1                 analise_tema1_5_2
+analise_tema1_5_3                 analise_tema1_5_4                 analise_tema2_titulo
+analise_tema2_lead                analise_tema2_1_subtitulo         analise_tema2_1_texto
+analise_tema2_2_subtitulo         analise_tema2_2_texto             global_1_subtitulo
+global_1_texto                    global_2_subtitulo                global_2_texto
+global_3_subtitulo                global_3_texto                    analise_tema3_titulo
+analise_tema3_lead                analise_tema3_texto_1             analise_tema3_texto_2
+carteira_lead                     pos_1_posicao                     pos_1_racional
+pos_2_posicao                     pos_2_racional                    pos_3_posicao
+pos_3_racional                    pos_4_posicao                     pos_4_racional
+classe_rf_1_rotulo                classe_rf_1_texto                 classe_rf_2_rotulo
+classe_rf_2_texto                 classe_rf_3_rotulo                classe_rf_3_texto
+classe_rf_4_rotulo                classe_rf_4_texto                 classe_rv_1_rotulo
+classe_rv_1_texto                 classe_rv_2_rotulo                classe_rv_2_texto
+classe_rv_3_rotulo                classe_rv_3_texto                 classe_fii_1_rotulo
+classe_fii_1_texto                classe_fii_2_rotulo               classe_fii_2_texto
+classe_intl_1_rotulo              classe_intl_1_texto               classe_intl_2_rotulo
+classe_intl_2_texto               classe_intl_3_rotulo              classe_intl_3_texto
+classe_cripto_1_rotulo            classe_cripto_1_texto             fech_cdi_mes
+fech_cdi_ano                      fech_ibov_mes                     fech_ibov_ano
+fech_imab_mes                     fech_imab_ano                     fech_ifix_mes
+fech_ifix_ano                     fech_dolar_mes                    fech_dolar_ano
+fech_ipca_mes                     fech_ipca_ano                     fechamento_nota
+riscos_lead                       risco_1_titulo                    risco_1_texto
+risco_1_acao                      risco_2_titulo                    risco_2_texto
+risco_2_acao                      risco_3_titulo                    risco_3_texto
+risco_3_acao                      risco_4_titulo                    risco_4_texto
+risco_4_acao                      risco_5_titulo                    risco_5_texto
+risco_5_acao                      oportunidade_1_titulo             oportunidade_1_texto
+oportunidade_1_acao               oportunidade_2_titulo             oportunidade_2_texto
+oportunidade_2_acao               oportunidade_3_titulo             oportunidade_3_texto
+oportunidade_3_acao               ag_1_data                         ag_1_evento
+ag_1_motivo                       ag_2_data                         ag_2_evento
+ag_2_motivo                       ag_3_data                         ag_3_evento
 ag_3_motivo                       ag_4_data                         ag_4_evento
-ag_4_pais                         ag_4_relevancia                   ag_4_motivo
-ag_5_data                         ag_5_evento                       ag_5_pais
-ag_5_relevancia                   ag_5_motivo                       ag_6_data
-ag_6_evento                       ag_6_pais                         ag_6_relevancia
-ag_6_motivo                       ag_7_data                         ag_7_evento
-ag_7_pais                         ag_7_relevancia                   ag_7_motivo
-ag_8_data                         ag_8_evento                       ag_8_pais
-ag_8_relevancia                   ag_8_motivo                       observar_1_titulo
-observar_1_detalhe                observar_2_titulo                 observar_2_detalhe
-observar_3_titulo                 observar_3_detalhe                fonte_dados_macro
-fonte_consenso                    data_fechamento                   declaracao_analista
+ag_4_motivo                       ag_5_data                         ag_5_evento
+ag_5_motivo                       perspectivas_texto                sintese_1
+sintese_2                         sintese_3                         fonte_indicadores
+fonte_cenarios
 ```
 </details>
 

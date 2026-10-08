@@ -89,7 +89,7 @@
      "rotulo": "Consultoria",
      "arquivo": "apresentacao-geral-consultoria.html",
      "paginas": 13,
-     "campos": 90,
+     "campos": 70,
      "imagens": 0
     },
     {
@@ -97,7 +97,7 @@
      "rotulo": "Alta Renda",
      "arquivo": "apresentacao-geral-alta-renda.html",
      "paginas": 12,
-     "campos": 56,
+     "campos": 36,
      "imagens": 0
     },
     {
@@ -105,7 +105,7 @@
      "rotulo": "Private Banking",
      "arquivo": "apresentacao-geral-private.html",
      "paginas": 12,
-     "campos": 50,
+     "campos": 30,
      "imagens": 0
     },
     {
@@ -113,7 +113,7 @@
      "rotulo": "Assessoria",
      "arquivo": "apresentacao-geral-assessoria.html",
      "paginas": 12,
-     "campos": 56,
+     "campos": 36,
      "imagens": 0
     }
    ]
@@ -170,7 +170,7 @@
      "rotulo": "Consultoria",
      "arquivo": "carta-apresentacao-consultoria.html",
      "paginas": 13,
-     "campos": 34,
+     "campos": 33,
      "imagens": 0
     },
     {
@@ -178,7 +178,7 @@
      "rotulo": "Alta Renda",
      "arquivo": "carta-apresentacao-alta-renda.html",
      "paginas": 13,
-     "campos": 34,
+     "campos": 33,
      "imagens": 0
     },
     {
@@ -186,7 +186,7 @@
      "rotulo": "Private Banking",
      "arquivo": "carta-apresentacao-private.html",
      "paginas": 13,
-     "campos": 34,
+     "campos": 33,
      "imagens": 0
     },
     {
@@ -194,7 +194,7 @@
      "rotulo": "Assessoria",
      "arquivo": "carta-apresentacao-assessoria.html",
      "paginas": 13,
-     "campos": 34,
+     "campos": 33,
      "imagens": 0
     }
    ]
@@ -203,40 +203,39 @@
    "chave": "diagnostico-carteira",
    "nome": "Diagnóstico de carteira",
    "formato": "a4",
-   "blocos": true,
-   "descricao": "Leitura da carteira atual, riscos encontrados e plano de ajuste.",
+   "descricao": "Proposta inicial ao cliente: perfil, estrutura meta, análise por classe e fluxo de aplicações.",
    "variantes": [
     {
      "sufixo": "consultoria",
      "rotulo": "Consultoria",
      "arquivo": "diagnostico-carteira-consultoria.html",
-     "paginas": 10,
-     "campos": 327,
-     "imagens": 3
+     "paginas": 31,
+     "campos": 116,
+     "imagens": 19
     },
     {
      "sufixo": "alta-renda",
      "rotulo": "Alta Renda",
      "arquivo": "diagnostico-carteira-alta-renda.html",
-     "paginas": 10,
-     "campos": 327,
-     "imagens": 3
+     "paginas": 31,
+     "campos": 116,
+     "imagens": 19
     },
     {
      "sufixo": "private",
      "rotulo": "Private Banking",
      "arquivo": "diagnostico-carteira-private.html",
-     "paginas": 10,
-     "campos": 327,
-     "imagens": 3
+     "paginas": 31,
+     "campos": 116,
+     "imagens": 19
     },
     {
      "sufixo": "assessoria",
      "rotulo": "Assessoria",
      "arquivo": "diagnostico-carteira-assessoria.html",
-     "paginas": 10,
-     "campos": 327,
-     "imagens": 3
+     "paginas": 31,
+     "campos": 116,
+     "imagens": 19
     }
    ]
   },
@@ -286,39 +285,39 @@
    "nome": "Relatório macroeconômico",
    "formato": "a4",
    "blocos": true,
-   "descricao": "Cenário do mês no Brasil e no exterior e o que ele muda na estratégia.",
+   "descricao": "O relatório macro do mês: panorama, análises, carteira, classes, fechamento e agenda.",
    "variantes": [
     {
      "sufixo": "consultoria",
      "rotulo": "Consultoria",
      "arquivo": "relatorio-macroeconomico-consultoria.html",
      "paginas": 11,
-     "campos": 306,
-     "imagens": 3
+     "campos": 190,
+     "imagens": 0
     },
     {
      "sufixo": "alta-renda",
      "rotulo": "Alta Renda",
      "arquivo": "relatorio-macroeconomico-alta-renda.html",
      "paginas": 11,
-     "campos": 306,
-     "imagens": 3
+     "campos": 190,
+     "imagens": 0
     },
     {
      "sufixo": "private",
      "rotulo": "Private Banking",
      "arquivo": "relatorio-macroeconomico-private.html",
      "paginas": 11,
-     "campos": 306,
-     "imagens": 3
+     "campos": 190,
+     "imagens": 0
     },
     {
      "sufixo": "assessoria",
      "rotulo": "Assessoria",
      "arquivo": "relatorio-macroeconomico-assessoria.html",
      "paginas": 11,
-     "campos": 306,
-     "imagens": 3
+     "campos": 190,
+     "imagens": 0
     }
    ]
   },
@@ -534,6 +533,12 @@
    "Conservador",
    "Moderado",
    "Arrojado"
+  ],
+  "cenario": [
+   "Pulverizada",
+   "Concentrada",
+   "Equilibrada",
+   "Em liquidez"
   ],
   "horizonte": [
    "Curto prazo (até 2 anos)",

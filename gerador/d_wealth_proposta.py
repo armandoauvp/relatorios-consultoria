@@ -53,9 +53,9 @@ FRENTES = [
      "controladas no exterior e para os efeitos das reformas tributárias brasileiras, em nível "
      "diagnóstico e sem quantificação."),
     ("Tipologia de caminhos possíveis",
-     "Indicação, em alto nível, dos caminhos de aprofundamento que o caso comporta — rota de "
+     "Indicação, em alto nível, dos caminhos de aprofundamento que o caso comporta (rota de "
      "residência fiscal, rota de estruturação internacional, rota sucessória ou rota de "
-     "reorganização societária —, com a recomendação da fase de Roadmap adequada e da "
+     "reorganização societária), com a recomendação da fase de Roadmap adequada e da "
      "sequência entre elas."),
 ]
 
@@ -101,7 +101,7 @@ def build(t, seg):
 
     # ------------------------------------------------------------------ escopo
     S.append(slide(t, "Escopo", 3, """<h1 class="t">O que compreende este estudo</h1>
-<p class="lead"><strong>Estudo Preliminar de Wealth Planning — EPWP.</strong> É a primeira fase
+<p class="lead"><strong>Estudo Preliminar de Wealth Planning (EPWP).</strong> É a primeira fase
 do método AUVP: a fase de leitura.</p>
 <div class="center"><div class="cols2" style="align-items:start">
   <div>

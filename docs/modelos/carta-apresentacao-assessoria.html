@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Carta de Apresentação — AUVP Capital · Assessoria</title>
+<title>Carta de Apresentação: AUVP Capital · Assessoria</title>
 <style>
 :root{
   --brand:#005F45; --accent:#EFBF4F; --accent-dk:#EFBF4F;
@@ -37,6 +37,10 @@ a{color:inherit;text-decoration:none}
 p{margin:0 0 3mm}
 ul{margin:0 0 3mm;padding-left:4mm}
 li{margin:0 0 1mm}
+/* Texto corrido justificado, em todos os documentos. A hifenização fecha os
+   vãos que a justificação abre em coluna estreita. Quem precisa de outro
+   alinhamento declara o seu, e a classe vence o elemento. */
+p,li{text-align:justify;hyphens:auto;-webkit-hyphens:auto}
 strong{font-weight:700}
 .ph{background:var(--ph);border-radius:.6mm;padding:0 1mm;font-weight:600;overflow-wrap:break-word;text-transform:none;letter-spacing:0;font-size:.94em}
 /* O campo que já vem preenchido não é lacuna: lê-se como o texto que é, e o
@@ -1006,7 +1010,7 @@ elas é que busca o equilíbrio entre preservação, renda e&nbsp;crescimento.</
 <p class="lead">Cada classe trabalha dentro de uma banda, e não de um número fixo: é o que
 permite acomodar o momento de mercado sem sair da estratégia. As bandas abaixo são as do seu
 perfil <span class="ph" data-campo="perfil_investidor">{{perfil_investidor}}</span>.</p>
-<table class="tb sm fix"><colgroup><col style="width:26%"><col style="width:12%"><col style="width:12%"><col style="width:50%"></colgroup><thead><tr><th>Classe</th><th class="num">Mínimo</th><th class="num">Máximo</th><th>Função no&nbsp;portfólio</th></tr></thead><tbody><tr><td>Renda&nbsp;fixa</td><td class="num"><span class="ph pronto" data-campo="banda_rf_min">40%</span></td><td class="num"><span class="ph pronto" data-campo="banda_rf_max">70%</span></td><td>Preservação, renda e&nbsp;liquidez</td></tr><tr><td>Internacional — renda&nbsp;fixa</td><td class="num"><span class="ph pronto" data-campo="banda_irf_min">5%</span></td><td class="num"><span class="ph pronto" data-campo="banda_irf_max">15%</span></td><td>Diversificação cambial e renda em moeda&nbsp;forte</td></tr><tr><td>Internacional — renda&nbsp;variável</td><td class="num"><span class="ph pronto" data-campo="banda_irv_min">5%</span></td><td class="num"><span class="ph pronto" data-campo="banda_irv_max">15%</span></td><td>Crescimento&nbsp;global</td></tr><tr><td>Ações</td><td class="num"><span class="ph pronto" data-campo="banda_acoes_min">10%</span></td><td class="num"><span class="ph pronto" data-campo="banda_acoes_max">25%</span></td><td>Crescimento patrimonial de longo&nbsp;prazo</td></tr><tr><td>Fundos&nbsp;imobiliários</td><td class="num"><span class="ph pronto" data-campo="banda_fii_min">5%</span></td><td class="num"><span class="ph pronto" data-campo="banda_fii_max">15%</span></td><td>Renda recorrente&nbsp;isenta</td></tr><tr><td>Alternativos</td><td class="num"><span class="ph pronto" data-campo="banda_alt_min">0%</span></td><td class="num"><span class="ph pronto" data-campo="banda_alt_max">10%</span></td><td>Diversificação fora das classes&nbsp;tradicionais</td></tr></tbody></table>
+<table class="tb sm fix"><colgroup><col style="width:26%"><col style="width:12%"><col style="width:12%"><col style="width:50%"></colgroup><thead><tr><th>Classe</th><th class="num">Mínimo</th><th class="num">Máximo</th><th>Função no&nbsp;portfólio</th></tr></thead><tbody><tr><td>Renda&nbsp;fixa</td><td class="num"><span class="ph pronto" data-campo="banda_rf_min">40%</span></td><td class="num"><span class="ph pronto" data-campo="banda_rf_max">70%</span></td><td>Preservação, renda e&nbsp;liquidez</td></tr><tr><td>Internacional, renda&nbsp;fixa</td><td class="num"><span class="ph pronto" data-campo="banda_irf_min">5%</span></td><td class="num"><span class="ph pronto" data-campo="banda_irf_max">15%</span></td><td>Diversificação cambial e renda em moeda&nbsp;forte</td></tr><tr><td>Internacional, renda&nbsp;variável</td><td class="num"><span class="ph pronto" data-campo="banda_irv_min">5%</span></td><td class="num"><span class="ph pronto" data-campo="banda_irv_max">15%</span></td><td>Crescimento&nbsp;global</td></tr><tr><td>Ações</td><td class="num"><span class="ph pronto" data-campo="banda_acoes_min">10%</span></td><td class="num"><span class="ph pronto" data-campo="banda_acoes_max">25%</span></td><td>Crescimento patrimonial de longo&nbsp;prazo</td></tr><tr><td>Fundos&nbsp;imobiliários</td><td class="num"><span class="ph pronto" data-campo="banda_fii_min">5%</span></td><td class="num"><span class="ph pronto" data-campo="banda_fii_max">15%</span></td><td>Renda recorrente&nbsp;isenta</td></tr><tr><td>Alternativos</td><td class="num"><span class="ph pronto" data-campo="banda_alt_min">0%</span></td><td class="num"><span class="ph pronto" data-campo="banda_alt_max">10%</span></td><td>Diversificação fora das classes&nbsp;tradicionais</td></tr></tbody></table>
 <p class="legal" style="margin-top:auto">Este material não constitui promessa de rentabilidade
 nem carteira definitiva. A alocação final depende da análise completa do seu perfil, objetivos,
 restrições e&nbsp;suitability.</p>
@@ -1113,7 +1117,7 @@ papel daquela parcela na&nbsp;carteira.</p>
     </header>
     <div class="pg-body">
 <h1 class="t">Ações, fundos imobiliários e&nbsp;internacional</h1>
-<p class="lead">As três classes têm papéis diferentes — renda, crescimento e proteção cambial —
+<p class="lead">As três classes têm papéis diferentes (renda, crescimento e proteção cambial)
 e por isso são selecionadas por critérios diferentes. O que elas têm em comum é a exigência de
 fundamento: nenhuma posição entra por movimento de&nbsp;preço.</p>
 <div class="center"><table class="tb sm fix"><colgroup><col style="width:16%"><col style="width:28%"><col style="width:28%"><col style="width:28%"></colgroup><thead><tr><th></th><th>Fundos&nbsp;imobiliários</th><th>Ações</th><th>Internacional</th></tr></thead><tbody><tr><td><strong>Objetivo</strong></td><td>Renda imobiliária mensal isenta para pessoa física, com liquidez de bolsa e diversificação&nbsp;setorial.</td><td>Crescimento patrimonial de longo prazo, via participação no lucro das empresas e exposição a ativos&nbsp;reais.</td><td>Diversificação cambial, liquidez em moeda forte e eficiência no planejamento&nbsp;sucessório.</td></tr><tr><td><strong>Estratégia</strong></td><td>Prioridade para logística e shoppings, com inquilinos sólidos, contratos consistentes e capacidade de repassar&nbsp;inflação.</td><td>Seleção por fundamento, governança, valuation e vantagem competitiva durável, com aporte concentrado nos ativos mais&nbsp;descontados.</td><td>ETFs passivos em core-satellite, combinados com money market e bonds de grau&nbsp;elevado.</td></tr><tr><td><strong>Riscos&nbsp;monitorados</strong></td><td>Vacância, inadimplência, sensibilidade à taxa de juros e risco de&nbsp;gestão.</td><td>Concentração setorial, ciclicidade, endividamento e deterioração de&nbsp;fundamento.</td><td>Risco cambial, duration, risco de crédito nos bonds e tracking difference dos&nbsp;ETFs.</td></tr><tr><td><strong>Critérios</strong></td><td>Múltiplos imóveis e inquilinos, qualidade dos ativos, solidez do gestor, valuation e liquidez em&nbsp;bolsa.</td><td>Lucro recorrente, endividamento controlado, vantagem competitiva, setor perene e descorrelação&nbsp;real.</td><td>Money market com rating alto e liquidez D+1, sem high yield; ETFs com duration moderada, patrimônio suficiente e tracking difference&nbsp;baixo.</td></tr></tbody></table></div>
@@ -1235,21 +1239,14 @@ fundamento: nenhuma posição entra por movimento de&nbsp;preço.</p>
     <p class="lead" style="margin-top:4mm">Olá, <span class="ph" data-campo="nome_cliente">{{nome_cliente}}</span>, entendemos que a confiança
     depositada aqui vai além de uma relação comercial: é confiança sobre o que representa anos
     de dedicação e&nbsp;construção.</p>
-    <p>O nosso papel é ser o parceiro estratégico que você não precisa gerenciar — o que cuida
+    <p>O nosso papel é ser o parceiro estratégico que você não precisa gerenciar, o que cuida
     com rigor, comunica com clareza e age com integridade. Você fica com mais espaço para o que
     importa, com a certeza de que o seu patrimônio está sendo tratado com o mesmo cuidado com
     que foi&nbsp;construído.</p>
     <div class="dl" style="margin-top:6mm">
-      <dt>Assessor</dt><dd><span class="ph" data-campo="nome_responsavel">{{nome_responsavel}}</span></dd>
       <dt>WhatsApp</dt><dd><span class="ph" data-campo="whatsapp_contato" data-link="whatsapp">{{whatsapp_contato}}</span></dd>
       <dt>E-mail</dt><dd><span class="ph" data-campo="email_contato" data-link="mailto">{{email_contato}}</span></dd>
     </div>
-  </div>
-  <!-- Saiu o QR code de agendamento. A carta chega por e-mail ou WhatsApp e se
-       lê na tela, onde ninguém aponta a câmera para o próprio monitor; o link
-       clicável ao lado fazia o trabalho inteiro sozinho. -->
-  <div style="display:flex;flex-direction:column;align-items:center;gap:4mm">
-    <div class="small mut" style="text-align:center;max-width:52mm"><span class="ph" data-campo="link_agendamento" data-link="url">{{link_agendamento}}</span></div>
   </div>
 </div>
     </div>
