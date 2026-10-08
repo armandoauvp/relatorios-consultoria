@@ -238,9 +238,10 @@ npm run servir                  # http://localhost:8099
 
 A interface segue os tokens do design system da Central de Produto
 (`produtosauvp.github.io/central`): fontes, cores e raios, só no tema claro — a prévia
-mostra um documento que sai em papel branco. Os documentos mantêm as cores de cada segmento; só os
-gráficos seguem a paleta de dados do design system — categórica de oito cores para séries,
-divergente (verde/vermelho) para o que tem sinal.
+mostra um documento que sai em papel branco. Os documentos mantêm as cores de cada segmento, e os
+gráficos têm paleta própria, derivada da marca: na Capital, os verdes da marca, cinzas e
+grafite (nunca o dourado); no Private, o turquesa escuro e os cinzas. Verde e vermelho só
+para o que tem sinal.
 
 A publicação é automática: o workflow `.github/workflows/pages.yml` regera os modelos e o
 índice a cada push em `main` e publica `docs/`. Em **Settings › Pages**, a origem precisa

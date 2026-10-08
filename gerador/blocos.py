@@ -323,7 +323,7 @@ _reg("tabela6", "Tabela larga", "Seis colunas e oito linhas, na fonte menor. O q
      _tabela6_html, _tabela6_campos)
 for _k, _f, _n, _d, _s in [
         ("donut", "donut", "Gráfico de rosca", "A divisão de um todo em partes.", None),
-        ("anel", "anel", "Gráfico de rosca dupla", "Atual por fora, meta por dentro.", None),
+        ("anel", "anel", "Gráfico de rosca dupla", "Atual e meta, lado a lado.", None),
         ("bars", "bars", "Gráfico de barras", "Uma série ao longo do tempo.", None),
         ("bars2", "bars", "Gráfico de barras comparativo", "Duas séries lado a lado, período a período.",
          ["Série A", "Série B"]),

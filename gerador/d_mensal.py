@@ -165,7 +165,7 @@ def build(t, seg):
                   foot=["<strong>Total</strong>", "100,0%", "100,0%", "", ph("patrimonio_total"), ""],
                   nums=[1, 2, 3, 4],
                   caption="Meta conforme o diagrama do cerrado / carteira recomendada vigente para o perfil. Desvios acima da banda de tolerância acionam rebalanceamento."),
-        ch=chart("Carteira atual x meta", "Duas roscas concêntricas: a interna com a meta, a externa com a posição atual.",
+        ch=chart("Carteira atual x meta", "Duas roscas lado a lado: a posição atual e a meta.",
                   "anel", "flex:1 1 auto;min-height:52mm",
                   series=["Renda fixa", "Multimercado", "Renda variável BR", "Internacional", "FIIs", "Alternativos"])))
 

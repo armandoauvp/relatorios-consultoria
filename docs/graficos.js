@@ -12,7 +12,7 @@
  * São quatro formatos, e cada um existe porque um documento pede:
  *
  *   donut  uma rosca: a divisão de um todo em partes.
- *   anel   duas roscas concêntricas: a de fora é o que se tem, a de dentro é a
+ *   anel   duas roscas lado a lado: a primeira é o que se tem, a segunda é a
  *          meta (ou a proposta). É a carteira atual x meta.
  *   bars   barras verticais: uma série ao longo do tempo, como os proventos mês
  *          a mês.
@@ -161,19 +161,32 @@
     }).join('');
   }
 
-  const NOTA_ANEL = 'Rosca externa: posição atual &middot; rosca interna: meta';
+  const ANEL = ['Atual', 'Meta'];
 
-  function donut(l, duplo, g) {
+  function donut(l, g) {
     // A rosca é redonda: cresce com o lado menor da caixa, e fica no meio dela.
     const raio = Math.min(g.W, g.H) * 0.38;
+    const svg = rosca(l.map((x) => numero(x.v[0])), g, g.W / 2, g.H / 2, raio, raio * 0.36);
+    return { svg, chaves: l.map((x) => x.r) };
+  }
+
+  /** Atual e meta, uma rosca ao lado da outra, com o nome embaixo de cada.
+   *  Já foram concêntricas, a meta dentro da atual: comparar um anel com outro
+   *  de raio diferente pedia legenda para explicar qual era qual, e a fatia de
+   *  dentro, menor, parecia menor do que era. Lado a lado, as duas têm o mesmo
+   *  tamanho e a mesma cor por classe, e a comparação é direta. */
+  function anel(l, series, g) {
+    if (quantas(l) < 2) return donut(l, g);
+    const rodape = 22;
+    const raio = Math.min(g.W / 2, g.H - rodape) * 0.4;
     const grossura = raio * 0.36;
-    const cx = g.W / 2;
-    const cy = g.H / 2;
-    const fora = rosca(l.map((x) => numero(x.v[0])), g, cx, cy, raio, grossura);
-    const dentro = duplo && quantas(l) > 1
-      ? rosca(l.map((x) => numero(x.v[1])), g, cx, cy, raio * 0.54, grossura * 0.76)
-      : '';
-    return { svg: fora + dentro, chaves: l.map((x) => x.r), nota: dentro ? NOTA_ANEL : '' };
+    const cy = (g.H - rodape) / 2;
+    const svg = [0, 1].map((k) => {
+      const cx = g.W * (k ? 0.73 : 0.27);
+      return rosca(l.map((x) => numero(x.v[k])), g, cx, cy, raio, grossura)
+        + `<text x="${cx}" y="${cy + raio + grossura / 2 + 16}" class="g-rotulo" text-anchor="middle">${ANEL[k]}</text>`;
+    }).join('');
+    return { svg, chaves: l.map((x) => x.r) };
   }
 
   /* ------------------------------------------------------- barras e linha */
@@ -185,13 +198,54 @@
     return Math.ceil(max / (ordem / 2)) * (ordem / 2);
   }
 
+  // Uma casa decimal quando ela existe: arredondar o milhar para inteiro fazia
+  // a marca de 1.500 sair "2 mil", acima da de 2.000 que nem existia.
+  const casa = (x) => String(Math.round(x * 10) / 10).replace('.', ',');
   const curto = (n) => {
     const a = Math.abs(n);
-    if (a >= 1e9) return (n / 1e9).toFixed(1).replace('.', ',') + ' bi';
-    if (a >= 1e6) return (n / 1e6).toFixed(1).replace('.', ',') + ' mi';
-    if (a >= 1e3) return Math.round(n / 1e3) + ' mil';
+    if (a >= 1e9) return casa(n / 1e9) + ' bi';
+    if (a >= 1e6) return casa(n / 1e6) + ' mi';
+    if (a >= 1e3) return casa(n / 1e3) + ' mil';
     return String(Math.round(n * 100) / 100).replace('.', ',');
   };
+
+  /** Os rótulos do eixo horizontal, um por ponto sempre que couberem.
+   *
+   *  Mês no formato "Out/25" vira duas linhas: o mês em cima e o ano embaixo,
+   *  só no primeiro ponto e na virada do ano. Assim os doze meses cabem na
+   *  largura de uma página, e cada bolinha tem o seu nome.
+   *
+   *  O rótulo que não é mês, ou ponto demais para a largura, ainda obriga a
+   *  pular rótulos. Aí o último sempre aparece e o vizinho que encostaria nele
+   *  sai, e `todos` volta falso: quem desenha a linha tira as bolinhas, porque
+   *  bolinha sem rótulo parece mês sobrando. */
+  const MES = /^(\p{L}{3,4})\.?[\/\s-]+(\d{2}|\d{4})$/u;
+
+  function eixoX(l, esq, larg, base) {
+    const px = (i) => esq + larg * ((i + 0.5) / l.length);
+    const vao = larg / l.length;
+    const meses = l.map((x) => x.r.trim().match(MES));
+    if (meses.every(Boolean) && vao >= 22) {
+      const rotulos = meses.map((m, i) => {
+        const ano = i === 0 || m[2] !== meses[i - 1][2]
+          ? `<text x="${px(i)}" y="${base + 28}" class="g-eixo g-ano" text-anchor="middle">${esc(m[2])}</text>` : '';
+        return `<text x="${px(i)}" y="${base + 16}" class="g-eixo" text-anchor="middle">${esc(m[1])}</text>` + ano;
+      }).join('');
+      return { rotulos, todos: true };
+    }
+    const largo = Math.max(...l.map((x) => x.r.length)) * 5.4 + 8;
+    const passo = Math.max(1, Math.ceil(largo / vao));
+    const mostra = l.map((_, i) => i % passo === 0);
+    const ult = l.length - 1;
+    if (!mostra[ult]) {
+      const antes = ult - (ult % passo);
+      if (ult - antes < passo * 0.75) mostra[antes] = false;
+      mostra[ult] = true;
+    }
+    const rotulos = l.map((x, i) => (mostra[i]
+      ? `<text x="${px(i)}" y="${base + 16}" class="g-eixo" text-anchor="middle">${esc(x.r)}</text>` : '')).join('');
+    return { rotulos, todos: passo === 1 };
+  }
 
   /** A moldura de quem tem eixo: guias, escala e rótulos do eixo horizontal. */
   function comEixo(l, series, desenho, g) {
@@ -213,16 +267,9 @@
       return `<line x1="${esq}" y1="${py}" x2="${esq + larg}" y2="${py}" class="${v === 0 && chao < 0 ? 'g-zero' : 'g-guia'}"/>`
            + `<text x="${esq - 7}" y="${py + 4}" class="g-eixo" text-anchor="end">${curto(v)}</text>`;
     }).join('');
-    // Com muitos pontos, um rótulo em cada vira uma tarja preta: mostra um a
-    // cada dois, e sempre o primeiro e o último.
-    const passo = Math.ceil(l.length / 8);
-    const rotulos = l.map((x, i) => {
-      if (i % passo && i !== l.length - 1) return '';
-      const px = esq + larg * ((i + 0.5) / l.length);
-      return `<text x="${px}" y="${base + 16}" class="g-eixo" text-anchor="middle">${esc(x.r)}</text>`;
-    }).join('');
+    const { rotulos, todos } = eixoX(l, esq, larg, base);
     return {
-      svg: guias + desenho({ vals, n, alvo, chao, y, esq, base, alto, larg }) + rotulos,
+      svg: guias + desenho({ vals, n, alvo, chao, y, esq, base, alto, larg, todos }) + rotulos,
       // A legenda de quem tem eixo nomeia as séries, e não as linhas: o eixo
       // horizontal já diz o que é cada ponto.
       chaves: n > 1 ? Array.from({ length: n }, (_, k) => (series || [])[k] || `Série ${k + 1}`) : [],
@@ -244,7 +291,7 @@
     }).join('')).join('');
   }, g);
 
-  const line = (l, series, g) => comEixo(l, series, ({ vals, n, y, esq, larg }) => {
+  const line = (l, series, g) => comEixo(l, series, ({ vals, n, y, esq, larg, todos }) => {
     const passo = larg / vals.length;
     const ponto = (v, i) => [esq + passo * (i + 0.5), y(v)];
     let fora = '';
@@ -258,8 +305,9 @@
         fora += `<path d="${d} L ${pts[pts.length - 1][0]} ${y0} L ${pts[0][0]} ${y0} Z" class="g-area"/>`;
       }
       fora += `<path d="${d}" class="g-linha" style="stroke:${cor(k)}"/>`;
-      // Com muitos pontos e várias séries os marcadores viram ruído.
-      if (vals.length <= 14 && n <= 2) {
+      // Com muitas séries os marcadores viram ruído, e sem um rótulo por ponto
+      // parecem pontos sobrando.
+      if (todos && n <= 2) {
         fora += pts.map(([x, y]) =>
           `<circle cx="${x}" cy="${y}" r="3.2" class="g-ponto" style="stroke:${cor(k)}"/>`).join('');
       }
@@ -268,8 +316,8 @@
   }, g);
 
   const FORMATOS = {
-    donut: (l, series, g) => donut(l, false, g),
-    anel: (l, series, g) => donut(l, true, g),
+    donut: (l, series, g) => donut(l, g),
+    anel,
     bars,
     line,
   };
@@ -309,7 +357,7 @@
     // o juro longo e o dólar caberem no mesmo gráfico sem a ferramenta precisar
     // saber o que é um gráfico.
     colunas: (tipo, series, eixo) => {
-      if (tipo === 'anel') return ['Atual', 'Meta'];
+      if (tipo === 'anel') return ANEL.slice();
       if (series && series.length && (tipo === 'line' || tipo === 'bars')) return series.slice();
       return [eixo || 'Valor'];
     },
