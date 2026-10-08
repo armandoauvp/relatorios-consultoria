@@ -516,11 +516,11 @@ refazer tudo — quando não vinha a captura de tela de uma planilha.
 Agora `chart()` anuncia na moldura o formato (`data-grafico`) e os rótulos
 sugeridos (`data-series`), a ferramenta oferece uma tabelinha de rótulo e valor,
 e `docs/graficos.js` desenha o SVG no arquivo exportado. Vetor no PDF, na
-tipografia da casa, nas cores do segmento — `--c1`..`--c6`, as mesmas da legenda
+tipografia da casa, nas cores do segmento (`--c1`..`--c8`, tons da marca, as mesmas da legenda)
 — e editável até o último minuto.
 
 São quatro formatos, e cada um existe porque um documento pede: `donut` para a
-divisão de um todo, `anel` para as duas roscas concêntricas da carteira atual
+divisão de um todo, `anel` para as duas roscas lado a lado da carteira atual
 contra a meta, `bars` para uma série no tempo e `line` para uma evolução. O
 envio de imagem continua ali, para o gráfico que não couber em nenhum deles, e o
 dado tem precedência sobre ele.

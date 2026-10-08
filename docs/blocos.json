@@ -1168,7 +1168,7 @@
   {
    "chave": "grafico_anel",
    "nome": "Gráfico de rosca dupla",
-   "descricao": "Atual por fora, meta por dentro. Você digita os valores e o desenho sai no documento.",
+   "descricao": "Atual e meta, lado a lado. Você digita os valores e o desenho sai no documento.",
    "html": "<div class=\"chart\" data-img=\"bl@I@\" data-grafico=\"anel\" style=\"flex:1 1 auto;min-height:52mm\"><div class=\"sk-donut\"></div><div class=\"cl\"><span class=\"ph\" data-campo=\"bl@I@_titulo\">{{bl@I@_titulo}}</span></div><div class=\"cd\"></div></div>",
    "campos": {
     "bl@I@_titulo": {

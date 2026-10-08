@@ -22,6 +22,13 @@ def load_svg(name, prefix, extra_attrs="", viewbox=None):
 LOGO_CAPITAL = "LOGO AUVP CAPITAL (ASSESSORIA, CONSULTORIA E ALTA RENDA) BRANCA.svg"
 LOGO_PRIVATE = "LOGO PRIVATE BANKING BRANCA.svg"
 
+# As cores dos gráficos saem da paleta da marca, e não de uma paleta de dados
+# genérica: na Capital, os verdes da marca, cinzas e grafite, e nunca o
+# dourado, que é cor de destaque do documento e não de série. No Private, o
+# turquesa escuro e os cinzas. A ordem alterna escuro e claro, para duas fatias
+# vizinhas nunca se confundirem.
+CHART_CAPITAL = ['#023620', '#8FBFA3', '#5E6A64', '#3F7D5C', '#C3CBC6', '#7E8A84', '#1C2621', '#D6E8DD']
+
 THEMES = {
     "consultoria": dict(
         nome="Consultoria", nome_full="AUVP Capital · Consultoria", rotulo="Consultoria",
@@ -29,7 +36,7 @@ THEMES = {
         logo=LOGO_CAPITAL, logo_ratio=1044.44/274.67, marca="AUVP Capital",
         accent="#EFBF4F", ph="rgba(239,191,79,.24)", ph_dk="rgba(239,191,79,.26)",
         warn_bg="rgba(239,191,79,.18)", warn_fg="#8A6A12", warn_bd="rgba(239,191,79,.5)",
-        chart=['#0F8A51', '#8C47D1', '#F6A823', '#0DA2E7', '#E23670', '#E64D19', '#669E2E', '#3E5074'],
+        chart=CHART_CAPITAL,
         cadencia="trimestral",
     ),
     "alta-renda": dict(
@@ -38,7 +45,7 @@ THEMES = {
         logo=LOGO_CAPITAL, logo_ratio=1044.44/274.67, marca="AUVP Capital",
         accent="#EFBF4F", ph="rgba(239,191,79,.24)", ph_dk="rgba(239,191,79,.26)",
         warn_bg="rgba(239,191,79,.18)", warn_fg="#8A6A12", warn_bd="rgba(239,191,79,.5)",
-        chart=['#0F8A51', '#8C47D1', '#F6A823', '#0DA2E7', '#E23670', '#E64D19', '#669E2E', '#3E5074'],
+        chart=CHART_CAPITAL,
         cadencia="trimestral",
     ),
     "private": dict(
@@ -53,7 +60,7 @@ THEMES = {
         accent="#0F6470", accent_dk="#FFFFFF",
         ph="rgba(140,147,154,.26)", ph_dk="rgba(255,255,255,.24)",
         warn_bg="rgba(90,97,104,.14)", warn_fg="#4A5257", warn_bd="rgba(90,97,104,.34)",
-        chart=['#3E5074', '#0F8A51', '#0DA2E7', '#F6A823', '#8C47D1', '#E23670', '#E64D19', '#669E2E'],
+        chart=['#0F6470', '#666666', '#7FB3BA', '#2E3236', '#B5BBC0', '#4E555B', '#3F8C96', '#D7DBDE'],
         cadencia="mensal",
     ),
     "assessoria": dict(
@@ -62,7 +69,7 @@ THEMES = {
         logo=LOGO_CAPITAL, logo_ratio=1044.44/274.67, marca="AUVP Capital",
         accent="#EFBF4F", ph="rgba(239,191,79,.24)", ph_dk="rgba(239,191,79,.26)",
         warn_bg="rgba(239,191,79,.18)", warn_fg="#8A6A12", warn_bd="rgba(239,191,79,.5)",
-        chart=['#0F8A51', '#8C47D1', '#F6A823', '#0DA2E7', '#E23670', '#E64D19', '#669E2E', '#3E5074'],
+        chart=["#005F45"] + CHART_CAPITAL[1:],
         cadencia="semestral",
     ),
 }
@@ -99,8 +106,8 @@ def tokens(t):
   %(chart_vars)s
   --ink:%(ink)s; --ink-2:%(ink2)s; --line:%(line)s; --soft:%(soft)s;
   --paper:#FFFFFF; --pos:#1F7A4C; --neg:#B3402F;
-  --g-pos:#047B4A; --g-neg:#DC2828; --g-neu:#F1EDE4;
-  --g-seq-1:#E2F3E9; --g-seq-2:#ABE3C7; --g-seq-3:#5CD69D; --g-seq-4:#19B370; --g-seq-5:#023620;
+  --g-pos:#1F7A4C; --g-neg:#B3402F; --g-neu:#F1EDE4;
+  --g-seq-1:#E6EEE9; --g-seq-2:#B9CFC2; --g-seq-3:#7FA690; --g-seq-4:#3F7D5C; --g-seq-5:#023620;
 }""" % dict(t, accent_dk=t.get("accent_dk", t["accent"]), chart_vars=" ".join(
         "--c%d:%s;" % (i, c) for i, c in enumerate(t["chart"], start=1)))
 
@@ -643,9 +650,8 @@ CSS_A4 += """
 /* ---------- gráfico desenhado a partir do dado ----------
    Entra no lugar da moldura vazia quando o consultor preenche a tabelinha na
    ferramenta. É SVG: sai vetor no PDF, na tipografia da casa e nas cores do
-   segmento — `--c1`..`--c8`, as mesmas da legenda: a paleta categórica do
-   design system (produtosauvp.github.io/central), em que a primeira cor é a da
-   marca e as demais foram escolhidas para máximo contraste de matiz. Variação
+   segmento — `--c1`..`--c8`, as mesmas da legenda: tons da própria marca
+   (`chart` em THEMES), que se alternam entre escuro e claro. Variação
    com sinal usa a divergente (`--g-pos`, `--g-neg`) e intensidade a sequencial
    (`--g-seq-1`..`--g-seq-5`). São tokens só dos gráficos: o resto do documento
    segue as cores do segmento. */
@@ -659,7 +665,10 @@ CSS_A4 += """
 .g-area{fill:var(--c1);opacity:.10}
 .g-ponto{fill:var(--paper);stroke:var(--c1);stroke-width:2}
 .g-nota{font-size:7pt;color:var(--ink-2);text-align:center}
+.g-rotulo{fill:var(--ink);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.g-ano{opacity:.7}
 .slide.dark .g-eixo,.slide.dark .g-mini{fill:rgba(255,255,255,.75)}
+.slide.dark .g-rotulo{fill:#fff}
 .slide.dark .g-guia{stroke:rgba(255,255,255,.22)}
 
 
@@ -691,9 +700,8 @@ CSS_SLIDE += """
 /* ---------- gráfico desenhado a partir do dado ----------
    Entra no lugar da moldura vazia quando o consultor preenche a tabelinha na
    ferramenta. É SVG: sai vetor no PDF, na tipografia da casa e nas cores do
-   segmento — `--c1`..`--c8`, as mesmas da legenda: a paleta categórica do
-   design system (produtosauvp.github.io/central), em que a primeira cor é a da
-   marca e as demais foram escolhidas para máximo contraste de matiz. Variação
+   segmento — `--c1`..`--c8`, as mesmas da legenda: tons da própria marca
+   (`chart` em THEMES), que se alternam entre escuro e claro. Variação
    com sinal usa a divergente (`--g-pos`, `--g-neg`) e intensidade a sequencial
    (`--g-seq-1`..`--g-seq-5`). São tokens só dos gráficos: o resto do documento
    segue as cores do segmento. */
@@ -707,7 +715,10 @@ CSS_SLIDE += """
 .g-area{fill:var(--c1);opacity:.10}
 .g-ponto{fill:var(--paper);stroke:var(--c1);stroke-width:2}
 .g-nota{font-size:7pt;color:var(--ink-2);text-align:center}
+.g-rotulo{fill:var(--ink);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.g-ano{opacity:.7}
 .slide.dark .g-eixo,.slide.dark .g-mini{fill:rgba(255,255,255,.75)}
+.slide.dark .g-rotulo{fill:#fff}
 .slide.dark .g-guia{stroke:rgba(255,255,255,.22)}
 
 
@@ -952,7 +963,7 @@ CSS_A4 += """
 .rr{width:100mm;height:auto;overflow:visible}
 .rr line,.rr polyline{fill:none;stroke:var(--ink-2);stroke-width:1px;vector-effect:non-scaling-stroke}
 .rr .ax{stroke:var(--ink)}
-.rr .rt{stroke:var(--accent);stroke-width:1.33px}
+.rr .rt{stroke:var(--c1);stroke-width:1.33px}
 .rr text{font-size:8px;fill:var(--ink-2);letter-spacing:.08em;text-transform:uppercase}
 ol.numerada{margin:0 0 3mm;padding-left:5mm}
 ol.numerada li{margin-bottom:2mm}
