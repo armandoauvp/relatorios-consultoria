@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Apresentação livre — AUVP Private Banking</title>
+<title>Apresentação livre: AUVP Private Banking</title>
 <style>
 :root{
   --brand:#666666; --accent:#0F6470; --accent-dk:#FFFFFF;
@@ -37,6 +37,10 @@ a{color:inherit;text-decoration:none}
 p{margin:0 0 3mm}
 ul{margin:0 0 3mm;padding-left:4mm}
 li{margin:0 0 1mm}
+/* Texto corrido justificado, em todos os documentos. A hifenização fecha os
+   vãos que a justificação abre em coluna estreita. Quem precisa de outro
+   alinhamento declara o seu, e a classe vence o elemento. */
+p,li{text-align:justify;hyphens:auto;-webkit-hyphens:auto}
 strong{font-weight:700}
 .ph{background:var(--ph);border-radius:.6mm;padding:0 1mm;font-weight:600;overflow-wrap:break-word;text-transform:none;letter-spacing:0;font-size:.94em}
 /* O campo que já vem preenchido não é lacuna: lê-se como o texto que é, e o

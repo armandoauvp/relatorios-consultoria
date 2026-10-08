@@ -620,6 +620,7 @@ function campoImagemSimples(id) {
       <div class="acoes">
         <label class="btn neutro pequeno">${dado ? 'Trocar' : 'Enviar imagem'}
           <input type="file" accept="image/*" data-arquivo="${escapa(id)}"></label>
+        <button type="button" class="btn neutro pequeno" data-colar="${escapa(id)}">Colar imagem</button>
         ${dado ? `<button type="button" class="btn neutro pequeno" data-tirar="${escapa(id)}">Remover</button>` : ''}
       </div>
     </div>
@@ -1141,6 +1142,7 @@ function campoGrafico(im) {
       <button type="button" class="btn neutro pequeno" data-mais="${escapa(im.id)}">Mais uma linha</button>
       <label class="btn neutro pequeno">${dado ? 'Trocar imagem' : 'Enviar imagem'}
         <input type="file" accept="image/*" data-arquivo="${escapa(im.id)}"></label>
+      <button type="button" class="btn neutro pequeno" data-colar="${escapa(im.id)}">Colar imagem</button>
       ${dado ? `<button type="button" class="btn neutro pequeno" data-tirar="${escapa(im.id)}">Remover imagem</button>` : ''}
     </div>
   </div>`;
@@ -1157,6 +1159,7 @@ function campoImagem(im) {
       <div class="acoes">
         <label class="btn neutro pequeno">${dado ? 'Trocar' : 'Enviar imagem'}
           <input type="file" accept="image/*" data-arquivo="${escapa(im.id)}"></label>
+        <button type="button" class="btn neutro pequeno" data-colar="${escapa(im.id)}">Colar imagem</button>
         ${dado ? `<button type="button" class="btn neutro pequeno" data-tirar="${escapa(im.id)}">Remover</button>` : ''}
       </div>
     </div>
@@ -1253,6 +1256,9 @@ function montar(modo) {
   renumerar(doc);
   // Antes de preencher: a linha acrescentada traz campos novos para preencher.
   aplicarLinhas(doc);
+  // Uma escolha pode tirar uma página inteira, e aí a contagem muda.
+  escolherTextos(doc);
+  renumerar(doc);
 
   const esvaziados = new Set();
   for (const span of doc.querySelectorAll('span.ph')) {
@@ -1278,14 +1284,38 @@ function montar(modo) {
         // sobrou está vazio.
         // A célula de tabela fica: tirá-la desalinharia a linha. Linha e
         // coluna que ficaram inteiras em branco saem mais abaixo, juntas.
-        const item = span.closest('.pill, .tags > span, li, dd, dt, p');
+        // O título também: numa análise que o mês não pediu, o <h1> e os <h2>
+        // ficavam como fios soltos no meio da página.
+        const item = span.closest('.pill, .tags > span, li, dd, dt, p, h1, h2, h3, h4');
         if (item && !item.closest('td, th')) esvaziados.add(item);
+        const antes = span.previousSibling;
+        const depois = span.nextSibling;
         span.remove();
+        costurar(antes, depois);
       }
       continue;
     }
     span.textContent = v;
     span.classList.add('feito');
+    // Linha em branco no texto é parágrafo novo. Só no campo que é o parágrafo
+    // inteiro: é o caso das análises, em que um bloco tem dois ou três
+    // parágrafos. Na prévia o campo continua um só, para editar no lugar, e a
+    // quebra só aparece como quebra.
+    const par = span.parentElement;
+    if (/\n\s*\n/.test(v) && par?.tagName === 'P' && par.childNodes.length === 1) {
+      if (modo === 'previa') span.style.whiteSpace = 'pre-line';
+      else {
+        const partes = v.split(/\n\s*\n/).map((x) => x.trim()).filter(Boolean);
+        span.textContent = partes[0];
+        let antes = par;
+        for (const parte of partes.slice(1)) {
+          const novo = par.cloneNode(true);
+          novo.querySelector('.ph').textContent = parte;
+          antes.after(novo);
+          antes = novo;
+        }
+      }
+    }
     // Campo de contato vira link: o Chromium leva a âncora para o PDF, e no
     // HTML exportado ela é um endereço que se clica. Sem isto o e-mail do
     // consultor sai como texto morto num documento que o cliente lê na tela.
@@ -1370,6 +1400,9 @@ function montar(modo) {
   const estilo = doc.createElement('style');
   estilo.textContent = '.imgcheia{overflow:hidden;display:flex}'
     + '.imgcheia img{width:100%;height:100%;object-fit:cover;display:block}'
+    // O campo preenchido num título é título: sai na caixa e no espaçamento
+    // dele. É o caso das análises do macro, de título livre.
+    + ':is(h1,h2,h3,.cv-sub) .ph.feito{text-transform:inherit;letter-spacing:inherit}'
     + (modo === 'previa'
       ? '.ph.feito{background:hsl(155 93% 11% / .10);color:inherit}'
         // Na prévia a folha longa acompanha o conteúdo sozinha, sem número
@@ -1453,12 +1486,67 @@ function ajustarGraficos(doc) {
   }
 }
 
+/** O texto que depende de uma escolha. O modelo traz as versões lado a lado,
+ *  cada uma marcada com o campo e o valor a que pertence (`data-se-campo`,
+ *  `data-se-valor`), e fica só a que corresponde ao que foi escolhido: o
+ *  perfil Moderado leva a descrição do Moderado, a carteira concentrada leva o
+ *  texto da concentrada. Com o campo ainda em branco ficam todas, e o aviso
+ *  de exportação já diz que ele falta. */
+function escolherTextos(doc) {
+  const norma = (x) => (x || '').normalize('NFD').replace(/\p{M}/gu, '').trim().toLowerCase();
+  doc.querySelectorAll('[data-se-campo]').forEach((el) => {
+    const v = estado.valores[el.dataset.seCampo];
+    if (v && v.trim() && norma(v) !== norma(el.dataset.seValor)) el.remove();
+  });
+}
+
+/** Fecha a frase onde saiu um campo em branco.
+ *
+ *  O diagnóstico tem trechos opcionais no meio do parágrafo, como no relatório
+ *  antigo: "abaixo do alvo [e pelo redirecionamento...], sem necessidade de
+ *  vender". Sem o trecho, sobrava "alvo , sem", e o que abria a frase deixava
+ *  ". , recomendamos". Aqui sai o espaço antes da pontuação, a vírgula que
+ *  ficou sem nada antes dela, e a frase volta a começar com maiúscula. */
+function costurar(antes, depois) {
+  const txt = (n) => n && n.nodeType === 3;
+  if (txt(depois) && /^\s*,/.test(depois.data)
+      && (!antes || (txt(antes) && /(^|[.!?:])\s*$/.test(antes.data)))) {
+    depois.data = depois.data.replace(/^\s*,\s*/, '').replace(/^\p{Ll}/u, (c) => c.toUpperCase());
+    if (txt(antes) && antes.data.trim()) antes.data = antes.data.replace(/\s*$/, ' ');
+    return;
+  }
+  if (!txt(antes) || !/\s$/.test(antes.data)) return;
+  if (!depois) {
+    antes.data = antes.data.replace(/,?\s+$/, '');            // "Nome, " no fim da linha
+  } else if (txt(depois) && /^\s*[,.;:)]/.test(depois.data)) {
+    antes.data = antes.data.replace(/\s+$/, '');
+    depois.data = depois.data.replace(/^\s+/, '');
+  }
+}
+
 /** Renumera o rodapé na ordem em que as páginas ficaram. */
 function renumerar(doc) {
   [...doc.querySelectorAll('.page, .slide')].forEach((pg, i) => {
     const no = pg.querySelector('.pg-foot .no');
     if (no) no.textContent = String(i + 1).padStart(2, '0');
   });
+  sumario(doc);
+}
+
+/** O sumário que se escreve sozinho: cada título marcado com `data-toc` vira
+ *  uma linha, com a página em que ele caiu depois de repaginar. Título em
+ *  branco não entra, e seção de página tirada some junto com ela. Só vale
+ *  para o sumário marcado com `data-auto`: o dos outros documentos é fixo. */
+function sumario(doc) {
+  const listas = doc.querySelectorAll('ol.toc[data-auto]');
+  if (!listas.length) return;
+  const itens = [...doc.querySelectorAll('h1[data-toc]')]
+    .map((h) => ({ t: h.textContent.trim(),
+                   p: h.closest('.page')?.querySelector('.pg-foot .no')?.textContent || '' }))
+    .filter((x) => x.t);
+  const html = itens.map((x, i) => `<li><span class="n">${String(i + 1).padStart(2, '0')}</span>`
+    + `<span>${escapa(x.t)}</span><span class="d"></span><span class="p">${escapa(x.p)}</span></li>`).join('');
+  listas.forEach((ol) => { ol.innerHTML = html; });
 }
 
 /** Quebra em duas a página que não coube, e repete até caber.
@@ -1529,9 +1617,16 @@ function repaginar(doc) {
     // A continuação diz que é continuação: quem lê o documento impresso vê duas
     // páginas com o mesmo título no cabeçalho e precisa saber que é a mesma
     // seção, e não um assunto repetido.
+    // Num documento de texto corrido, como o macro, a seção muda no meio da
+    // página: o título marcado com `data-rotulo` diz o nome do cabeçalho dali
+    // em diante. A página que abre com um desses títulos leva o nome dele; a
+    // que continua uma seção leva o nome da última que começou antes.
     const sec = nova.querySelector('.pg-head .sec');
-    if (sec && !/, continuação$/.test(sec.textContent)) {
-      sec.textContent = `${sec.textContent}, continuação`;
+    if (sec) {
+      const abre = novoCorpo.firstElementChild?.dataset?.rotulo;
+      const ultimo = [...corpo.querySelectorAll('[data-rotulo]')].pop()?.dataset.rotulo;
+      const base = (ultimo || sec.textContent).replace(/, continuação$/, '');
+      sec.textContent = abre || `${base}, continuação`;
     }
     pg.after(nova);
     fila.unshift(nova);   // a continuação também pode não caber
@@ -1824,7 +1919,7 @@ function ajustarQuadro() {
   // encolhê-la até caber na janela deixaria o texto com um pixel e meio. Nela a
   // escala sai só da largura, e a prévia rola, como o documento rola na tela de
   // quem recebe.
-  const rolar = a / l > 2;
+  const rolar = a / l > 2 || $('.oficina').classList.contains('so-previa');
   const escala = rolar
     ? Math.min(1, (palco.clientWidth - 40) / l)
     : Math.min(1, (palco.clientWidth - 40) / l, alturaLivre / a);
@@ -1983,6 +2078,10 @@ function carregarDados(arquivo) {
     estado.graficos = d.graficos || {};
     estado.imagens = d.imagens || {};
     estado.linhas = d.linhas || {};
+    // As páginas tiradas e as montadas, quando o rascunho as traz. O rascunho
+    // antigo não trazia, e aí o documento abre com todas as páginas.
+    estado.fora = new Set(d.fora || []);
+    if (Array.isArray(d.paginas)) estado.paginas = d.paginas;
     salvar();
     salvarImagens();
     telaPreencher();
@@ -2156,6 +2255,26 @@ function ligar() {
     if (!texto) return;
     texto.value = textoDaData(e.target.type, e.target.value);
     anotar(texto, texto.value);
+  });
+
+  // Colar a imagem copiada: o consultor copia o gráfico da planilha e cola
+  // aqui, sem salvar arquivo. O navegador pede licença para ler a área de
+  // transferência na primeira vez.
+  form.addEventListener('click', async (e) => {
+    const id = e.target.dataset.colar;
+    if (!id) return;
+    try {
+      const itens = await navigator.clipboard.read();
+      const par = itens.flatMap((it) => it.types.map((t) => [it, t]))
+        .find(([, t]) => t.startsWith('image/'));
+      if (!par) { alert('Não há imagem copiada. Copie o gráfico e clique de novo.'); return; }
+      const blob = await par[0].getType(par[1]);
+      const leitor = new FileReader();
+      leitor.onload = () => { estado.imagens[id] = leitor.result; salvarImagens(); telaPreencher(); };
+      leitor.readAsDataURL(blob);
+    } catch (err) {
+      alert('O navegador não deixou ler a imagem copiada. Use "Enviar imagem".');
+    }
   });
 
   form.addEventListener('change', (e) => {
@@ -2340,7 +2459,7 @@ function ligar() {
   $('#baixar-dados').onclick = () => baixar(JSON.stringify({
     documento: estado.documento.chave, variante: estado.variante.sufixo,
     valores: estado.valores, graficos: estado.graficos, imagens: estado.imagens,
-    linhas: estado.linhas,
+    linhas: estado.linhas, fora: [...estado.fora], paginas: estado.paginas,
   }, null, 1), nomeArquivo('json'), 'application/json');
   $('#carregar-dados').onclick = () => $('#arquivo-dados').click();
   $('#arquivo-dados').onchange = (e) => e.target.files[0] && carregarDados(e.target.files[0]);
@@ -2351,6 +2470,20 @@ function ligar() {
     telaProduto();
     mostrar('produto');
   };
+
+  // Ocultar os campos: a prévia ocupa a largura toda e se edita direto,
+  // clicando no texto. A escolha fica guardada neste navegador.
+  const oficina = $('.oficina');
+  const alternar = $('#alternar-campos');
+  const soPrevia = (sim) => {
+    oficina.classList.toggle('so-previa', sim);
+    alternar.textContent = sim ? 'Mostrar campos' : 'Ocultar campos';
+    alternar.setAttribute('aria-pressed', String(sim));
+    try { localStorage.setItem('auvp-so-previa', sim ? '1' : '0'); } catch (e) { /* sem memória */ }
+    if (estado.tela === 'preencher') ajustarQuadro();
+  };
+  alternar.onclick = () => soPrevia(!oficina.classList.contains('so-previa'));
+  try { if (localStorage.getItem('auvp-so-previa') === '1') soPrevia(true); } catch (e) { /* idem */ }
 
   let redimensiona = null;
   window.addEventListener('resize', () => {

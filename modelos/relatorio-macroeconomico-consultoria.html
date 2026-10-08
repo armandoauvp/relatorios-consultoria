@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Relatório Macroeconômico — AUVP Capital · Consultoria</title>
+<title>Relatório Macroeconômico: AUVP Capital · Consultoria</title>
 <style>
 :root{
   --brand:#023620; --accent:#EFBF4F; --accent-dk:#EFBF4F;
@@ -37,6 +37,10 @@ a{color:inherit;text-decoration:none}
 p{margin:0 0 3mm}
 ul{margin:0 0 3mm;padding-left:4mm}
 li{margin:0 0 1mm}
+/* Texto corrido justificado, em todos os documentos. A hifenização fecha os
+   vãos que a justificação abre em coluna estreita. Quem precisa de outro
+   alinhamento declara o seu, e a classe vence o elemento. */
+p,li{text-align:justify;hyphens:auto;-webkit-hyphens:auto}
 strong{font-weight:700}
 .ph{background:var(--ph);border-radius:.6mm;padding:0 1mm;font-weight:600;overflow-wrap:break-word;text-transform:none;letter-spacing:0;font-size:.94em}
 /* O campo que já vem preenchido não é lacuna: lê-se como o texto que é, e o
@@ -440,6 +444,65 @@ table.tb{width:100%;border-collapse:collapse;font-size:8.2pt}
 .page.dark .note{background:rgba(255,255,255,.06);border-left-color:rgba(255,255,255,.4)}
 
 
+/* ---------- diagnóstico ----------
+   O gráfico de risco e retorno do relatório antigo, em fio; a lista numerada
+   da metodologia; e a assinatura do consultor, que fecha o documento. */
+.rr-box{display:flex;justify-content:center;margin:1mm 0 5mm}
+.rr{width:100mm;height:auto;overflow:visible}
+.rr line,.rr polyline{fill:none;stroke:var(--ink-2);stroke-width:1px;vector-effect:non-scaling-stroke}
+.rr .ax{stroke:var(--ink)}
+.rr .rt{stroke:var(--accent);stroke-width:1.33px}
+.rr text{font-size:8px;fill:var(--ink-2);letter-spacing:.08em;text-transform:uppercase}
+ol.numerada{margin:0 0 3mm;padding-left:5mm}
+ol.numerada li{margin-bottom:2mm}
+.rr .guia{stroke:var(--line);stroke-dasharray:3 3}
+.rr .rt{fill:none}
+/* a caixa em que o consultor escreve o que viu em cada classe */
+.consideracoes{border:1px solid var(--line);border-left:1.33px solid var(--accent);padding:3mm 4mm;
+  min-height:22mm;font-size:9pt}
+.consideracoes p:last-child{margin-bottom:0}
+.assinatura{margin-top:auto;padding-top:8mm;width:72mm;display:flex;flex-direction:column;gap:2mm}
+.assinatura .imgbox{width:100%}
+.assinatura .ln{border-top:1px solid var(--ink);padding-top:1.5mm;font-size:8pt}
+/* As listas do relatório de proposta, com os marcadores dele: 1), a), i). */
+ol.pontos,ol.alfa,ol.romano{list-style:none;margin:0 0 3mm;padding-left:7mm}
+ol.pontos{counter-reset:pt}ol.alfa{counter-reset:al}ol.romano{counter-reset:ro;margin:1.5mm 0 0}
+ol.pontos>li,ol.alfa>li,ol.romano>li{position:relative;margin-bottom:2mm}
+ol.pontos>li::before{counter-increment:pt;content:counter(pt) ")"}
+ol.alfa>li::before{counter-increment:al;content:counter(al,lower-alpha) ")"}
+ol.romano>li::before{counter-increment:ro;content:counter(ro,lower-roman) ")"}
+ol.pontos>li::before,ol.alfa>li::before,ol.romano>li::before{position:absolute;left:-7mm;
+  color:var(--brand);font-weight:700}
+.apos-tab{margin-top:4mm}
+.apos-lista{margin-top:3mm}
+.item-tab{margin:4mm 0 2mm;font-weight:700}
+.item-tab.topo,h3.topo{margin-top:0}
+h3.cenario{margin-top:0;color:var(--brand);letter-spacing:.06em}
+/* o título que, no relatório antigo, vinha dentro da imagem do gráfico */
+.tit-graf{text-align:center;font-weight:700;font-size:8.6pt;margin:0 0 2mm}
+.graf-bloco{display:flex;flex-direction:column}
+.par-graf{flex:0 0 auto;align-items:stretch;margin:5mm 0}
+.meta-lado .cab{background:var(--brand);color:#fff;text-align:center;font-size:6.6pt;font-weight:600;
+  letter-spacing:.08em;text-transform:uppercase;padding:2mm;margin-bottom:2mm}
+.meta-lado>div{display:flex;flex-direction:column}
+.fig-fixa{margin:2mm 0 0}
+.fig-fixa img{display:block;width:100%;height:auto}
+.fonte{text-align:center;font-size:7.4pt;color:var(--ink-2);margin:1.5mm 0 4mm}
+/* campo que decide o que fica no documento, e que não se imprime */
+.so-campo{display:none}
+.disclaimer{margin-top:auto;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  padding:3mm 0 1mm}
+.disclaimer p{font-size:7pt;line-height:1.5;color:var(--ink-2);margin-bottom:2mm}
+.disclaimer .dt{font-weight:700;color:var(--ink);letter-spacing:.06em;text-transform:uppercase}
+/* a assinatura que fecha o relatório: a foto, o nome e a marca */
+.assina{margin-top:auto;align-self:flex-end;display:flex;align-items:center;gap:4mm;padding-top:8mm}
+.assina-foto{width:17mm;height:17mm;border-radius:50%;flex:0 0 auto;padding:0}
+.assina-foto .cl{font-size:5.6pt}
+.assina-id{display:flex;flex-direction:column;align-items:flex-start;gap:2mm}
+.assina-id .nm{font-size:9pt;font-weight:700}
+.rr.ra text{text-transform:none;letter-spacing:0;font-size:8.5px}
+.rr .seta line,.rr .seta polyline{stroke:var(--ink)}
+
 /* o mesmo painel dos slides, na escala do A4 */
 .painel{background:var(--soft);border-top:1.33px solid var(--brand);padding:4mm 5mm}
 .painel>:last-child{margin-bottom:0}
@@ -536,7 +599,7 @@ table.tb{width:100%;border-collapse:collapse;font-size:8.2pt}
   <div class="rule r1"></div>
   <div class="rule r2"></div>
   <div class="cv-b-t"><span style="font-weight:300">Cenário </span><span style="font-weight:800">e&nbsp;Mercados</span></div>
-  <div class="cv-id"><div>Consultoria</div><div>Elaborado por <span class="ph" data-campo="nome_analista">{{nome_analista}}</span></div><div><span class="ph" data-campo="registro_analista">{{registro_analista}}</span></div><div><span class="ph" data-campo="mes_referencia">{{mes_referencia}}</span></div></div>
+  <div class="cv-id"><div>Consultoria</div><div>Elaborado por Douglas&nbsp;Ribeiro</div><div><span class="ph" data-campo="registro_analista">{{registro_analista}}</span></div><div><span class="ph" data-campo="mes_referencia">{{mes_referencia}}</span></div></div>
 </section>
 <section class="page">
   
@@ -581,27 +644,20 @@ table.tb{width:100%;border-collapse:collapse;font-size:8.2pt}
 </svg></div></div>
   </header>
   <div class="pg-body">
-<h1 class="t">Resumo&nbsp;executivo</h1>
-<p class="lead"><span class="ph" data-campo="tese_central" title="A leitura do mês em 2-3 frases">{{tese_central}}</span></p>
-<h2>Os cinco fatos do&nbsp;mês</h2>
-<ol class="tl">
-  <li><h4><span class="ph" data-campo="fato_1_titulo">{{fato_1_titulo}}</span></h4><p><span class="ph" data-campo="fato_1_detalhe">{{fato_1_detalhe}}</span></p></li>
-  <li><h4><span class="ph" data-campo="fato_2_titulo">{{fato_2_titulo}}</span></h4><p><span class="ph" data-campo="fato_2_detalhe">{{fato_2_detalhe}}</span></p></li>
-  <li><h4><span class="ph" data-campo="fato_3_titulo">{{fato_3_titulo}}</span></h4><p><span class="ph" data-campo="fato_3_detalhe">{{fato_3_detalhe}}</span></p></li>
-  <li><h4><span class="ph" data-campo="fato_4_titulo">{{fato_4_titulo}}</span></h4><p><span class="ph" data-campo="fato_4_detalhe">{{fato_4_detalhe}}</span></p></li>
-  <li><h4><span class="ph" data-campo="fato_5_titulo">{{fato_5_titulo}}</span></h4><p><span class="ph" data-campo="fato_5_detalhe">{{fato_5_detalhe}}</span></p></li>
-</ol>
-<h2>Onde mudamos de&nbsp;opinião</h2>
-<div class="note"><p><span class="ph" data-campo="mudanca_de_visao">{{mudanca_de_visao}}</span></p></div>
+<span class="eyebrow">Relatório macro&nbsp;mensal</span>
+<h1 class="t"><span class="ph" data-campo="titulo_do_mes" title="A frase que resume o mês">{{titulo_do_mes}}</span></h1>
+<p class="lead">Análise estratégica de cenário macroeconômico, fluxo de capital, geopolítica e
+posicionamento de portfólio para investidores da Consultoria&nbsp;AUVP.</p>
+<p class="small"><span class="ph" data-campo="resumo_executivo" title="O mês em um parágrafo">{{resumo_executivo}}</span></p>
 <h2>Neste&nbsp;relatório</h2>
-<ol class="toc"><li><span class="n">01</span><span>Cenário&nbsp;internacional</span><span class="d"></span><span class="p">03</span></li><li><span class="n">02</span><span>Indicadores&nbsp;globais</span><span class="d"></span><span class="p">04</span></li><li><span class="n">03</span><span>Brasil: atividade e&nbsp;inflação</span><span class="d"></span><span class="p">05</span></li><li><span class="n">04</span><span>Brasil: juros, fiscal e&nbsp;câmbio</span><span class="d"></span><span class="p">06</span></li><li><span class="n">05</span><span>Mercados no&nbsp;período</span><span class="d"></span><span class="p">07</span></li><li><span class="n">06</span><span>Projeções</span><span class="d"></span><span class="p">08</span></li><li><span class="n">07</span><span>Implicações para a&nbsp;carteira</span><span class="d"></span><span class="p">09</span></li><li><span class="n">08</span><span>Agenda do próximo&nbsp;mês</span><span class="d"></span><span class="p">10</span></li><li><span class="n">09</span><span>Notas e&nbsp;avisos</span><span class="d"></span><span class="p">11</span></li></ol>
+<ol class="toc" data-auto=""><li><span class="n">01</span><span>Panorama&nbsp;macroeconômico</span><span class="d"></span><span class="p">02</span></li><li><span class="n">02</span><span>Principais&nbsp;destaques</span><span class="d"></span><span class="p">02</span></li><li><span class="n">03</span><span>Análise do mês:&nbsp;Brasil</span><span class="d"></span><span class="p">03</span></li><li><span class="n">04</span><span>Análise do&nbsp;mês</span><span class="d"></span><span class="p">03</span></li><li><span class="n">05</span><span>Análise do&nbsp;mês</span><span class="d"></span><span class="p">04</span></li><li><span class="n">06</span><span>Panorama&nbsp;global</span><span class="d"></span><span class="p">04</span></li><li><span class="n">07</span><span>Análise do&nbsp;mês</span><span class="d"></span><span class="p">05</span></li><li><span class="n">08</span><span>Como a carteira da AUVP está&nbsp;posicionada</span><span class="d"></span><span class="p">05</span></li><li><span class="n">09</span><span>Expectativa para classes de&nbsp;ativos</span><span class="d"></span><span class="p">06</span></li><li><span class="n">10</span><span>Fechamento do&nbsp;mês</span><span class="d"></span><span class="p">07</span></li><li><span class="n">11</span><span>Principais riscos e&nbsp;oportunidades</span><span class="d"></span><span class="p">07</span></li><li><span class="n">12</span><span>Perspectivas para o&nbsp;mês</span><span class="d"></span><span class="p">08</span></li><li><span class="n">13</span><span>Síntese executiva e posicionamento&nbsp;recomendado</span><span class="d"></span><span class="p">09</span></li><li><span class="n">14</span><span>Notas e&nbsp;avisos</span><span class="d"></span><span class="p">10</span></li></ol>
   </div>
   <footer class="pg-foot"><span class="no">01</span><span>DOCUMENTO CONFIDENCIAL. PROIBIDO O&nbsp;COMPARTILHAMENTO</span></footer>
 </section>
 <section class="page">
   
   <header class="pg-head">
-    <div class="sec">Internacional</div>
+    <div class="sec">Panorama</div>
     <div class="rt"><div class="dt"><span class="ph" data-campo="mes_referencia">{{mes_referencia}}</span></div><div class="logo logo-ink" style="width:17.5mm"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1044.44 274.67">
   <defs>
     <style>
@@ -641,21 +697,22 @@ table.tb{width:100%;border-collapse:collapse;font-size:8.2pt}
 </svg></div></div>
   </header>
   <div class="pg-body">
-<h1 class="t">Cenário&nbsp;internacional</h1>
-<p class="lead"><span class="ph" data-campo="resumo_internacional">{{resumo_internacional}}</span></p>
-<h2>Estados&nbsp;Unidos</h2>
-<p class="small"><span class="ph" data-campo="analise_eua">{{analise_eua}}</span></p>
-<h2>Europa</h2>
-<p class="small"><span class="ph" data-campo="analise_europa">{{analise_europa}}</span></p>
-<h2>China e&nbsp;Ásia</h2>
-<p class="small"><span class="ph" data-campo="analise_china">{{analise_china}}</span></p>
+<h1 class="t" data-toc="panorama">Panorama&nbsp;macroeconômico</h1>
+<p class="lead">Painel de indicadores, Brasil e EUA, fechamento de <span class="ph" data-campo="mes_fechamento" title="O mês analisado. Ex.: Agosto">{{mes_fechamento}}</span></p>
+<div class="kpis" style="--n:4"><div class="kpi"><div class="k"><span class="ph pronto" data-campo="painel_1_rotulo">Selic</span></div><div class="v"><span class="ph" data-campo="painel_1_valor">{{painel_1_valor}}</span></div><div class="s"><span class="ph" data-campo="painel_1_nota">{{painel_1_nota}}</span></div></div><div class="kpi"><div class="k"><span class="ph pronto" data-campo="painel_2_rotulo">Ibovespa</span></div><div class="v"><span class="ph" data-campo="painel_2_valor">{{painel_2_valor}}</span></div><div class="s"><span class="ph" data-campo="painel_2_nota">{{painel_2_nota}}</span></div></div><div class="kpi"><div class="k"><span class="ph pronto" data-campo="painel_3_rotulo">IPCA do&nbsp;mês</span></div><div class="v"><span class="ph" data-campo="painel_3_valor">{{painel_3_valor}}</span></div><div class="s"><span class="ph" data-campo="painel_3_nota">{{painel_3_nota}}</span></div></div><div class="kpi"><div class="k"><span class="ph pronto" data-campo="painel_4_rotulo">Dólar</span></div><div class="v"><span class="ph" data-campo="painel_4_valor">{{painel_4_valor}}</span></div><div class="s"><span class="ph" data-campo="painel_4_nota">{{painel_4_nota}}</span></div></div><div class="kpi"><div class="k"><span class="ph pronto" data-campo="painel_5_rotulo">Dívida&nbsp;bruta/PIB</span></div><div class="v"><span class="ph" data-campo="painel_5_valor">{{painel_5_valor}}</span></div><div class="s"><span class="ph" data-campo="painel_5_nota">{{painel_5_nota}}</span></div></div><div class="kpi"><div class="k"><span class="ph pronto" data-campo="painel_6_rotulo">Déficit nominal (12&nbsp;meses)</span></div><div class="v"><span class="ph" data-campo="painel_6_valor">{{painel_6_valor}}</span></div><div class="s"><span class="ph" data-campo="painel_6_nota">{{painel_6_nota}}</span></div></div><div class="kpi"><div class="k"><span class="ph pronto" data-campo="painel_7_rotulo">Dívida pública dos&nbsp;EUA</span></div><div class="v"><span class="ph" data-campo="painel_7_valor">{{painel_7_valor}}</span></div><div class="s"><span class="ph" data-campo="painel_7_nota">{{painel_7_nota}}</span></div></div><div class="kpi"><div class="k"><span class="ph pronto" data-campo="painel_8_rotulo">IMA-B&nbsp;(NTN-B)</span></div><div class="v"><span class="ph" data-campo="painel_8_valor">{{painel_8_valor}}</span></div><div class="s"><span class="ph" data-campo="painel_8_nota">{{painel_8_nota}}</span></div></div></div>
+<div class="gap"></div>
+<p class="legal">Fonte: <span class="ph" data-campo="fonte_painel" title="Ex.: BCB, IBGE, Tesouro Nacional, Bloomberg">{{fonte_painel}}</span></p>
+<div class="esp"></div>
+<h1 class="t" data-toc="destaques">Principais&nbsp;destaques</h1>
+<p class="lead">As cinco mensagens que <span class="ph" data-campo="mes_fechamento" title="O mês analisado. Ex.: Agosto">{{mes_fechamento}}</span> confirmou e que moldam <span class="ph" data-campo="mes_referencia">{{mes_referencia}}</span></p>
+<ol class="tl"><li><h4><span class="ph" data-campo="destaque_1_titulo">{{destaque_1_titulo}}</span></h4><p><span class="ph" data-campo="destaque_1_texto">{{destaque_1_texto}}</span></p></li><li><h4><span class="ph" data-campo="destaque_2_titulo">{{destaque_2_titulo}}</span></h4><p><span class="ph" data-campo="destaque_2_texto">{{destaque_2_texto}}</span></p></li><li><h4><span class="ph" data-campo="destaque_3_titulo">{{destaque_3_titulo}}</span></h4><p><span class="ph" data-campo="destaque_3_texto">{{destaque_3_texto}}</span></p></li><li><h4><span class="ph" data-campo="destaque_4_titulo">{{destaque_4_titulo}}</span></h4><p><span class="ph" data-campo="destaque_4_texto">{{destaque_4_texto}}</span></p></li><li><h4><span class="ph" data-campo="destaque_5_titulo">{{destaque_5_titulo}}</span></h4><p><span class="ph" data-campo="destaque_5_texto">{{destaque_5_texto}}</span></p></li></ol>
   </div>
   <footer class="pg-foot"><span class="no">02</span><span>DOCUMENTO CONFIDENCIAL. PROIBIDO O&nbsp;COMPARTILHAMENTO</span></footer>
 </section>
 <section class="page">
   
   <header class="pg-head">
-    <div class="sec">Internacional</div>
+    <div class="sec">Brasil</div>
     <div class="rt"><div class="dt"><span class="ph" data-campo="mes_referencia">{{mes_referencia}}</span></div><div class="logo logo-ink" style="width:17.5mm"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1044.44 274.67">
   <defs>
     <style>
@@ -695,11 +752,17 @@ table.tb{width:100%;border-collapse:collapse;font-size:8.2pt}
 </svg></div></div>
   </header>
   <div class="pg-body">
-<h1 class="t">Indicadores&nbsp;acompanhados</h1>
-<p class="lead">O que seguimos de perto lá fora, e como cada leitura se compara ao dado anterior e ao&nbsp;consenso.</p>
-<table class="tb"><thead><tr><th>Indicador</th><th class="num">Último&nbsp;dado</th><th class="num">Anterior</th><th class="num">Consenso</th><th>Leitura</th></tr></thead><tbody><tr><td>Fed&nbsp;funds</td><td class="num"><span class="ph" data-campo="gi_fed_atual">{{gi_fed_atual}}</span></td><td class="num"><span class="ph" data-campo="gi_fed_ant">{{gi_fed_ant}}</span></td><td class="num"><span class="ph" data-campo="gi_fed_cons">{{gi_fed_cons}}</span></td><td><span class="ph" data-campo="gi_fed_leitura">{{gi_fed_leitura}}</span></td></tr><tr><td>CPI EUA&nbsp;(a/a)</td><td class="num"><span class="ph" data-campo="gi_cpi_atual">{{gi_cpi_atual}}</span></td><td class="num"><span class="ph" data-campo="gi_cpi_ant">{{gi_cpi_ant}}</span></td><td class="num"><span class="ph" data-campo="gi_cpi_cons">{{gi_cpi_cons}}</span></td><td><span class="ph" data-campo="gi_cpi_leitura">{{gi_cpi_leitura}}</span></td></tr><tr><td>Payroll</td><td class="num"><span class="ph" data-campo="gi_payroll_atual">{{gi_payroll_atual}}</span></td><td class="num"><span class="ph" data-campo="gi_payroll_ant">{{gi_payroll_ant}}</span></td><td class="num"><span class="ph" data-campo="gi_payroll_cons">{{gi_payroll_cons}}</span></td><td><span class="ph" data-campo="gi_payroll_leitura">{{gi_payroll_leitura}}</span></td></tr><tr><td>Treasury 10&nbsp;anos</td><td class="num"><span class="ph" data-campo="gi_ust10_atual">{{gi_ust10_atual}}</span></td><td class="num"><span class="ph" data-campo="gi_ust10_ant">{{gi_ust10_ant}}</span></td><td class="num"><span class="ph" data-campo="gi_ust10_cons">{{gi_ust10_cons}}</span></td><td><span class="ph" data-campo="gi_ust10_leitura">{{gi_ust10_leitura}}</span></td></tr><tr><td>BCE &mdash; taxa de&nbsp;depósito</td><td class="num"><span class="ph" data-campo="gi_bce_atual">{{gi_bce_atual}}</span></td><td class="num"><span class="ph" data-campo="gi_bce_ant">{{gi_bce_ant}}</span></td><td class="num"><span class="ph" data-campo="gi_bce_cons">{{gi_bce_cons}}</span></td><td><span class="ph" data-campo="gi_bce_leitura">{{gi_bce_leitura}}</span></td></tr><tr><td>PIB China&nbsp;(a/a)</td><td class="num"><span class="ph" data-campo="gi_pibchina_atual">{{gi_pibchina_atual}}</span></td><td class="num"><span class="ph" data-campo="gi_pibchina_ant">{{gi_pibchina_ant}}</span></td><td class="num"><span class="ph" data-campo="gi_pibchina_cons">{{gi_pibchina_cons}}</span></td><td><span class="ph" data-campo="gi_pibchina_leitura">{{gi_pibchina_leitura}}</span></td></tr><tr><td>Petróleo&nbsp;Brent</td><td class="num"><span class="ph" data-campo="gi_brent_atual">{{gi_brent_atual}}</span></td><td class="num"><span class="ph" data-campo="gi_brent_ant">{{gi_brent_ant}}</span></td><td class="num"><span class="ph" data-campo="gi_brent_cons">{{gi_brent_cons}}</span></td><td><span class="ph" data-campo="gi_brent_leitura">{{gi_brent_leitura}}</span></td></tr><tr><td>Índice&nbsp;DXY</td><td class="num"><span class="ph" data-campo="gi_dxy_atual">{{gi_dxy_atual}}</span></td><td class="num"><span class="ph" data-campo="gi_dxy_ant">{{gi_dxy_ant}}</span></td><td class="num"><span class="ph" data-campo="gi_dxy_cons">{{gi_dxy_cons}}</span></td><td><span class="ph" data-campo="gi_dxy_leitura">{{gi_dxy_leitura}}</span></td></tr></tbody></table>
-<div class="gap"></div>
-<div class="chart" data-img="1" data-grafico="line" data-series="Treasury 10 anos (%)|DXY" data-pontos="Jan|Fev|Mar|Abr|Mai|Jun|Jul|Ago|Set|Out|Nov|Dez" style="flex:1 1 auto;min-height:40mm"><div class="sk-line"></div><div class="cl">Juros longos e&nbsp;dólar</div><div class="cd">Treasury de 10 anos e índice DXY nos últimos 12&nbsp;meses.</div><ul class="legend"><li><i style="background:var(--c1)"></i>Treasury 10 anos&nbsp;(%)</li><li><i style="background:var(--c2)"></i>DXY</li></ul></div>
+<h1 class="t" data-toc="analise_brasil_titulo" data-rotulo="Brasil"><span class="ph" data-campo="analise_brasil_titulo" title="Título da análise">{{analise_brasil_titulo}}</span></h1>
+<h2><span class="ph" data-campo="analise_brasil_1_subtitulo" title="Subtítulo, se houver">{{analise_brasil_1_subtitulo}}</span></h2>
+<p class="small"><span class="ph" data-campo="analise_brasil_1_texto">{{analise_brasil_1_texto}}</span></p>
+<h2><span class="ph" data-campo="analise_brasil_2_subtitulo" title="Subtítulo, se houver">{{analise_brasil_2_subtitulo}}</span></h2>
+<p class="small"><span class="ph" data-campo="analise_brasil_2_texto">{{analise_brasil_2_texto}}</span></p>
+<div class="esp"></div>
+<h1 class="t" data-toc="analise_tema1_titulo"><span class="ph" data-campo="analise_tema1_titulo" title="Título da análise">{{analise_tema1_titulo}}</span></h1>
+<p class="lead"><span class="ph" data-campo="analise_tema1_lead" title="Uma linha de abertura">{{analise_tema1_lead}}</span></p>
+<h2><span class="ph" data-campo="analise_tema1_1_subtitulo" title="Subtítulo, se houver">{{analise_tema1_1_subtitulo}}</span></h2>
+<p class="small"><span class="ph" data-campo="analise_tema1_1_texto">{{analise_tema1_1_texto}}</span></p>
+<table class="tb sm"><caption><span class="ph" data-campo="analise_tema1_fonte" title="Fonte da tabela">{{analise_tema1_fonte}}</span></caption><thead><tr><th><span class="ph" data-campo="analise_tema1_col_1">{{analise_tema1_col_1}}</span></th><th><span class="ph" data-campo="analise_tema1_col_2">{{analise_tema1_col_2}}</span></th><th><span class="ph" data-campo="analise_tema1_col_3">{{analise_tema1_col_3}}</span></th><th><span class="ph" data-campo="analise_tema1_col_4">{{analise_tema1_col_4}}</span></th></tr></thead><tbody><tr><td><span class="ph" data-campo="analise_tema1_1_1">{{analise_tema1_1_1}}</span></td><td><span class="ph" data-campo="analise_tema1_1_2">{{analise_tema1_1_2}}</span></td><td><span class="ph" data-campo="analise_tema1_1_3">{{analise_tema1_1_3}}</span></td><td><span class="ph" data-campo="analise_tema1_1_4">{{analise_tema1_1_4}}</span></td></tr><tr><td><span class="ph" data-campo="analise_tema1_2_1">{{analise_tema1_2_1}}</span></td><td><span class="ph" data-campo="analise_tema1_2_2">{{analise_tema1_2_2}}</span></td><td><span class="ph" data-campo="analise_tema1_2_3">{{analise_tema1_2_3}}</span></td><td><span class="ph" data-campo="analise_tema1_2_4">{{analise_tema1_2_4}}</span></td></tr><tr><td><span class="ph" data-campo="analise_tema1_3_1">{{analise_tema1_3_1}}</span></td><td><span class="ph" data-campo="analise_tema1_3_2">{{analise_tema1_3_2}}</span></td><td><span class="ph" data-campo="analise_tema1_3_3">{{analise_tema1_3_3}}</span></td><td><span class="ph" data-campo="analise_tema1_3_4">{{analise_tema1_3_4}}</span></td></tr><tr><td><span class="ph" data-campo="analise_tema1_4_1">{{analise_tema1_4_1}}</span></td><td><span class="ph" data-campo="analise_tema1_4_2">{{analise_tema1_4_2}}</span></td><td><span class="ph" data-campo="analise_tema1_4_3">{{analise_tema1_4_3}}</span></td><td><span class="ph" data-campo="analise_tema1_4_4">{{analise_tema1_4_4}}</span></td></tr><tr><td><span class="ph" data-campo="analise_tema1_5_1">{{analise_tema1_5_1}}</span></td><td><span class="ph" data-campo="analise_tema1_5_2">{{analise_tema1_5_2}}</span></td><td><span class="ph" data-campo="analise_tema1_5_3">{{analise_tema1_5_3}}</span></td><td><span class="ph" data-campo="analise_tema1_5_4">{{analise_tema1_5_4}}</span></td></tr></tbody></table>
   </div>
   <footer class="pg-foot"><span class="no">03</span><span>DOCUMENTO CONFIDENCIAL. PROIBIDO O&nbsp;COMPARTILHAMENTO</span></footer>
 </section>
@@ -746,24 +809,27 @@ table.tb{width:100%;border-collapse:collapse;font-size:8.2pt}
 </svg></div></div>
   </header>
   <div class="pg-body">
-<h1 class="t">Atividade e&nbsp;inflação</h1>
-<p class="lead"><span class="ph" data-campo="resumo_brasil_atividade">{{resumo_brasil_atividade}}</span></p>
-<h2>Atividade</h2>
-<p class="small"><span class="ph" data-campo="analise_atividade">{{analise_atividade}}</span></p>
-<h2>Mercado de trabalho e&nbsp;renda</h2>
-<p class="small"><span class="ph" data-campo="analise_trabalho">{{analise_trabalho}}</span></p>
-<h2>Inflação</h2>
-<p class="small"><span class="ph" data-campo="analise_inflacao">{{analise_inflacao}}</span></p>
-<table class="tb"><thead><tr><th>Indicador</th><th class="num">No&nbsp;mês</th><th class="num">12&nbsp;meses</th><th class="num">Projeção fim do&nbsp;ano</th><th>Meta /&nbsp;referência</th></tr></thead><tbody><tr><td>IPCA</td><td class="num"><span class="ph" data-campo="bi_ipca_mes">{{bi_ipca_mes}}</span></td><td class="num"><span class="ph" data-campo="bi_ipca_12m">{{bi_ipca_12m}}</span></td><td class="num"><span class="ph" data-campo="bi_ipca_proj">{{bi_ipca_proj}}</span></td><td><span class="ph" data-campo="bi_ipca_meta">{{bi_ipca_meta}}</span></td></tr><tr><td>IPCA&nbsp;núcleo</td><td class="num"><span class="ph" data-campo="bi_nucleo_mes">{{bi_nucleo_mes}}</span></td><td class="num"><span class="ph" data-campo="bi_nucleo_12m">{{bi_nucleo_12m}}</span></td><td class="num"><span class="ph" data-campo="bi_nucleo_proj">{{bi_nucleo_proj}}</span></td><td><span class="ph" data-campo="bi_nucleo_meta">{{bi_nucleo_meta}}</span></td></tr><tr><td>IGP-M</td><td class="num"><span class="ph" data-campo="bi_igpm_mes">{{bi_igpm_mes}}</span></td><td class="num"><span class="ph" data-campo="bi_igpm_12m">{{bi_igpm_12m}}</span></td><td class="num"><span class="ph" data-campo="bi_igpm_proj">{{bi_igpm_proj}}</span></td><td><span class="ph" data-campo="bi_igpm_meta">{{bi_igpm_meta}}</span></td></tr><tr><td>PIB</td><td class="num"><span class="ph" data-campo="bi_pib_mes">{{bi_pib_mes}}</span></td><td class="num"><span class="ph" data-campo="bi_pib_12m">{{bi_pib_12m}}</span></td><td class="num"><span class="ph" data-campo="bi_pib_proj">{{bi_pib_proj}}</span></td><td><span class="ph" data-campo="bi_pib_meta">{{bi_pib_meta}}</span></td></tr><tr><td>Desemprego&nbsp;(PNAD)</td><td class="num"><span class="ph" data-campo="bi_desemp_mes">{{bi_desemp_mes}}</span></td><td class="num"><span class="ph" data-campo="bi_desemp_12m">{{bi_desemp_12m}}</span></td><td class="num"><span class="ph" data-campo="bi_desemp_proj">{{bi_desemp_proj}}</span></td><td><span class="ph" data-campo="bi_desemp_meta">{{bi_desemp_meta}}</span></td></tr><tr><td>Massa salarial&nbsp;real</td><td class="num"><span class="ph" data-campo="bi_massa_mes">{{bi_massa_mes}}</span></td><td class="num"><span class="ph" data-campo="bi_massa_12m">{{bi_massa_12m}}</span></td><td class="num"><span class="ph" data-campo="bi_massa_proj">{{bi_massa_proj}}</span></td><td><span class="ph" data-campo="bi_massa_meta">{{bi_massa_meta}}</span></td></tr></tbody></table>
-<div class="gap"></div>
-<div class="chart" data-img="2" data-grafico="line" data-series="IPCA cheio|Média dos núcleos|Centro da meta" data-pontos="Jan|Fev|Mar|Abr|Mai|Jun|Jul|Ago|Set|Out|Nov|Dez" style="flex:1 1 auto;min-height:38mm"><div class="sk-line"></div><div class="cl">IPCA cheio e&nbsp;núcleos</div><div class="cd">IPCA acumulado em 12 meses contra a média dos núcleos e o centro da&nbsp;meta.</div><ul class="legend"><li><i style="background:var(--c1)"></i>IPCA&nbsp;cheio</li><li><i style="background:var(--c2)"></i>Média dos&nbsp;núcleos</li><li><i style="background:var(--c3)"></i>Centro da&nbsp;meta</li></ul></div>
+<h1 class="t" data-toc="analise_tema2_titulo"><span class="ph" data-campo="analise_tema2_titulo" title="Título da análise">{{analise_tema2_titulo}}</span></h1>
+<p class="lead"><span class="ph" data-campo="analise_tema2_lead" title="Uma linha de abertura">{{analise_tema2_lead}}</span></p>
+<h2><span class="ph" data-campo="analise_tema2_1_subtitulo" title="Subtítulo, se houver">{{analise_tema2_1_subtitulo}}</span></h2>
+<p class="small"><span class="ph" data-campo="analise_tema2_1_texto">{{analise_tema2_1_texto}}</span></p>
+<h2><span class="ph" data-campo="analise_tema2_2_subtitulo" title="Subtítulo, se houver">{{analise_tema2_2_subtitulo}}</span></h2>
+<p class="small"><span class="ph" data-campo="analise_tema2_2_texto">{{analise_tema2_2_texto}}</span></p>
+<div class="esp"></div>
+<h1 class="t" data-toc="global_titulo" data-rotulo="Internacional"><span class="ph pronto" data-campo="global_titulo" title="Título do panorama global">Panorama&nbsp;global</span></h1>
+<h2><span class="ph" data-campo="global_1_subtitulo">{{global_1_subtitulo}}</span></h2>
+<p class="small"><span class="ph" data-campo="global_1_texto">{{global_1_texto}}</span></p>
+<h2><span class="ph" data-campo="global_2_subtitulo">{{global_2_subtitulo}}</span></h2>
+<p class="small"><span class="ph" data-campo="global_2_texto">{{global_2_texto}}</span></p>
+<h2><span class="ph" data-campo="global_3_subtitulo">{{global_3_subtitulo}}</span></h2>
+<p class="small"><span class="ph" data-campo="global_3_texto">{{global_3_texto}}</span></p>
   </div>
   <footer class="pg-foot"><span class="no">04</span><span>DOCUMENTO CONFIDENCIAL. PROIBIDO O&nbsp;COMPARTILHAMENTO</span></footer>
 </section>
 <section class="page">
   
   <header class="pg-head">
-    <div class="sec">Brasil</div>
+    <div class="sec">Internacional</div>
     <div class="rt"><div class="dt"><span class="ph" data-campo="mes_referencia">{{mes_referencia}}</span></div><div class="logo logo-ink" style="width:17.5mm"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1044.44 274.67">
   <defs>
     <style>
@@ -803,29 +869,82 @@ table.tb{width:100%;border-collapse:collapse;font-size:8.2pt}
 </svg></div></div>
   </header>
   <div class="pg-body">
-<h1 class="t">Juros, fiscal e&nbsp;câmbio</h1>
-<h2>Política&nbsp;monetária</h2>
-<p class="small"><span class="ph" data-campo="analise_politica_monetaria">{{analise_politica_monetaria}}</span></p>
-<div class="cols2">
-  <div><h3>Última decisão do&nbsp;Copom</h3>
-    <div class="dl">
-      <dt>Selic</dt><dd><span class="ph" data-campo="selic_atual">{{selic_atual}}</span></dd>
-      <dt>Decisão</dt><dd><span class="ph" data-campo="decisao_copom">{{decisao_copom}}</span></dd>
-      <dt>Placar</dt><dd><span class="ph" data-campo="placar_copom">{{placar_copom}}</span></dd>
-      <dt>Próxima&nbsp;reunião</dt><dd><span class="ph" data-campo="data_proximo_copom">{{data_proximo_copom}}</span></dd>
-    </div>
-  </div>
-  <div><h3>Curva de&nbsp;juros</h3><p class="small mut"><span class="ph" data-campo="analise_curva_juros">{{analise_curva_juros}}</span></p></div>
-</div>
-<h2>Contas&nbsp;públicas</h2>
-<p class="small"><span class="ph" data-campo="analise_fiscal">{{analise_fiscal}}</span></p>
-<table class="tb"><thead><tr><th>Indicador</th><th class="num">Último</th><th class="num">12&nbsp;meses</th><th class="num">Projeção</th></tr></thead><tbody><tr><td>Resultado primário (%&nbsp;PIB)</td><td class="num"><span class="ph" data-campo="fi_primario_ult">{{fi_primario_ult}}</span></td><td class="num"><span class="ph" data-campo="fi_primario_12m">{{fi_primario_12m}}</span></td><td class="num"><span class="ph" data-campo="fi_primario_proj">{{fi_primario_proj}}</span></td></tr><tr><td>Dívida bruta (%&nbsp;PIB)</td><td class="num"><span class="ph" data-campo="fi_dbgg_ult">{{fi_dbgg_ult}}</span></td><td class="num"><span class="ph" data-campo="fi_dbgg_12m">{{fi_dbgg_12m}}</span></td><td class="num"><span class="ph" data-campo="fi_dbgg_proj">{{fi_dbgg_proj}}</span></td></tr><tr><td>Câmbio&nbsp;(R$/US$)</td><td class="num"><span class="ph" data-campo="fi_cambio_ult">{{fi_cambio_ult}}</span></td><td class="num"><span class="ph" data-campo="fi_cambio_12m">{{fi_cambio_12m}}</span></td><td class="num"><span class="ph" data-campo="fi_cambio_proj">{{fi_cambio_proj}}</span></td></tr><tr><td>Conta corrente (%&nbsp;PIB)</td><td class="num"><span class="ph" data-campo="fi_cc_ult">{{fi_cc_ult}}</span></td><td class="num"><span class="ph" data-campo="fi_cc_12m">{{fi_cc_12m}}</span></td><td class="num"><span class="ph" data-campo="fi_cc_proj">{{fi_cc_proj}}</span></td></tr></tbody></table>
-<h2>Câmbio e contas&nbsp;externas</h2>
-<p class="small"><span class="ph" data-campo="analise_cambio">{{analise_cambio}}</span></p>
-<div class="gap"></div>
-<div class="chart" data-img="3" data-grafico="line" data-series="Hoje|Um mês atrás|Um ano atrás" data-pontos="jan/27|jan/28|jan/29|jan/30|jan/31|jan/33|jan/35" style="flex:1 1 auto;min-height:36mm"><div class="sk-line"></div><div class="cl">Curva de juros&nbsp;DI</div><div class="cd">Curva atual contra a de um mês atrás e a de um ano atrás. Cada linha é um&nbsp;vértice.</div><ul class="legend"><li><i style="background:var(--c1)"></i>Hoje</li><li><i style="background:var(--c2)"></i>Um mês&nbsp;atrás</li><li><i style="background:var(--c3)"></i>Um ano&nbsp;atrás</li></ul></div>
+<h1 class="t" data-toc="analise_tema3_titulo"><span class="ph" data-campo="analise_tema3_titulo" title="Título da análise">{{analise_tema3_titulo}}</span></h1>
+<p class="lead"><span class="ph" data-campo="analise_tema3_lead" title="Uma linha de abertura">{{analise_tema3_lead}}</span></p>
+<p class="small"><span class="ph" data-campo="analise_tema3_texto_1">{{analise_tema3_texto_1}}</span></p>
+<p class="small"><span class="ph" data-campo="analise_tema3_texto_2">{{analise_tema3_texto_2}}</span></p>
+<div class="esp"></div>
+<h1 class="t" data-toc="carteira" data-rotulo="Carteira">Como a carteira da AUVP está&nbsp;posicionada</h1>
+<p class="lead"><span class="ph" data-campo="carteira_lead" title="Ex.: o que sustenta as decisões deste mês">{{carteira_lead}}</span></p>
+<table class="tb sm fix"><colgroup><col style="width:30%"><col style="width:70%"></colgroup><thead><tr><th>Posição</th><th>Racional</th></tr></thead><tbody><tr><td><span class="ph" data-campo="pos_1_posicao">{{pos_1_posicao}}</span></td><td><span class="ph" data-campo="pos_1_racional">{{pos_1_racional}}</span></td></tr><tr><td><span class="ph" data-campo="pos_2_posicao">{{pos_2_posicao}}</span></td><td><span class="ph" data-campo="pos_2_racional">{{pos_2_racional}}</span></td></tr><tr><td><span class="ph" data-campo="pos_3_posicao">{{pos_3_posicao}}</span></td><td><span class="ph" data-campo="pos_3_racional">{{pos_3_racional}}</span></td></tr><tr><td><span class="ph" data-campo="pos_4_posicao">{{pos_4_posicao}}</span></td><td><span class="ph" data-campo="pos_4_racional">{{pos_4_racional}}</span></td></tr></tbody></table>
   </div>
   <footer class="pg-foot"><span class="no">05</span><span>DOCUMENTO CONFIDENCIAL. PROIBIDO O&nbsp;COMPARTILHAMENTO</span></footer>
+</section>
+<section class="page">
+  
+  <header class="pg-head">
+    <div class="sec">Carteira</div>
+    <div class="rt"><div class="dt"><span class="ph" data-campo="mes_referencia">{{mes_referencia}}</span></div><div class="logo logo-ink" style="width:17.5mm"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1044.44 274.67">
+  <defs>
+    <style>
+      .lg-1 {
+        fill: #fff;
+      }
+      .lg-2 {
+        isolation: isolate;
+      }
+    </style>
+  </defs>
+  <g class="lg-2">
+    <g class="lg-2">
+      <path class="lg-1" d="M749.7,247.77c-7.18,0-12.64-2.01-16.08-6.03-3.45-4.02-5.46-9.77-5.46-17.23v-12.64c0-7.47,1.72-12.92,5.46-16.95,3.45-4.02,8.9-6.03,16.08-6.03s4.31,0,6.03.57c1.72.29,3.45.86,4.88,1.44s2.58,1.15,3.73,2.01l.57,8.04c-1.72-1.15-3.73-2.3-6.03-3.16s-4.88-1.44-8.04-1.44c-4.6,0-8.04,1.44-10.34,4.02-2.3,2.58-3.45,6.61-3.45,11.49v12.06c0,4.88,1.15,8.62,3.45,11.49,2.3,2.87,5.74,4.02,10.63,4.02s5.74-.57,8.04-1.44,4.31-2.01,6.32-3.16l-.57,8.33c-1.15.57-2.3,1.44-3.73,2.01s-3.16,1.15-5.17,1.44-4.02.57-6.32.57v.57h0Z"/>
+    </g>
+    <g class="lg-2">
+      <path class="lg-1" d="M772.1,246.62l17.23-56.58h13.79l17.23,56.58h-8.9l-14.65-50.55h-1.15l-14.65,50.55h-8.9,0ZM783.3,230.82v-7.47h25.56v7.47h-25.56Z"/>
+      <path class="lg-1" d="M830.4,246.62v-56.58h8.62v56.58h-8.62ZM836.15,228.52v-7.47h15.51c3.45,0,6.03-.86,7.75-2.58s2.3-4.31,2.3-7.18v-3.73c0-3.16-.86-5.74-2.3-7.47s-4.02-2.58-7.75-2.58h-15.8v-7.18h15.8c6.61,0,11.2,1.44,14.36,4.6,3.16,3.16,4.6,7.18,4.6,12.64v4.31c0,5.46-1.44,9.48-4.6,12.64s-7.75,4.6-14.36,4.6h-15.8l.29-.57Z"/>
+      <path class="lg-1" d="M891.29,246.62h-8.9v-56.58h8.9v56.58Z"/>
+    </g>
+    <g class="lg-2">
+      <path class="lg-1" d="M899.33,197.5v-7.47h42.22v7.47h-42.22ZM915.99,246.62v-54.86h8.9v54.86h-8.9Z"/>
+    </g>
+    <g class="lg-2">
+      <path class="lg-1" d="M939.83,246.62l17.23-56.58h13.79l17.23,56.58h-8.9l-14.65-50.55h-1.15l-14.65,50.55h-8.9,0ZM951.32,230.82v-7.47h25.56v7.47h-25.56Z"/>
+      <path class="lg-1" d="M1007.33,246.62h-8.9v-56.58h8.9v56.58ZM1003.31,239.15h29.58v7.47h-29.58v-7.47Z"/>
+    </g>
+  </g>
+  <path class="lg-1" d="M326.05,109.33C243.62,2.77,109.78,2.77,27.35,109.33l-15.8,20.39,15.8,20.39c82.43,106.56,216.27,106.56,298.7,0l15.8-20.39-15.8-20.39ZM239.03,128c.57,16.37-5.17,31.88-16.37,43.94-11.2,12.06-26.42,18.96-42.79,19.53h-2.3c-15.51,0-30.44-5.74-41.65-16.37-9.19-8.33-15.22-19.24-18.09-31.31-.29-1.44.57-2.87,2.01-3.16.57,0,1.44,0,2.01.29s1.15.86,1.15,1.72c2.58,10.91,8.04,20.97,16.37,28.72,10.91,10.05,25.27,15.51,40.21,14.94,14.94-.57,28.72-6.89,39.06-17.81,10.05-10.91,15.51-25.27,14.94-40.21-.57-14.94-6.89-28.72-17.81-38.77-10.91-10.05-24.99-15.51-40.21-14.94-14.94.57-28.72,6.89-39.06,17.81-2.58,2.58-4.6,5.46-6.61,8.62-.86,1.15-2.58,1.72-3.73.86-.57-.29-1.15-.86-1.15-1.72,0-.57,0-1.44.29-2.01,2.01-3.45,4.6-6.61,7.18-9.48,11.2-12.06,26.42-18.96,42.79-19.53,16.37-.57,31.88,5.17,43.94,16.37,12.06,11.2,18.96,26.42,19.53,42.79h0l.29-.29h0ZM192.21,124.84c3.45,0,6.32-1.72,7.75-4.6,1.44,3.16,2.3,6.32,2.3,10.05,0,13.21-10.63,23.84-23.84,23.84s-23.84-10.63-23.84-23.84,10.63-23.84,23.84-23.84,6.61.57,9.48,2.01c-2.58,1.44-4.31,4.31-4.31,7.75,0,4.88,4.02,8.9,8.9,8.62,0,0-.29,0-.29,0ZM194.22,109.9c.57,0,.86,0,1.44.57v2.3s-.57-.29-1.15-.57-1.15,0-1.72,0h-1.44c-.29,0,0,0,0,.29h0v.29l.57.29s.57,0,1.15.29c.57,0,1.15.57,1.72.57s.86.57,1.15.86.29.86.29,1.44h0c0,1.15-.29,2.01-.86,2.3-.29.29-1.15.57-1.72.57v1.44h-2.3v-1.44h-2.3v-2.58s.57.29,1.15.57h2.87c.19,0,.29-.19.29-.57h0v-.57l-.57-.29c-.57-.29-.57,0-.86-.29-.57,0-1.15-.57-1.72-.57s-.86-.57-1.15-.86-.29-.86-.29-1.44h0c0-1.15.29-1.72.86-2.3.57-.29.86-.57,1.72-.57v-1.44h2.3v1.44h.57s0,.29,0,.29ZM184.17,92.67c-10.05-1.15-20.1,1.72-27.86,7.75-8.04,6.32-12.92,15.22-14.07,25.27-1.15,10.05,1.72,20.1,8.04,27.86,6.32,7.75,15.22,12.92,25.27,14.07,7.75.86,15.51-.57,22.4-4.31,6.61-3.73,12.06-9.19,15.8-15.8.57-1.44,2.3-1.72,3.73-1.15.57.29,1.15.86,1.44,1.72s0,1.44,0,2.01c-4.02,7.75-10.34,14.07-17.81,18.09-6.32,3.45-13.5,5.17-20.39,5.17s-3.45,0-5.17-.29c-11.49-1.44-21.83-7.18-29.01-16.37-7.18-9.19-10.34-20.39-9.19-31.88,1.44-11.49,7.18-21.83,16.37-29.01s20.39-10.34,31.88-8.9c16.08,2.01,29.87,12.64,35.61,27.86v2.01c0,.57-.86,1.15-1.44,1.44-1.44.57-2.87,0-3.45-1.72-5.17-13.5-16.95-22.69-31.02-24.41h0l-1.15.57h0ZM239.6,191.76c-16.37,16.37-38.2,25.27-61.46,25.27s-45.09-8.9-61.46-25.27-25.27-38.2-25.27-61.46,8.9-45.09,25.27-61.46c16.37-16.37,38.2-25.27,61.46-25.27s6.61,0,9.77.57c.57,0,1.44.57,1.72.86.57.57.57,1.44.57,2.01s-.57,1.44-.86,1.72-1.15.57-2.01.57c-3.16-.29-6.32-.57-9.19-.57-21.83,0-42.22,8.62-57.44,23.84-15.22,15.22-23.84,35.9-23.84,57.44s8.62,42.22,23.84,57.44c15.22,15.22,35.9,23.84,57.44,23.84s42.22-8.33,57.44-23.84c15.22-15.22,23.84-35.9,23.84-57.44s-5.46-34.47-16.08-48.54c-.57-.57-.57-1.44-.57-2.01s.57-1.44,1.15-1.72c.57-.57,1.15-.57,2.01-.57.57,0,1.44.57,1.72,1.15,11.2,14.94,17.23,33.03,17.23,51.99s-8.9,45.09-25.27,61.46h0Z"/>
+  <g>
+    <path class="lg-1" d="M531.99,153.85l-17.81-30.16h0l-12.35-21.25-23.26-39.06-53.13,90.19h-31.02l66.92-111.44c3.16-5.17,8.9-8.33,14.94-8.33h16.37l72.09,120.06h-32.74Z"/>
+    <path class="lg-1" d="M676.17,26.9h26.42v70.94c0,39.35-19.82,57.73-69.79,57.73s-69.79-18.38-69.79-57.73V26.9h28.15v70.94c0,22.4,9.77,31.02,42.51,31.02s42.22-8.62,42.22-31.02V26.9h.29,0Z"/>
+    <path class="lg-1" d="M712.65,26.9h33.03l53.13,90.76,52.85-90.76h31.31l-72.09,120.06h-26.14l-72.09-120.06h0Z"/>
+    <path class="lg-1" d="M919.15,119.67v-26.42h66.06c13.21,0,21.25-7.75,21.25-19.53s-7.75-19.53-21.25-19.53h-63.19v99.66h-27V26.9h90.19c30.16,0,47.68,17.81,47.68,45.95s-17.52,46.82-47.68,46.82h-66.06Z"/>
+  </g>
+  <path class="lg-1" d="M390.68,213.59h313.06v11.2h-301.86c-6.03,0-11.2-4.88-11.2-11.2Z"/>
+</svg></div></div>
+  </header>
+  <div class="pg-body">
+<h1 class="t" data-toc="classes">Expectativa para classes de&nbsp;ativos</h1>
+<p class="lead">Estratégia de referência institucional, sem substituir a personalização por&nbsp;cliente.</p>
+<h2>Renda fixa&nbsp;Brasil</h2>
+<p class="small"><strong><span class="ph" data-campo="classe_rf_1_rotulo" title="Ex.: IPCA (40% da referência estrutural)">{{classe_rf_1_rotulo}}</span></strong> <span class="ph" data-campo="classe_rf_1_texto">{{classe_rf_1_texto}}</span></p>
+<p class="small"><strong><span class="ph" data-campo="classe_rf_2_rotulo" title="Ex.: IPCA (40% da referência estrutural)">{{classe_rf_2_rotulo}}</span></strong> <span class="ph" data-campo="classe_rf_2_texto">{{classe_rf_2_texto}}</span></p>
+<p class="small"><strong><span class="ph" data-campo="classe_rf_3_rotulo" title="Ex.: IPCA (40% da referência estrutural)">{{classe_rf_3_rotulo}}</span></strong> <span class="ph" data-campo="classe_rf_3_texto">{{classe_rf_3_texto}}</span></p>
+<p class="small"><strong><span class="ph" data-campo="classe_rf_4_rotulo" title="Ex.: IPCA (40% da referência estrutural)">{{classe_rf_4_rotulo}}</span></strong> <span class="ph" data-campo="classe_rf_4_texto">{{classe_rf_4_texto}}</span></p>
+<h2>Renda variável&nbsp;Brasil</h2>
+<p class="small"><strong><span class="ph" data-campo="classe_rv_1_rotulo" title="Ex.: IPCA (40% da referência estrutural)">{{classe_rv_1_rotulo}}</span></strong> <span class="ph" data-campo="classe_rv_1_texto">{{classe_rv_1_texto}}</span></p>
+<p class="small"><strong><span class="ph" data-campo="classe_rv_2_rotulo" title="Ex.: IPCA (40% da referência estrutural)">{{classe_rv_2_rotulo}}</span></strong> <span class="ph" data-campo="classe_rv_2_texto">{{classe_rv_2_texto}}</span></p>
+<p class="small"><strong><span class="ph" data-campo="classe_rv_3_rotulo" title="Ex.: IPCA (40% da referência estrutural)">{{classe_rv_3_rotulo}}</span></strong> <span class="ph" data-campo="classe_rv_3_texto">{{classe_rv_3_texto}}</span></p>
+<h2>Fundos&nbsp;imobiliários</h2>
+<p class="small"><strong><span class="ph" data-campo="classe_fii_1_rotulo" title="Ex.: IPCA (40% da referência estrutural)">{{classe_fii_1_rotulo}}</span></strong> <span class="ph" data-campo="classe_fii_1_texto">{{classe_fii_1_texto}}</span></p>
+<p class="small"><strong><span class="ph" data-campo="classe_fii_2_rotulo" title="Ex.: IPCA (40% da referência estrutural)">{{classe_fii_2_rotulo}}</span></strong> <span class="ph" data-campo="classe_fii_2_texto">{{classe_fii_2_texto}}</span></p>
+<h2>Internacional</h2>
+<p class="small"><strong><span class="ph" data-campo="classe_intl_1_rotulo" title="Ex.: IPCA (40% da referência estrutural)">{{classe_intl_1_rotulo}}</span></strong> <span class="ph" data-campo="classe_intl_1_texto">{{classe_intl_1_texto}}</span></p>
+<p class="small"><strong><span class="ph" data-campo="classe_intl_2_rotulo" title="Ex.: IPCA (40% da referência estrutural)">{{classe_intl_2_rotulo}}</span></strong> <span class="ph" data-campo="classe_intl_2_texto">{{classe_intl_2_texto}}</span></p>
+<p class="small"><strong><span class="ph" data-campo="classe_intl_3_rotulo" title="Ex.: IPCA (40% da referência estrutural)">{{classe_intl_3_rotulo}}</span></strong> <span class="ph" data-campo="classe_intl_3_texto">{{classe_intl_3_texto}}</span></p>
+<h2>Cripto</h2>
+<p class="small"><strong><span class="ph" data-campo="classe_cripto_1_rotulo" title="Ex.: IPCA (40% da referência estrutural)">{{classe_cripto_1_rotulo}}</span></strong> <span class="ph" data-campo="classe_cripto_1_texto">{{classe_cripto_1_texto}}</span></p>
+  </div>
+  <footer class="pg-foot"><span class="no">06</span><span>DOCUMENTO CONFIDENCIAL. PROIBIDO O&nbsp;COMPARTILHAMENTO</span></footer>
 </section>
 <section class="page">
   
@@ -870,75 +989,23 @@ table.tb{width:100%;border-collapse:collapse;font-size:8.2pt}
 </svg></div></div>
   </header>
   <div class="pg-body">
-<h1 class="t">Mercados no&nbsp;período</h1>
-<p class="lead">Retorno das principais classes e índices em <span class="ph" data-campo="mes_referencia">{{mes_referencia}}</span>, no ano e em 12&nbsp;meses.</p>
-<table class="tb"><caption>Retornos nominais em moeda local, salvo indicação em contrário. Fonte: <span class="ph" data-campo="fonte_dados_mercado">{{fonte_dados_mercado}}</span></caption><thead><tr><th>Classe /&nbsp;índice</th><th class="num">No&nbsp;mês</th><th class="num">No&nbsp;ano</th><th class="num">12&nbsp;meses</th><th class="num">24&nbsp;meses</th><th class="num">Volatilidade&nbsp;12m</th></tr></thead><tbody><tr><td>CDI</td><td class="num"><span class="ph" data-campo="mk_cdi_mes">{{mk_cdi_mes}}</span></td><td class="num"><span class="ph" data-campo="mk_cdi_ano">{{mk_cdi_ano}}</span></td><td class="num"><span class="ph" data-campo="mk_cdi_12m">{{mk_cdi_12m}}</span></td><td class="num"><span class="ph" data-campo="mk_cdi_24m">{{mk_cdi_24m}}</span></td><td class="num"><span class="ph" data-campo="mk_cdi_vol">{{mk_cdi_vol}}</span></td></tr><tr><td>IMA-B&nbsp;(inflação)</td><td class="num"><span class="ph" data-campo="mk_imab_mes">{{mk_imab_mes}}</span></td><td class="num"><span class="ph" data-campo="mk_imab_ano">{{mk_imab_ano}}</span></td><td class="num"><span class="ph" data-campo="mk_imab_12m">{{mk_imab_12m}}</span></td><td class="num"><span class="ph" data-campo="mk_imab_24m">{{mk_imab_24m}}</span></td><td class="num"><span class="ph" data-campo="mk_imab_vol">{{mk_imab_vol}}</span></td></tr><tr><td>IRF-M&nbsp;(prefixado)</td><td class="num"><span class="ph" data-campo="mk_irfm_mes">{{mk_irfm_mes}}</span></td><td class="num"><span class="ph" data-campo="mk_irfm_ano">{{mk_irfm_ano}}</span></td><td class="num"><span class="ph" data-campo="mk_irfm_12m">{{mk_irfm_12m}}</span></td><td class="num"><span class="ph" data-campo="mk_irfm_24m">{{mk_irfm_24m}}</span></td><td class="num"><span class="ph" data-campo="mk_irfm_vol">{{mk_irfm_vol}}</span></td></tr><tr><td>Ibovespa</td><td class="num"><span class="ph" data-campo="mk_ibov_mes">{{mk_ibov_mes}}</span></td><td class="num"><span class="ph" data-campo="mk_ibov_ano">{{mk_ibov_ano}}</span></td><td class="num"><span class="ph" data-campo="mk_ibov_12m">{{mk_ibov_12m}}</span></td><td class="num"><span class="ph" data-campo="mk_ibov_24m">{{mk_ibov_24m}}</span></td><td class="num"><span class="ph" data-campo="mk_ibov_vol">{{mk_ibov_vol}}</span></td></tr><tr><td>Small&nbsp;Caps</td><td class="num"><span class="ph" data-campo="mk_small_mes">{{mk_small_mes}}</span></td><td class="num"><span class="ph" data-campo="mk_small_ano">{{mk_small_ano}}</span></td><td class="num"><span class="ph" data-campo="mk_small_12m">{{mk_small_12m}}</span></td><td class="num"><span class="ph" data-campo="mk_small_24m">{{mk_small_24m}}</span></td><td class="num"><span class="ph" data-campo="mk_small_vol">{{mk_small_vol}}</span></td></tr><tr><td>IFIX</td><td class="num"><span class="ph" data-campo="mk_ifix_mes">{{mk_ifix_mes}}</span></td><td class="num"><span class="ph" data-campo="mk_ifix_ano">{{mk_ifix_ano}}</span></td><td class="num"><span class="ph" data-campo="mk_ifix_12m">{{mk_ifix_12m}}</span></td><td class="num"><span class="ph" data-campo="mk_ifix_24m">{{mk_ifix_24m}}</span></td><td class="num"><span class="ph" data-campo="mk_ifix_vol">{{mk_ifix_vol}}</span></td></tr><tr><td>S&amp;P 500&nbsp;(US$)</td><td class="num"><span class="ph" data-campo="mk_spx_mes">{{mk_spx_mes}}</span></td><td class="num"><span class="ph" data-campo="mk_spx_ano">{{mk_spx_ano}}</span></td><td class="num"><span class="ph" data-campo="mk_spx_12m">{{mk_spx_12m}}</span></td><td class="num"><span class="ph" data-campo="mk_spx_24m">{{mk_spx_24m}}</span></td><td class="num"><span class="ph" data-campo="mk_spx_vol">{{mk_spx_vol}}</span></td></tr><tr><td>Nasdaq&nbsp;(US$)</td><td class="num"><span class="ph" data-campo="mk_ndx_mes">{{mk_ndx_mes}}</span></td><td class="num"><span class="ph" data-campo="mk_ndx_ano">{{mk_ndx_ano}}</span></td><td class="num"><span class="ph" data-campo="mk_ndx_12m">{{mk_ndx_12m}}</span></td><td class="num"><span class="ph" data-campo="mk_ndx_24m">{{mk_ndx_24m}}</span></td><td class="num"><span class="ph" data-campo="mk_ndx_vol">{{mk_ndx_vol}}</span></td></tr><tr><td>MSCI&nbsp;Emergentes</td><td class="num"><span class="ph" data-campo="mk_msciem_mes">{{mk_msciem_mes}}</span></td><td class="num"><span class="ph" data-campo="mk_msciem_ano">{{mk_msciem_ano}}</span></td><td class="num"><span class="ph" data-campo="mk_msciem_12m">{{mk_msciem_12m}}</span></td><td class="num"><span class="ph" data-campo="mk_msciem_24m">{{mk_msciem_24m}}</span></td><td class="num"><span class="ph" data-campo="mk_msciem_vol">{{mk_msciem_vol}}</span></td></tr><tr><td>Dólar&nbsp;(PTAX)</td><td class="num"><span class="ph" data-campo="mk_usd_mes">{{mk_usd_mes}}</span></td><td class="num"><span class="ph" data-campo="mk_usd_ano">{{mk_usd_ano}}</span></td><td class="num"><span class="ph" data-campo="mk_usd_12m">{{mk_usd_12m}}</span></td><td class="num"><span class="ph" data-campo="mk_usd_24m">{{mk_usd_24m}}</span></td><td class="num"><span class="ph" data-campo="mk_usd_vol">{{mk_usd_vol}}</span></td></tr><tr><td>Ouro&nbsp;(US$)</td><td class="num"><span class="ph" data-campo="mk_gold_mes">{{mk_gold_mes}}</span></td><td class="num"><span class="ph" data-campo="mk_gold_ano">{{mk_gold_ano}}</span></td><td class="num"><span class="ph" data-campo="mk_gold_12m">{{mk_gold_12m}}</span></td><td class="num"><span class="ph" data-campo="mk_gold_24m">{{mk_gold_24m}}</span></td><td class="num"><span class="ph" data-campo="mk_gold_vol">{{mk_gold_vol}}</span></td></tr><tr><td>Bitcoin&nbsp;(US$)</td><td class="num"><span class="ph" data-campo="mk_btc_mes">{{mk_btc_mes}}</span></td><td class="num"><span class="ph" data-campo="mk_btc_ano">{{mk_btc_ano}}</span></td><td class="num"><span class="ph" data-campo="mk_btc_12m">{{mk_btc_12m}}</span></td><td class="num"><span class="ph" data-campo="mk_btc_24m">{{mk_btc_24m}}</span></td><td class="num"><span class="ph" data-campo="mk_btc_vol">{{mk_btc_vol}}</span></td></tr></tbody></table>
+<h1 class="t" data-toc="fechamento" data-rotulo="Mercados">Fechamento de <span class="ph" data-campo="mes_fechamento" title="O mês analisado. Ex.: Agosto">{{mes_fechamento}}</span></h1>
+<p class="lead">Desempenho acumulado no ano dos principais indicadores de&nbsp;referência</p>
+<table class="tb sm"><thead><tr><th>Indicador</th><th class="num">No&nbsp;mês</th><th class="num">Acumulado no&nbsp;ano</th></tr></thead><tbody><tr><td>CDI</td><td class="num"><span class="ph" data-campo="fech_cdi_mes">{{fech_cdi_mes}}</span></td><td class="num"><span class="ph" data-campo="fech_cdi_ano">{{fech_cdi_ano}}</span></td></tr><tr><td>Ibovespa</td><td class="num"><span class="ph" data-campo="fech_ibov_mes">{{fech_ibov_mes}}</span></td><td class="num"><span class="ph" data-campo="fech_ibov_ano">{{fech_ibov_ano}}</span></td></tr><tr><td>IMA-B&nbsp;(NTN-B)</td><td class="num"><span class="ph" data-campo="fech_imab_mes">{{fech_imab_mes}}</span></td><td class="num"><span class="ph" data-campo="fech_imab_ano">{{fech_imab_ano}}</span></td></tr><tr><td>IFIX</td><td class="num"><span class="ph" data-campo="fech_ifix_mes">{{fech_ifix_mes}}</span></td><td class="num"><span class="ph" data-campo="fech_ifix_ano">{{fech_ifix_ano}}</span></td></tr><tr><td>Dólar&nbsp;(USD/BRL)</td><td class="num"><span class="ph" data-campo="fech_dolar_mes">{{fech_dolar_mes}}</span></td><td class="num"><span class="ph" data-campo="fech_dolar_ano">{{fech_dolar_ano}}</span></td></tr><tr><td>IPCA</td><td class="num"><span class="ph" data-campo="fech_ipca_mes">{{fech_ipca_mes}}</span></td><td class="num"><span class="ph" data-campo="fech_ipca_ano">{{fech_ipca_ano}}</span></td></tr></tbody></table>
 <div class="gap"></div>
-<div class="cols2">
-  <div><h2>Destaques&nbsp;positivos</h2><p class="small mut"><span class="ph" data-campo="destaques_positivos">{{destaques_positivos}}</span></p></div>
-  <div><h2>Destaques&nbsp;negativos</h2><p class="small mut"><span class="ph" data-campo="destaques_negativos">{{destaques_negativos}}</span></p></div>
-</div>
-  </div>
-  <footer class="pg-foot"><span class="no">06</span><span>DOCUMENTO CONFIDENCIAL. PROIBIDO O&nbsp;COMPARTILHAMENTO</span></footer>
-</section>
-<section class="page">
-  
-  <header class="pg-head">
-    <div class="sec">Projeções</div>
-    <div class="rt"><div class="dt"><span class="ph" data-campo="mes_referencia">{{mes_referencia}}</span></div><div class="logo logo-ink" style="width:17.5mm"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1044.44 274.67">
-  <defs>
-    <style>
-      .lg-1 {
-        fill: #fff;
-      }
-      .lg-2 {
-        isolation: isolate;
-      }
-    </style>
-  </defs>
-  <g class="lg-2">
-    <g class="lg-2">
-      <path class="lg-1" d="M749.7,247.77c-7.18,0-12.64-2.01-16.08-6.03-3.45-4.02-5.46-9.77-5.46-17.23v-12.64c0-7.47,1.72-12.92,5.46-16.95,3.45-4.02,8.9-6.03,16.08-6.03s4.31,0,6.03.57c1.72.29,3.45.86,4.88,1.44s2.58,1.15,3.73,2.01l.57,8.04c-1.72-1.15-3.73-2.3-6.03-3.16s-4.88-1.44-8.04-1.44c-4.6,0-8.04,1.44-10.34,4.02-2.3,2.58-3.45,6.61-3.45,11.49v12.06c0,4.88,1.15,8.62,3.45,11.49,2.3,2.87,5.74,4.02,10.63,4.02s5.74-.57,8.04-1.44,4.31-2.01,6.32-3.16l-.57,8.33c-1.15.57-2.3,1.44-3.73,2.01s-3.16,1.15-5.17,1.44-4.02.57-6.32.57v.57h0Z"/>
-    </g>
-    <g class="lg-2">
-      <path class="lg-1" d="M772.1,246.62l17.23-56.58h13.79l17.23,56.58h-8.9l-14.65-50.55h-1.15l-14.65,50.55h-8.9,0ZM783.3,230.82v-7.47h25.56v7.47h-25.56Z"/>
-      <path class="lg-1" d="M830.4,246.62v-56.58h8.62v56.58h-8.62ZM836.15,228.52v-7.47h15.51c3.45,0,6.03-.86,7.75-2.58s2.3-4.31,2.3-7.18v-3.73c0-3.16-.86-5.74-2.3-7.47s-4.02-2.58-7.75-2.58h-15.8v-7.18h15.8c6.61,0,11.2,1.44,14.36,4.6,3.16,3.16,4.6,7.18,4.6,12.64v4.31c0,5.46-1.44,9.48-4.6,12.64s-7.75,4.6-14.36,4.6h-15.8l.29-.57Z"/>
-      <path class="lg-1" d="M891.29,246.62h-8.9v-56.58h8.9v56.58Z"/>
-    </g>
-    <g class="lg-2">
-      <path class="lg-1" d="M899.33,197.5v-7.47h42.22v7.47h-42.22ZM915.99,246.62v-54.86h8.9v54.86h-8.9Z"/>
-    </g>
-    <g class="lg-2">
-      <path class="lg-1" d="M939.83,246.62l17.23-56.58h13.79l17.23,56.58h-8.9l-14.65-50.55h-1.15l-14.65,50.55h-8.9,0ZM951.32,230.82v-7.47h25.56v7.47h-25.56Z"/>
-      <path class="lg-1" d="M1007.33,246.62h-8.9v-56.58h8.9v56.58ZM1003.31,239.15h29.58v7.47h-29.58v-7.47Z"/>
-    </g>
-  </g>
-  <path class="lg-1" d="M326.05,109.33C243.62,2.77,109.78,2.77,27.35,109.33l-15.8,20.39,15.8,20.39c82.43,106.56,216.27,106.56,298.7,0l15.8-20.39-15.8-20.39ZM239.03,128c.57,16.37-5.17,31.88-16.37,43.94-11.2,12.06-26.42,18.96-42.79,19.53h-2.3c-15.51,0-30.44-5.74-41.65-16.37-9.19-8.33-15.22-19.24-18.09-31.31-.29-1.44.57-2.87,2.01-3.16.57,0,1.44,0,2.01.29s1.15.86,1.15,1.72c2.58,10.91,8.04,20.97,16.37,28.72,10.91,10.05,25.27,15.51,40.21,14.94,14.94-.57,28.72-6.89,39.06-17.81,10.05-10.91,15.51-25.27,14.94-40.21-.57-14.94-6.89-28.72-17.81-38.77-10.91-10.05-24.99-15.51-40.21-14.94-14.94.57-28.72,6.89-39.06,17.81-2.58,2.58-4.6,5.46-6.61,8.62-.86,1.15-2.58,1.72-3.73.86-.57-.29-1.15-.86-1.15-1.72,0-.57,0-1.44.29-2.01,2.01-3.45,4.6-6.61,7.18-9.48,11.2-12.06,26.42-18.96,42.79-19.53,16.37-.57,31.88,5.17,43.94,16.37,12.06,11.2,18.96,26.42,19.53,42.79h0l.29-.29h0ZM192.21,124.84c3.45,0,6.32-1.72,7.75-4.6,1.44,3.16,2.3,6.32,2.3,10.05,0,13.21-10.63,23.84-23.84,23.84s-23.84-10.63-23.84-23.84,10.63-23.84,23.84-23.84,6.61.57,9.48,2.01c-2.58,1.44-4.31,4.31-4.31,7.75,0,4.88,4.02,8.9,8.9,8.62,0,0-.29,0-.29,0ZM194.22,109.9c.57,0,.86,0,1.44.57v2.3s-.57-.29-1.15-.57-1.15,0-1.72,0h-1.44c-.29,0,0,0,0,.29h0v.29l.57.29s.57,0,1.15.29c.57,0,1.15.57,1.72.57s.86.57,1.15.86.29.86.29,1.44h0c0,1.15-.29,2.01-.86,2.3-.29.29-1.15.57-1.72.57v1.44h-2.3v-1.44h-2.3v-2.58s.57.29,1.15.57h2.87c.19,0,.29-.19.29-.57h0v-.57l-.57-.29c-.57-.29-.57,0-.86-.29-.57,0-1.15-.57-1.72-.57s-.86-.57-1.15-.86-.29-.86-.29-1.44h0c0-1.15.29-1.72.86-2.3.57-.29.86-.57,1.72-.57v-1.44h2.3v1.44h.57s0,.29,0,.29ZM184.17,92.67c-10.05-1.15-20.1,1.72-27.86,7.75-8.04,6.32-12.92,15.22-14.07,25.27-1.15,10.05,1.72,20.1,8.04,27.86,6.32,7.75,15.22,12.92,25.27,14.07,7.75.86,15.51-.57,22.4-4.31,6.61-3.73,12.06-9.19,15.8-15.8.57-1.44,2.3-1.72,3.73-1.15.57.29,1.15.86,1.44,1.72s0,1.44,0,2.01c-4.02,7.75-10.34,14.07-17.81,18.09-6.32,3.45-13.5,5.17-20.39,5.17s-3.45,0-5.17-.29c-11.49-1.44-21.83-7.18-29.01-16.37-7.18-9.19-10.34-20.39-9.19-31.88,1.44-11.49,7.18-21.83,16.37-29.01s20.39-10.34,31.88-8.9c16.08,2.01,29.87,12.64,35.61,27.86v2.01c0,.57-.86,1.15-1.44,1.44-1.44.57-2.87,0-3.45-1.72-5.17-13.5-16.95-22.69-31.02-24.41h0l-1.15.57h0ZM239.6,191.76c-16.37,16.37-38.2,25.27-61.46,25.27s-45.09-8.9-61.46-25.27-25.27-38.2-25.27-61.46,8.9-45.09,25.27-61.46c16.37-16.37,38.2-25.27,61.46-25.27s6.61,0,9.77.57c.57,0,1.44.57,1.72.86.57.57.57,1.44.57,2.01s-.57,1.44-.86,1.72-1.15.57-2.01.57c-3.16-.29-6.32-.57-9.19-.57-21.83,0-42.22,8.62-57.44,23.84-15.22,15.22-23.84,35.9-23.84,57.44s8.62,42.22,23.84,57.44c15.22,15.22,35.9,23.84,57.44,23.84s42.22-8.33,57.44-23.84c15.22-15.22,23.84-35.9,23.84-57.44s-5.46-34.47-16.08-48.54c-.57-.57-.57-1.44-.57-2.01s.57-1.44,1.15-1.72c.57-.57,1.15-.57,2.01-.57.57,0,1.44.57,1.72,1.15,11.2,14.94,17.23,33.03,17.23,51.99s-8.9,45.09-25.27,61.46h0Z"/>
-  <g>
-    <path class="lg-1" d="M531.99,153.85l-17.81-30.16h0l-12.35-21.25-23.26-39.06-53.13,90.19h-31.02l66.92-111.44c3.16-5.17,8.9-8.33,14.94-8.33h16.37l72.09,120.06h-32.74Z"/>
-    <path class="lg-1" d="M676.17,26.9h26.42v70.94c0,39.35-19.82,57.73-69.79,57.73s-69.79-18.38-69.79-57.73V26.9h28.15v70.94c0,22.4,9.77,31.02,42.51,31.02s42.22-8.62,42.22-31.02V26.9h.29,0Z"/>
-    <path class="lg-1" d="M712.65,26.9h33.03l53.13,90.76,52.85-90.76h31.31l-72.09,120.06h-26.14l-72.09-120.06h0Z"/>
-    <path class="lg-1" d="M919.15,119.67v-26.42h66.06c13.21,0,21.25-7.75,21.25-19.53s-7.75-19.53-21.25-19.53h-63.19v99.66h-27V26.9h90.19c30.16,0,47.68,17.81,47.68,45.95s-17.52,46.82-47.68,46.82h-66.06Z"/>
-  </g>
-  <path class="lg-1" d="M390.68,213.59h313.06v11.2h-301.86c-6.03,0-11.2-4.88-11.2-11.2Z"/>
-</svg></div></div>
-  </header>
-  <div class="pg-body">
-<h1 class="t">Projeções</h1>
-<p class="lead">Nossas projeções e a mediana do mercado. Onde divergimos, explicamos por&nbsp;quê.</p>
-<h2>Brasil</h2>
-<table class="tb"><thead><tr><th>Indicador</th><th class="num"><span class="ph" data-campo="ano_corrente">{{ano_corrente}}</span></th><th class="num"><span class="ph" data-campo="ano_seguinte">{{ano_seguinte}}</span></th><th class="num">Consenso <span class="ph" data-campo="ano_corrente">{{ano_corrente}}</span></th><th class="num">Consenso <span class="ph" data-campo="ano_seguinte">{{ano_seguinte}}</span></th></tr></thead><tbody><tr><td>IPCA&nbsp;(%)</td><td class="num"><span class="ph" data-campo="pj_ipca_a1">{{pj_ipca_a1}}</span></td><td class="num"><span class="ph" data-campo="pj_ipca_a2">{{pj_ipca_a2}}</span></td><td class="num"><span class="ph" data-campo="pj_ipca_c1">{{pj_ipca_c1}}</span></td><td class="num"><span class="ph" data-campo="pj_ipca_c2">{{pj_ipca_c2}}</span></td></tr><tr><td>Selic fim de período&nbsp;(%)</td><td class="num"><span class="ph" data-campo="pj_selic_a1">{{pj_selic_a1}}</span></td><td class="num"><span class="ph" data-campo="pj_selic_a2">{{pj_selic_a2}}</span></td><td class="num"><span class="ph" data-campo="pj_selic_c1">{{pj_selic_c1}}</span></td><td class="num"><span class="ph" data-campo="pj_selic_c2">{{pj_selic_c2}}</span></td></tr><tr><td>PIB&nbsp;(%)</td><td class="num"><span class="ph" data-campo="pj_pib_a1">{{pj_pib_a1}}</span></td><td class="num"><span class="ph" data-campo="pj_pib_a2">{{pj_pib_a2}}</span></td><td class="num"><span class="ph" data-campo="pj_pib_c1">{{pj_pib_c1}}</span></td><td class="num"><span class="ph" data-campo="pj_pib_c2">{{pj_pib_c2}}</span></td></tr><tr><td>Câmbio&nbsp;(R$/US$)</td><td class="num"><span class="ph" data-campo="pj_cambio_a1">{{pj_cambio_a1}}</span></td><td class="num"><span class="ph" data-campo="pj_cambio_a2">{{pj_cambio_a2}}</span></td><td class="num"><span class="ph" data-campo="pj_cambio_c1">{{pj_cambio_c1}}</span></td><td class="num"><span class="ph" data-campo="pj_cambio_c2">{{pj_cambio_c2}}</span></td></tr><tr><td>Resultado primário (%&nbsp;PIB)</td><td class="num"><span class="ph" data-campo="pj_primario_a1">{{pj_primario_a1}}</span></td><td class="num"><span class="ph" data-campo="pj_primario_a2">{{pj_primario_a2}}</span></td><td class="num"><span class="ph" data-campo="pj_primario_c1">{{pj_primario_c1}}</span></td><td class="num"><span class="ph" data-campo="pj_primario_c2">{{pj_primario_c2}}</span></td></tr></tbody></table>
-<h2>Internacional</h2>
-<table class="tb"><thead><tr><th>Indicador</th><th class="num"><span class="ph" data-campo="ano_corrente">{{ano_corrente}}</span></th><th class="num"><span class="ph" data-campo="ano_seguinte">{{ano_seguinte}}</span></th><th>Viés</th></tr></thead><tbody><tr><td>Fed funds&nbsp;(%)</td><td class="num"><span class="ph" data-campo="pg_fed_a1">{{pg_fed_a1}}</span></td><td class="num"><span class="ph" data-campo="pg_fed_a2">{{pg_fed_a2}}</span></td><td><span class="ph" data-campo="pg_fed_vies">{{pg_fed_vies}}</span></td></tr><tr><td>CPI EUA&nbsp;(%)</td><td class="num"><span class="ph" data-campo="pg_cpi_a1">{{pg_cpi_a1}}</span></td><td class="num"><span class="ph" data-campo="pg_cpi_a2">{{pg_cpi_a2}}</span></td><td><span class="ph" data-campo="pg_cpi_vies">{{pg_cpi_vies}}</span></td></tr><tr><td>PIB EUA&nbsp;(%)</td><td class="num"><span class="ph" data-campo="pg_pibeua_a1">{{pg_pibeua_a1}}</span></td><td class="num"><span class="ph" data-campo="pg_pibeua_a2">{{pg_pibeua_a2}}</span></td><td><span class="ph" data-campo="pg_pibeua_vies">{{pg_pibeua_vies}}</span></td></tr><tr><td>PIB China&nbsp;(%)</td><td class="num"><span class="ph" data-campo="pg_pibchina_a1">{{pg_pibchina_a1}}</span></td><td class="num"><span class="ph" data-campo="pg_pibchina_a2">{{pg_pibchina_a2}}</span></td><td><span class="ph" data-campo="pg_pibchina_vies">{{pg_pibchina_vies}}</span></td></tr></tbody></table>
-<h2>Onde divergimos do&nbsp;consenso</h2>
-<div class="cards" style="--n:3"><div class="card"><h4><span class="ph" data-campo="divergencia_1_titulo">{{divergencia_1_titulo}}</span></h4><p><span class="ph" data-campo="divergencia_1_racional">{{divergencia_1_racional}}</span></p></div><div class="card"><h4><span class="ph" data-campo="divergencia_2_titulo">{{divergencia_2_titulo}}</span></h4><p><span class="ph" data-campo="divergencia_2_racional">{{divergencia_2_racional}}</span></p></div><div class="card"><h4><span class="ph" data-campo="divergencia_3_titulo">{{divergencia_3_titulo}}</span></h4><p><span class="ph" data-campo="divergencia_3_racional">{{divergencia_3_racional}}</span></p></div></div>
+<p class="legal"><span class="ph" data-campo="fechamento_nota" title="Uma leitura curta dos números">{{fechamento_nota}}</span></p>
+<div class="esp"></div>
+<h1 class="t" data-toc="riscos">Principais riscos e&nbsp;oportunidades</h1>
+<p class="lead"><span class="ph" data-campo="riscos_lead" title="Ex.: cenários monitorados para o último trimestre">{{riscos_lead}}</span></p>
+<h2>Riscos no&nbsp;radar</h2>
+<div class="cards" style="--n:3"><div class="card"><h4><span class="ph" data-campo="risco_1_titulo">{{risco_1_titulo}}</span></h4><p><span class="ph" data-campo="risco_1_texto">{{risco_1_texto}}</span></p><p><strong>Ação.</strong> <span class="ph" data-campo="risco_1_acao">{{risco_1_acao}}</span></p></div><div class="card"><h4><span class="ph" data-campo="risco_2_titulo">{{risco_2_titulo}}</span></h4><p><span class="ph" data-campo="risco_2_texto">{{risco_2_texto}}</span></p><p><strong>Ação.</strong> <span class="ph" data-campo="risco_2_acao">{{risco_2_acao}}</span></p></div><div class="card"><h4><span class="ph" data-campo="risco_3_titulo">{{risco_3_titulo}}</span></h4><p><span class="ph" data-campo="risco_3_texto">{{risco_3_texto}}</span></p><p><strong>Ação.</strong> <span class="ph" data-campo="risco_3_acao">{{risco_3_acao}}</span></p></div><div class="card"><h4><span class="ph" data-campo="risco_4_titulo">{{risco_4_titulo}}</span></h4><p><span class="ph" data-campo="risco_4_texto">{{risco_4_texto}}</span></p><p><strong>Ação.</strong> <span class="ph" data-campo="risco_4_acao">{{risco_4_acao}}</span></p></div><div class="card"><h4><span class="ph" data-campo="risco_5_titulo">{{risco_5_titulo}}</span></h4><p><span class="ph" data-campo="risco_5_texto">{{risco_5_texto}}</span></p><p><strong>Ação.</strong> <span class="ph" data-campo="risco_5_acao">{{risco_5_acao}}</span></p></div></div>
   </div>
   <footer class="pg-foot"><span class="no">07</span><span>DOCUMENTO CONFIDENCIAL. PROIBIDO O&nbsp;COMPARTILHAMENTO</span></footer>
 </section>
 <section class="page">
   
   <header class="pg-head">
-    <div class="sec">Implicações</div>
+    <div class="sec">Mercados</div>
     <div class="rt"><div class="dt"><span class="ph" data-campo="mes_referencia">{{mes_referencia}}</span></div><div class="logo logo-ink" style="width:17.5mm"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1044.44 274.67">
   <defs>
     <style>
@@ -978,21 +1045,21 @@ table.tb{width:100%;border-collapse:collapse;font-size:8.2pt}
 </svg></div></div>
   </header>
   <div class="pg-body">
-<h1 class="t">Implicações para a&nbsp;carteira</h1>
-<p class="lead">O que este cenário significa para uma carteira diversificada de perfil&nbsp;moderado.</p>
-<h2>Posicionamento por&nbsp;classe</h2>
-<table class="tb"><thead><tr><th>Classe</th><th>Visão</th><th>Variação x mês&nbsp;anterior</th><th>Racional</th><th>Como&nbsp;implementar</th></tr></thead><tbody><tr><td>Renda fixa&nbsp;pós</td><td><span class="pill"><span class="ph" data-campo="vis_rfpos_visao">{{vis_rfpos_visao}}</span></span></td><td><span class="ph" data-campo="vis_rfpos_delta">{{vis_rfpos_delta}}</span></td><td><span class="ph" data-campo="vis_rfpos_racional">{{vis_rfpos_racional}}</span></td><td><span class="ph" data-campo="vis_rfpos_como">{{vis_rfpos_como}}</span></td></tr><tr><td>Renda fixa&nbsp;inflação</td><td><span class="pill"><span class="ph" data-campo="vis_rfipca_visao">{{vis_rfipca_visao}}</span></span></td><td><span class="ph" data-campo="vis_rfipca_delta">{{vis_rfipca_delta}}</span></td><td><span class="ph" data-campo="vis_rfipca_racional">{{vis_rfipca_racional}}</span></td><td><span class="ph" data-campo="vis_rfipca_como">{{vis_rfipca_como}}</span></td></tr><tr><td>Renda fixa&nbsp;prefixada</td><td><span class="pill"><span class="ph" data-campo="vis_rfpre_visao">{{vis_rfpre_visao}}</span></span></td><td><span class="ph" data-campo="vis_rfpre_delta">{{vis_rfpre_delta}}</span></td><td><span class="ph" data-campo="vis_rfpre_racional">{{vis_rfpre_racional}}</span></td><td><span class="ph" data-campo="vis_rfpre_como">{{vis_rfpre_como}}</span></td></tr><tr><td>Multimercado</td><td><span class="pill"><span class="ph" data-campo="vis_multi_visao">{{vis_multi_visao}}</span></span></td><td><span class="ph" data-campo="vis_multi_delta">{{vis_multi_delta}}</span></td><td><span class="ph" data-campo="vis_multi_racional">{{vis_multi_racional}}</span></td><td><span class="ph" data-campo="vis_multi_como">{{vis_multi_como}}</span></td></tr><tr><td>Renda variável&nbsp;BR</td><td><span class="pill"><span class="ph" data-campo="vis_rvbr_visao">{{vis_rvbr_visao}}</span></span></td><td><span class="ph" data-campo="vis_rvbr_delta">{{vis_rvbr_delta}}</span></td><td><span class="ph" data-campo="vis_rvbr_racional">{{vis_rvbr_racional}}</span></td><td><span class="ph" data-campo="vis_rvbr_como">{{vis_rvbr_como}}</span></td></tr><tr><td>Internacional</td><td><span class="pill"><span class="ph" data-campo="vis_intl_visao">{{vis_intl_visao}}</span></span></td><td><span class="ph" data-campo="vis_intl_delta">{{vis_intl_delta}}</span></td><td><span class="ph" data-campo="vis_intl_racional">{{vis_intl_racional}}</span></td><td><span class="ph" data-campo="vis_intl_como">{{vis_intl_como}}</span></td></tr><tr><td>Fundos&nbsp;imobiliários</td><td><span class="pill"><span class="ph" data-campo="vis_fii_visao">{{vis_fii_visao}}</span></span></td><td><span class="ph" data-campo="vis_fii_delta">{{vis_fii_delta}}</span></td><td><span class="ph" data-campo="vis_fii_racional">{{vis_fii_racional}}</span></td><td><span class="ph" data-campo="vis_fii_como">{{vis_fii_como}}</span></td></tr><tr><td>Alternativos</td><td><span class="pill"><span class="ph" data-campo="vis_alt_visao">{{vis_alt_visao}}</span></span></td><td><span class="ph" data-campo="vis_alt_delta">{{vis_alt_delta}}</span></td><td><span class="ph" data-campo="vis_alt_racional">{{vis_alt_racional}}</span></td><td><span class="ph" data-campo="vis_alt_como">{{vis_alt_como}}</span></td></tr></tbody></table>
-<h2>Riscos que&nbsp;monitoramos</h2>
-<table class="tb"><thead><tr><th>Risco</th><th>Probabilidade</th><th>Impacto</th><th>Sinal de&nbsp;alerta</th><th>O que&nbsp;faríamos</th></tr></thead><tbody><tr><td><span class="ph" data-campo="risco_1_nome">{{risco_1_nome}}</span></td><td><span class="pill"><span class="ph" data-campo="risco_1_prob">{{risco_1_prob}}</span></span></td><td><span class="pill"><span class="ph" data-campo="risco_1_impacto">{{risco_1_impacto}}</span></span></td><td><span class="ph" data-campo="risco_1_gatilho">{{risco_1_gatilho}}</span></td><td><span class="ph" data-campo="risco_1_acao">{{risco_1_acao}}</span></td></tr><tr><td><span class="ph" data-campo="risco_2_nome">{{risco_2_nome}}</span></td><td><span class="pill"><span class="ph" data-campo="risco_2_prob">{{risco_2_prob}}</span></span></td><td><span class="pill"><span class="ph" data-campo="risco_2_impacto">{{risco_2_impacto}}</span></span></td><td><span class="ph" data-campo="risco_2_gatilho">{{risco_2_gatilho}}</span></td><td><span class="ph" data-campo="risco_2_acao">{{risco_2_acao}}</span></td></tr><tr><td><span class="ph" data-campo="risco_3_nome">{{risco_3_nome}}</span></td><td><span class="pill"><span class="ph" data-campo="risco_3_prob">{{risco_3_prob}}</span></span></td><td><span class="pill"><span class="ph" data-campo="risco_3_impacto">{{risco_3_impacto}}</span></span></td><td><span class="ph" data-campo="risco_3_gatilho">{{risco_3_gatilho}}</span></td><td><span class="ph" data-campo="risco_3_acao">{{risco_3_acao}}</span></td></tr></tbody></table>
+<h2>Oportunidades</h2>
+<div class="cards" style="--n:3"><div class="card"><h4><span class="ph" data-campo="oportunidade_1_titulo">{{oportunidade_1_titulo}}</span></h4><p><span class="ph" data-campo="oportunidade_1_texto">{{oportunidade_1_texto}}</span></p><p><strong>Ação.</strong> <span class="ph" data-campo="oportunidade_1_acao">{{oportunidade_1_acao}}</span></p></div><div class="card"><h4><span class="ph" data-campo="oportunidade_2_titulo">{{oportunidade_2_titulo}}</span></h4><p><span class="ph" data-campo="oportunidade_2_texto">{{oportunidade_2_texto}}</span></p><p><strong>Ação.</strong> <span class="ph" data-campo="oportunidade_2_acao">{{oportunidade_2_acao}}</span></p></div><div class="card"><h4><span class="ph" data-campo="oportunidade_3_titulo">{{oportunidade_3_titulo}}</span></h4><p><span class="ph" data-campo="oportunidade_3_texto">{{oportunidade_3_texto}}</span></p><p><strong>Ação.</strong> <span class="ph" data-campo="oportunidade_3_acao">{{oportunidade_3_acao}}</span></p></div></div>
+<div class="esp"></div>
+<h1 class="t" data-toc="perspectivas" data-rotulo="Agenda">Perspectivas para <span class="ph" data-campo="mes_referencia">{{mes_referencia}}</span></h1>
+<p class="lead">Eventos críticos que definem o&nbsp;mês</p>
+<table class="tb sm fix"><colgroup><col style="width:16%"><col style="width:30%"><col style="width:54%"></colgroup><thead><tr><th>Data</th><th>Evento /&nbsp;indicador</th><th>Por que&nbsp;importa</th></tr></thead><tbody><tr><td><span class="ph" data-campo="ag_1_data">{{ag_1_data}}</span></td><td><span class="ph" data-campo="ag_1_evento">{{ag_1_evento}}</span></td><td><span class="ph" data-campo="ag_1_motivo">{{ag_1_motivo}}</span></td></tr><tr><td><span class="ph" data-campo="ag_2_data">{{ag_2_data}}</span></td><td><span class="ph" data-campo="ag_2_evento">{{ag_2_evento}}</span></td><td><span class="ph" data-campo="ag_2_motivo">{{ag_2_motivo}}</span></td></tr><tr><td><span class="ph" data-campo="ag_3_data">{{ag_3_data}}</span></td><td><span class="ph" data-campo="ag_3_evento">{{ag_3_evento}}</span></td><td><span class="ph" data-campo="ag_3_motivo">{{ag_3_motivo}}</span></td></tr><tr><td><span class="ph" data-campo="ag_4_data">{{ag_4_data}}</span></td><td><span class="ph" data-campo="ag_4_evento">{{ag_4_evento}}</span></td><td><span class="ph" data-campo="ag_4_motivo">{{ag_4_motivo}}</span></td></tr><tr><td><span class="ph" data-campo="ag_5_data">{{ag_5_data}}</span></td><td><span class="ph" data-campo="ag_5_evento">{{ag_5_evento}}</span></td><td><span class="ph" data-campo="ag_5_motivo">{{ag_5_motivo}}</span></td></tr></tbody></table>
 <div class="gap"></div>
-<div class="note"><p><strong>Em uma&nbsp;frase.</strong> <span class="ph" data-campo="sintese_posicionamento">{{sintese_posicionamento}}</span></p></div>
+<p class="small"><span class="ph" data-campo="perspectivas_texto" title="O que a combinação desses eventos significa">{{perspectivas_texto}}</span></p>
   </div>
   <footer class="pg-foot"><span class="no">08</span><span>DOCUMENTO CONFIDENCIAL. PROIBIDO O&nbsp;COMPARTILHAMENTO</span></footer>
 </section>
 <section class="page">
   
   <header class="pg-head">
-    <div class="sec">Agenda</div>
+    <div class="sec">Síntese</div>
     <div class="rt"><div class="dt"><span class="ph" data-campo="mes_referencia">{{mes_referencia}}</span></div><div class="logo logo-ink" style="width:17.5mm"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1044.44 274.67">
   <defs>
     <style>
@@ -1032,12 +1099,10 @@ table.tb{width:100%;border-collapse:collapse;font-size:8.2pt}
 </svg></div></div>
   </header>
   <div class="pg-body">
-<h1 class="t">Agenda de <span class="ph" data-campo="mes_seguinte">{{mes_seguinte}}</span></h1>
-<p class="lead">Datas e eventos que podem mover os mercados no próximo&nbsp;período.</p>
-<h2>Calendário</h2>
-<table class="tb"><thead><tr><th>Data</th><th>Evento /&nbsp;indicador</th><th>País</th><th>Relevância</th><th>Por que&nbsp;importa</th></tr></thead><tbody><tr><td><span class="ph" data-campo="ag_1_data">{{ag_1_data}}</span></td><td><span class="ph" data-campo="ag_1_evento">{{ag_1_evento}}</span></td><td><span class="ph" data-campo="ag_1_pais">{{ag_1_pais}}</span></td><td><span class="pill"><span class="ph" data-campo="ag_1_relevancia">{{ag_1_relevancia}}</span></span></td><td><span class="ph" data-campo="ag_1_motivo">{{ag_1_motivo}}</span></td></tr><tr><td><span class="ph" data-campo="ag_2_data">{{ag_2_data}}</span></td><td><span class="ph" data-campo="ag_2_evento">{{ag_2_evento}}</span></td><td><span class="ph" data-campo="ag_2_pais">{{ag_2_pais}}</span></td><td><span class="pill"><span class="ph" data-campo="ag_2_relevancia">{{ag_2_relevancia}}</span></span></td><td><span class="ph" data-campo="ag_2_motivo">{{ag_2_motivo}}</span></td></tr><tr><td><span class="ph" data-campo="ag_3_data">{{ag_3_data}}</span></td><td><span class="ph" data-campo="ag_3_evento">{{ag_3_evento}}</span></td><td><span class="ph" data-campo="ag_3_pais">{{ag_3_pais}}</span></td><td><span class="pill"><span class="ph" data-campo="ag_3_relevancia">{{ag_3_relevancia}}</span></span></td><td><span class="ph" data-campo="ag_3_motivo">{{ag_3_motivo}}</span></td></tr><tr><td><span class="ph" data-campo="ag_4_data">{{ag_4_data}}</span></td><td><span class="ph" data-campo="ag_4_evento">{{ag_4_evento}}</span></td><td><span class="ph" data-campo="ag_4_pais">{{ag_4_pais}}</span></td><td><span class="pill"><span class="ph" data-campo="ag_4_relevancia">{{ag_4_relevancia}}</span></span></td><td><span class="ph" data-campo="ag_4_motivo">{{ag_4_motivo}}</span></td></tr><tr><td><span class="ph" data-campo="ag_5_data">{{ag_5_data}}</span></td><td><span class="ph" data-campo="ag_5_evento">{{ag_5_evento}}</span></td><td><span class="ph" data-campo="ag_5_pais">{{ag_5_pais}}</span></td><td><span class="pill"><span class="ph" data-campo="ag_5_relevancia">{{ag_5_relevancia}}</span></span></td><td><span class="ph" data-campo="ag_5_motivo">{{ag_5_motivo}}</span></td></tr><tr><td><span class="ph" data-campo="ag_6_data">{{ag_6_data}}</span></td><td><span class="ph" data-campo="ag_6_evento">{{ag_6_evento}}</span></td><td><span class="ph" data-campo="ag_6_pais">{{ag_6_pais}}</span></td><td><span class="pill"><span class="ph" data-campo="ag_6_relevancia">{{ag_6_relevancia}}</span></span></td><td><span class="ph" data-campo="ag_6_motivo">{{ag_6_motivo}}</span></td></tr><tr><td><span class="ph" data-campo="ag_7_data">{{ag_7_data}}</span></td><td><span class="ph" data-campo="ag_7_evento">{{ag_7_evento}}</span></td><td><span class="ph" data-campo="ag_7_pais">{{ag_7_pais}}</span></td><td><span class="pill"><span class="ph" data-campo="ag_7_relevancia">{{ag_7_relevancia}}</span></span></td><td><span class="ph" data-campo="ag_7_motivo">{{ag_7_motivo}}</span></td></tr><tr><td><span class="ph" data-campo="ag_8_data">{{ag_8_data}}</span></td><td><span class="ph" data-campo="ag_8_evento">{{ag_8_evento}}</span></td><td><span class="ph" data-campo="ag_8_pais">{{ag_8_pais}}</span></td><td><span class="pill"><span class="ph" data-campo="ag_8_relevancia">{{ag_8_relevancia}}</span></span></td><td><span class="ph" data-campo="ag_8_motivo">{{ag_8_motivo}}</span></td></tr></tbody></table>
-<h2>O que estaremos&nbsp;observando</h2>
-<div class="cards" style="--n:3"><div class="card"><h4><span class="ph" data-campo="observar_1_titulo">{{observar_1_titulo}}</span></h4><p><span class="ph" data-campo="observar_1_detalhe">{{observar_1_detalhe}}</span></p></div><div class="card"><h4><span class="ph" data-campo="observar_2_titulo">{{observar_2_titulo}}</span></h4><p><span class="ph" data-campo="observar_2_detalhe">{{observar_2_detalhe}}</span></p></div><div class="card"><h4><span class="ph" data-campo="observar_3_titulo">{{observar_3_titulo}}</span></h4><p><span class="ph" data-campo="observar_3_detalhe">{{observar_3_detalhe}}</span></p></div></div>
+<h1 class="t" data-toc="sintese">Síntese executiva e posicionamento&nbsp;recomendado</h1>
+<p class="small"><span class="ph" data-campo="sintese_1">{{sintese_1}}</span></p>
+<p class="small"><span class="ph" data-campo="sintese_2">{{sintese_2}}</span></p>
+<p class="small"><span class="ph" data-campo="sintese_3">{{sintese_3}}</span></p>
   </div>
   <footer class="pg-foot"><span class="no">09</span><span>DOCUMENTO CONFIDENCIAL. PROIBIDO O&nbsp;COMPARTILHAMENTO</span></footer>
 </section>
@@ -1084,26 +1149,25 @@ table.tb{width:100%;border-collapse:collapse;font-size:8.2pt}
 </svg></div></div>
   </header>
   <div class="pg-body">
-<h1 class="t">Notas metodológicas e&nbsp;avisos</h1>
+<h1 class="t" data-toc="notas">Notas e&nbsp;avisos</h1>
 <h2>Fontes</h2>
 <div class="dl">
-  <dt>Dados de&nbsp;mercado</dt><dd><span class="ph" data-campo="fonte_dados_mercado">{{fonte_dados_mercado}}</span></dd>
-  <dt>Indicadores&nbsp;macro</dt><dd><span class="ph" data-campo="fonte_dados_macro">{{fonte_dados_macro}}</span></dd>
-  <dt>Consenso de&nbsp;mercado</dt><dd><span class="ph" data-campo="fonte_consenso">{{fonte_consenso}}</span></dd>
-  <dt>Data de&nbsp;fechamento</dt><dd><span class="ph" data-campo="data_fechamento">{{data_fechamento}}</span></dd>
+  <dt>Indicadores&nbsp;macro</dt><dd><span class="ph" data-campo="fonte_indicadores" title="Ex.: BCB, IBGE, Tesouro Nacional, Bloomberg">{{fonte_indicadores}}</span></dd>
+  <dt>Cenários e&nbsp;projeções</dt><dd><span class="ph" data-campo="fonte_cenarios">{{fonte_cenarios}}</span></dd>
 </div>
-<h2>Declaração do&nbsp;analista</h2>
-<p class="legal"><span class="ph" data-campo="declaracao_analista" title="Declaração exigida pela Resolução CVM 20">{{declaracao_analista}}</span></p>
 <h2>Avisos&nbsp;legais</h2>
 <p class="legal"><span class="ph" data-campo="disclaimer_regulatorio" title="Texto aprovado pelo compliance para este segmento">{{disclaimer_regulatorio}}</span></p>
 <p class="legal">Este relatório tem caráter exclusivamente informativo e educacional e não constitui oferta, recomendação individualizada, proposta de investimento ou solicitação de compra ou venda de qualquer ativo. As opiniões refletem a leitura do time na data de fechamento e podem mudar sem aviso prévio. Projeções são exercícios sujeitos a erro e não representam promessa ou garantia de&nbsp;resultado.</p>
 <p class="legal">Rentabilidade passada não representa garantia de rentabilidade futura. Antes de investir, avalie a adequação do produto ao seu perfil e leia os documentos oficiais de cada investimento. É proibida a reprodução, redistribuição ou compartilhamento total ou parcial deste documento sem autorização prévia e por&nbsp;escrito.</p>
 <h2>Contato</h2>
 <div class="dl">
-  <dt>Analista&nbsp;responsável</dt><dd><span class="ph" data-campo="nome_analista">{{nome_analista}}</span>, <span class="ph" data-campo="registro_analista">{{registro_analista}}</span></dd>
+  <dt>Analista&nbsp;responsável</dt><dd>Douglas&nbsp;Ribeiro</dd>
+  <dt>Registro</dt><dd><span class="ph" data-campo="registro_analista">{{registro_analista}}</span></dd>
+  <dt>Coordenador&nbsp;responsável</dt><dd>Manoel&nbsp;Neto</dd>
   <dt>E-mail</dt><dd><span class="ph" data-campo="email_contato" data-link="mailto">{{email_contato}}</span></dd>
   <dt>Ouvidoria</dt><dd><span class="ph" data-campo="canal_ouvidoria" data-link="auto">{{canal_ouvidoria}}</span></dd>
-  <dt>Razão&nbsp;social</dt><dd><span class="ph" data-campo="razao_social">{{razao_social}}</span>, CNPJ <span class="ph" data-campo="cnpj">{{cnpj}}</span></dd>
+  <dt>Razão&nbsp;social</dt><dd><span class="ph" data-campo="razao_social">{{razao_social}}</span></dd>
+  <dt>CNPJ</dt><dd><span class="ph" data-campo="cnpj">{{cnpj}}</span></dd>
 </div>
   </div>
   <footer class="pg-foot"><span class="no">10</span><span>DOCUMENTO CONFIDENCIAL. PROIBIDO O&nbsp;COMPARTILHAMENTO</span></footer>

@@ -392,7 +392,7 @@ PLANOS = {
         resumo="Você investe com autonomia total, usando a plataforma e usufruindo dos benefícios de ser membro da AUVP Capital.",
         funciona=[
             "A decisão é sua, do começo ao fim: você escolhe o que comprar, quanto e quando, direto na plataforma.",
-            "O material de apoio chega toda semana — curadoria de notícias e leitura do cenário — para você decidir com informação.",
+            "O material de apoio chega toda semana, com curadoria de notícias e leitura do cenário, para você decidir com informação.",
             "O plano é o acesso à plataforma e aos benefícios de ser membro da casa. Recomendação individual e consultor designado são o assunto dos outros dois planos.",
         ],
         incluido=[
@@ -422,7 +422,7 @@ PLANOS = {
             # parte do plano, que é onde ele se lê como combinado e não como
             # aviso. Nesta página, que é a de como o plano funciona, o mesmo
             # fato entra pelo lado afirmativo: o canal é um só, e é o WhatsApp.
-            "Não tem limite de conversa nem dia certo para falar com a gente. O atendimento é feito exclusivamente pelo WhatsApp — é lá que o seu consultor está, e é para lá que você manda mensagem sempre que precisar.",
+            "Não tem limite de conversa nem dia certo para falar com a gente. O atendimento é feito exclusivamente pelo WhatsApp: é lá que o seu consultor está, e é para lá que você manda mensagem sempre que precisar.",
             "Quem compra e quem vende é você, na sua conta. O consultor diz o que faz sentido, quanto e por quê, e fica com você tirando dúvida até a hora de executar.",
         ],
         pedir=[
@@ -468,7 +468,7 @@ PLANOS = {
             "Uma estratégia de alocação montada para o seu caso, e não para um perfil médio.",
             "Revisão da carteira sempre que o cenário ou o seu momento de vida mudarem.",
             "Direcionamento dos aportes, com o racional de cada decisão junto.",
-            "Leitura do que uma notícia ou um movimento de mercado muda — ou não muda — na sua estratégia.",
+            "Leitura do que uma notícia ou um movimento de mercado muda, ou não muda, na sua estratégia.",
             "Apoio na decisão ao longo do tempo, e não só na hora de montar a carteira.",
         ],
         incluido=[

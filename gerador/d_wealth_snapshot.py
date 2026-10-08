@@ -73,7 +73,7 @@ ROADMAP = [
     ("Tributação",
      "Ex.: cenários para imóveis, aluguéis, dividendos e patrimônio financeiro"),
     ("Sucessão e governança",
-     "Ex.: quem coordenar — cônjuge, filhos, sócios — e o que preservar"),
+     "Ex.: quem coordenar (cônjuge, filhos, sócios) e o que preservar"),
     ("Riscos e eficiência",
      "Ex.: segregação funcional, contratos, garantias, liquidez e função dos ativos"),
 ]
@@ -214,7 +214,7 @@ def build(t, seg):
              "anuais superiores a R$ 600 mil e pode chegar à alíquota mínima de 10% a partir da "
              "base legal de R$ 1,2 milhão."),
         concl=ph("ir_conclusao", padrao="A oportunidade está em coordenar política de "
-                 "distribuição, necessidade de caixa e tributação anual — sem fracionamentos "
+                 "distribuição, necessidade de caixa e tributação anual, sem fracionamentos "
                  "artificiais ou pagamentos sem fundamento econômico."))))
 
     # ------------------------------------------------------- integração sucessória
@@ -261,7 +261,7 @@ def build(t, seg):
         e_ctx=_itens("eficiencia_contexto", 4, "Ex.: imóveis de renda e terrenos"),
         e_temas=_padrao("eficiencia_tema", EFI_TEMAS),
         concl=ph("governanca_conclusao", padrao="A análise deve buscar previsibilidade, "
-                 "organização e uso racional dos ativos — não transferências patrimoniais "
+                 "organização e uso racional dos ativos, e não transferências patrimoniais "
                  "indiscriminadas."))))
 
     # ---------------------------------------------------------- frentes sugeridas

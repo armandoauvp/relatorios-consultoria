@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Relatório Mensal — AUVP Capital · Assessoria</title>
+<title>Relatório Mensal: AUVP Capital · Assessoria</title>
 <style>
 :root{
   --brand:#005F45; --accent:#EFBF4F; --accent-dk:#EFBF4F;
@@ -37,6 +37,10 @@ a{color:inherit;text-decoration:none}
 p{margin:0 0 3mm}
 ul{margin:0 0 3mm;padding-left:4mm}
 li{margin:0 0 1mm}
+/* Texto corrido justificado, em todos os documentos. A hifenização fecha os
+   vãos que a justificação abre em coluna estreita. Quem precisa de outro
+   alinhamento declara o seu, e a classe vence o elemento. */
+p,li{text-align:justify;hyphens:auto;-webkit-hyphens:auto}
 strong{font-weight:700}
 .ph{background:var(--ph);border-radius:.6mm;padding:0 1mm;font-weight:600;overflow-wrap:break-word;text-transform:none;letter-spacing:0;font-size:.94em}
 /* O campo que já vem preenchido não é lacuna: lê-se como o texto que é, e o
@@ -440,6 +444,65 @@ table.tb{width:100%;border-collapse:collapse;font-size:8.2pt}
 .page.dark .note{background:rgba(255,255,255,.06);border-left-color:rgba(255,255,255,.4)}
 
 
+/* ---------- diagnóstico ----------
+   O gráfico de risco e retorno do relatório antigo, em fio; a lista numerada
+   da metodologia; e a assinatura do consultor, que fecha o documento. */
+.rr-box{display:flex;justify-content:center;margin:1mm 0 5mm}
+.rr{width:100mm;height:auto;overflow:visible}
+.rr line,.rr polyline{fill:none;stroke:var(--ink-2);stroke-width:1px;vector-effect:non-scaling-stroke}
+.rr .ax{stroke:var(--ink)}
+.rr .rt{stroke:var(--accent);stroke-width:1.33px}
+.rr text{font-size:8px;fill:var(--ink-2);letter-spacing:.08em;text-transform:uppercase}
+ol.numerada{margin:0 0 3mm;padding-left:5mm}
+ol.numerada li{margin-bottom:2mm}
+.rr .guia{stroke:var(--line);stroke-dasharray:3 3}
+.rr .rt{fill:none}
+/* a caixa em que o consultor escreve o que viu em cada classe */
+.consideracoes{border:1px solid var(--line);border-left:1.33px solid var(--accent);padding:3mm 4mm;
+  min-height:22mm;font-size:9pt}
+.consideracoes p:last-child{margin-bottom:0}
+.assinatura{margin-top:auto;padding-top:8mm;width:72mm;display:flex;flex-direction:column;gap:2mm}
+.assinatura .imgbox{width:100%}
+.assinatura .ln{border-top:1px solid var(--ink);padding-top:1.5mm;font-size:8pt}
+/* As listas do relatório de proposta, com os marcadores dele: 1), a), i). */
+ol.pontos,ol.alfa,ol.romano{list-style:none;margin:0 0 3mm;padding-left:7mm}
+ol.pontos{counter-reset:pt}ol.alfa{counter-reset:al}ol.romano{counter-reset:ro;margin:1.5mm 0 0}
+ol.pontos>li,ol.alfa>li,ol.romano>li{position:relative;margin-bottom:2mm}
+ol.pontos>li::before{counter-increment:pt;content:counter(pt) ")"}
+ol.alfa>li::before{counter-increment:al;content:counter(al,lower-alpha) ")"}
+ol.romano>li::before{counter-increment:ro;content:counter(ro,lower-roman) ")"}
+ol.pontos>li::before,ol.alfa>li::before,ol.romano>li::before{position:absolute;left:-7mm;
+  color:var(--brand);font-weight:700}
+.apos-tab{margin-top:4mm}
+.apos-lista{margin-top:3mm}
+.item-tab{margin:4mm 0 2mm;font-weight:700}
+.item-tab.topo,h3.topo{margin-top:0}
+h3.cenario{margin-top:0;color:var(--brand);letter-spacing:.06em}
+/* o título que, no relatório antigo, vinha dentro da imagem do gráfico */
+.tit-graf{text-align:center;font-weight:700;font-size:8.6pt;margin:0 0 2mm}
+.graf-bloco{display:flex;flex-direction:column}
+.par-graf{flex:0 0 auto;align-items:stretch;margin:5mm 0}
+.meta-lado .cab{background:var(--brand);color:#fff;text-align:center;font-size:6.6pt;font-weight:600;
+  letter-spacing:.08em;text-transform:uppercase;padding:2mm;margin-bottom:2mm}
+.meta-lado>div{display:flex;flex-direction:column}
+.fig-fixa{margin:2mm 0 0}
+.fig-fixa img{display:block;width:100%;height:auto}
+.fonte{text-align:center;font-size:7.4pt;color:var(--ink-2);margin:1.5mm 0 4mm}
+/* campo que decide o que fica no documento, e que não se imprime */
+.so-campo{display:none}
+.disclaimer{margin-top:auto;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  padding:3mm 0 1mm}
+.disclaimer p{font-size:7pt;line-height:1.5;color:var(--ink-2);margin-bottom:2mm}
+.disclaimer .dt{font-weight:700;color:var(--ink);letter-spacing:.06em;text-transform:uppercase}
+/* a assinatura que fecha o relatório: a foto, o nome e a marca */
+.assina{margin-top:auto;align-self:flex-end;display:flex;align-items:center;gap:4mm;padding-top:8mm}
+.assina-foto{width:17mm;height:17mm;border-radius:50%;flex:0 0 auto;padding:0}
+.assina-foto .cl{font-size:5.6pt}
+.assina-id{display:flex;flex-direction:column;align-items:flex-start;gap:2mm}
+.assina-id .nm{font-size:9pt;font-weight:700}
+.rr.ra text{text-transform:none;letter-spacing:0;font-size:8.5px}
+.rr .seta line,.rr .seta polyline{stroke:var(--ink)}
+
 /* o mesmo painel dos slides, na escala do A4 */
 .painel{background:var(--soft);border-top:1.33px solid var(--brand);padding:4mm 5mm}
 .painel>:last-child{margin-bottom:0}
@@ -807,7 +870,7 @@ table.tb{width:100%;border-collapse:collapse;font-size:8.2pt}
   <div class="pg-body">
 <h1 class="t">Alocação por&nbsp;estratégia</h1>
 <p class="lead">Comparação entre a carteira meta do perfil <span class="ph" data-campo="perfil_investidor">{{perfil_investidor}}</span> e a posição efetiva na data de&nbsp;referência.</p>
-<table class="tb"><caption>Meta conforme o diagrama do cerrado / carteira recomendada vigente para o perfil. Desvios acima da banda de tolerância acionam rebalanceamento.</caption><thead><tr><th>Classe de&nbsp;ativo</th><th class="num">Meta</th><th class="num">Atual</th><th class="num">Desvio</th><th class="num">Valor</th><th>Leitura</th></tr></thead><tbody><tr><td>Renda fixa&nbsp;pós-fixada</td><td class="num"><span class="ph" data-campo="alvo_rf_pos">{{alvo_rf_pos}}</span></td><td class="num"><span class="ph" data-campo="atual_rf_pos">{{atual_rf_pos}}</span></td><td class="num"><span class="ph" data-campo="desvio_rf_pos">{{desvio_rf_pos}}</span></td><td class="num"><span class="ph" data-campo="valor_rf_pos">{{valor_rf_pos}}</span></td><td><span class="pill"><span class="ph" data-campo="status_rf_pos">{{status_rf_pos}}</span></span></td></tr><tr><td>Renda fixa&nbsp;prefixada</td><td class="num"><span class="ph" data-campo="alvo_rf_pre">{{alvo_rf_pre}}</span></td><td class="num"><span class="ph" data-campo="atual_rf_pre">{{atual_rf_pre}}</span></td><td class="num"><span class="ph" data-campo="desvio_rf_pre">{{desvio_rf_pre}}</span></td><td class="num"><span class="ph" data-campo="valor_rf_pre">{{valor_rf_pre}}</span></td><td><span class="pill"><span class="ph" data-campo="status_rf_pre">{{status_rf_pre}}</span></span></td></tr><tr><td>Renda fixa&nbsp;inflação</td><td class="num"><span class="ph" data-campo="alvo_rf_ipca">{{alvo_rf_ipca}}</span></td><td class="num"><span class="ph" data-campo="atual_rf_ipca">{{atual_rf_ipca}}</span></td><td class="num"><span class="ph" data-campo="desvio_rf_ipca">{{desvio_rf_ipca}}</span></td><td class="num"><span class="ph" data-campo="valor_rf_ipca">{{valor_rf_ipca}}</span></td><td><span class="pill"><span class="ph" data-campo="status_rf_ipca">{{status_rf_ipca}}</span></span></td></tr><tr><td>Multimercado</td><td class="num"><span class="ph" data-campo="alvo_multi">{{alvo_multi}}</span></td><td class="num"><span class="ph" data-campo="atual_multi">{{atual_multi}}</span></td><td class="num"><span class="ph" data-campo="desvio_multi">{{desvio_multi}}</span></td><td class="num"><span class="ph" data-campo="valor_multi">{{valor_multi}}</span></td><td><span class="pill"><span class="ph" data-campo="status_multi">{{status_multi}}</span></span></td></tr><tr><td>Renda variável&nbsp;Brasil</td><td class="num"><span class="ph" data-campo="alvo_rv_br">{{alvo_rv_br}}</span></td><td class="num"><span class="ph" data-campo="atual_rv_br">{{atual_rv_br}}</span></td><td class="num"><span class="ph" data-campo="desvio_rv_br">{{desvio_rv_br}}</span></td><td class="num"><span class="ph" data-campo="valor_rv_br">{{valor_rv_br}}</span></td><td><span class="pill"><span class="ph" data-campo="status_rv_br">{{status_rv_br}}</span></span></td></tr><tr><td>Internacional</td><td class="num"><span class="ph" data-campo="alvo_intl">{{alvo_intl}}</span></td><td class="num"><span class="ph" data-campo="atual_intl">{{atual_intl}}</span></td><td class="num"><span class="ph" data-campo="desvio_intl">{{desvio_intl}}</span></td><td class="num"><span class="ph" data-campo="valor_intl">{{valor_intl}}</span></td><td><span class="pill"><span class="ph" data-campo="status_intl">{{status_intl}}</span></span></td></tr><tr><td>Fundos&nbsp;imobiliários</td><td class="num"><span class="ph" data-campo="alvo_fii">{{alvo_fii}}</span></td><td class="num"><span class="ph" data-campo="atual_fii">{{atual_fii}}</span></td><td class="num"><span class="ph" data-campo="desvio_fii">{{desvio_fii}}</span></td><td class="num"><span class="ph" data-campo="valor_fii">{{valor_fii}}</span></td><td><span class="pill"><span class="ph" data-campo="status_fii">{{status_fii}}</span></span></td></tr><tr><td>Alternativos e&nbsp;private</td><td class="num"><span class="ph" data-campo="alvo_alt">{{alvo_alt}}</span></td><td class="num"><span class="ph" data-campo="atual_alt">{{atual_alt}}</span></td><td class="num"><span class="ph" data-campo="desvio_alt">{{desvio_alt}}</span></td><td class="num"><span class="ph" data-campo="valor_alt">{{valor_alt}}</span></td><td><span class="pill"><span class="ph" data-campo="status_alt">{{status_alt}}</span></span></td></tr><tr><td>Caixa e&nbsp;liquidez</td><td class="num"><span class="ph" data-campo="alvo_caixa">{{alvo_caixa}}</span></td><td class="num"><span class="ph" data-campo="atual_caixa">{{atual_caixa}}</span></td><td class="num"><span class="ph" data-campo="desvio_caixa">{{desvio_caixa}}</span></td><td class="num"><span class="ph" data-campo="valor_caixa">{{valor_caixa}}</span></td><td><span class="pill"><span class="ph" data-campo="status_caixa">{{status_caixa}}</span></span></td></tr></tbody><tfoot><tr><td><strong>Total</strong></td><td class="num">100,0%</td><td class="num">100,0%</td><td class="num">&mdash;</td><td class="num"><span class="ph" data-campo="patrimonio_total">{{patrimonio_total}}</span></td><td></td></tr></tfoot></table>
+<table class="tb"><caption>Meta conforme o diagrama do cerrado / carteira recomendada vigente para o perfil. Desvios acima da banda de tolerância acionam rebalanceamento.</caption><thead><tr><th>Classe de&nbsp;ativo</th><th class="num">Meta</th><th class="num">Atual</th><th class="num">Desvio</th><th class="num">Valor</th><th>Leitura</th></tr></thead><tbody><tr><td>Renda fixa&nbsp;pós-fixada</td><td class="num"><span class="ph" data-campo="alvo_rf_pos">{{alvo_rf_pos}}</span></td><td class="num"><span class="ph" data-campo="atual_rf_pos">{{atual_rf_pos}}</span></td><td class="num"><span class="ph" data-campo="desvio_rf_pos">{{desvio_rf_pos}}</span></td><td class="num"><span class="ph" data-campo="valor_rf_pos">{{valor_rf_pos}}</span></td><td><span class="pill"><span class="ph" data-campo="status_rf_pos">{{status_rf_pos}}</span></span></td></tr><tr><td>Renda fixa&nbsp;prefixada</td><td class="num"><span class="ph" data-campo="alvo_rf_pre">{{alvo_rf_pre}}</span></td><td class="num"><span class="ph" data-campo="atual_rf_pre">{{atual_rf_pre}}</span></td><td class="num"><span class="ph" data-campo="desvio_rf_pre">{{desvio_rf_pre}}</span></td><td class="num"><span class="ph" data-campo="valor_rf_pre">{{valor_rf_pre}}</span></td><td><span class="pill"><span class="ph" data-campo="status_rf_pre">{{status_rf_pre}}</span></span></td></tr><tr><td>Renda fixa&nbsp;inflação</td><td class="num"><span class="ph" data-campo="alvo_rf_ipca">{{alvo_rf_ipca}}</span></td><td class="num"><span class="ph" data-campo="atual_rf_ipca">{{atual_rf_ipca}}</span></td><td class="num"><span class="ph" data-campo="desvio_rf_ipca">{{desvio_rf_ipca}}</span></td><td class="num"><span class="ph" data-campo="valor_rf_ipca">{{valor_rf_ipca}}</span></td><td><span class="pill"><span class="ph" data-campo="status_rf_ipca">{{status_rf_ipca}}</span></span></td></tr><tr><td>Multimercado</td><td class="num"><span class="ph" data-campo="alvo_multi">{{alvo_multi}}</span></td><td class="num"><span class="ph" data-campo="atual_multi">{{atual_multi}}</span></td><td class="num"><span class="ph" data-campo="desvio_multi">{{desvio_multi}}</span></td><td class="num"><span class="ph" data-campo="valor_multi">{{valor_multi}}</span></td><td><span class="pill"><span class="ph" data-campo="status_multi">{{status_multi}}</span></span></td></tr><tr><td>Renda variável&nbsp;Brasil</td><td class="num"><span class="ph" data-campo="alvo_rv_br">{{alvo_rv_br}}</span></td><td class="num"><span class="ph" data-campo="atual_rv_br">{{atual_rv_br}}</span></td><td class="num"><span class="ph" data-campo="desvio_rv_br">{{desvio_rv_br}}</span></td><td class="num"><span class="ph" data-campo="valor_rv_br">{{valor_rv_br}}</span></td><td><span class="pill"><span class="ph" data-campo="status_rv_br">{{status_rv_br}}</span></span></td></tr><tr><td>Internacional</td><td class="num"><span class="ph" data-campo="alvo_intl">{{alvo_intl}}</span></td><td class="num"><span class="ph" data-campo="atual_intl">{{atual_intl}}</span></td><td class="num"><span class="ph" data-campo="desvio_intl">{{desvio_intl}}</span></td><td class="num"><span class="ph" data-campo="valor_intl">{{valor_intl}}</span></td><td><span class="pill"><span class="ph" data-campo="status_intl">{{status_intl}}</span></span></td></tr><tr><td>Fundos&nbsp;imobiliários</td><td class="num"><span class="ph" data-campo="alvo_fii">{{alvo_fii}}</span></td><td class="num"><span class="ph" data-campo="atual_fii">{{atual_fii}}</span></td><td class="num"><span class="ph" data-campo="desvio_fii">{{desvio_fii}}</span></td><td class="num"><span class="ph" data-campo="valor_fii">{{valor_fii}}</span></td><td><span class="pill"><span class="ph" data-campo="status_fii">{{status_fii}}</span></span></td></tr><tr><td>Alternativos e&nbsp;private</td><td class="num"><span class="ph" data-campo="alvo_alt">{{alvo_alt}}</span></td><td class="num"><span class="ph" data-campo="atual_alt">{{atual_alt}}</span></td><td class="num"><span class="ph" data-campo="desvio_alt">{{desvio_alt}}</span></td><td class="num"><span class="ph" data-campo="valor_alt">{{valor_alt}}</span></td><td><span class="pill"><span class="ph" data-campo="status_alt">{{status_alt}}</span></span></td></tr><tr><td>Caixa e&nbsp;liquidez</td><td class="num"><span class="ph" data-campo="alvo_caixa">{{alvo_caixa}}</span></td><td class="num"><span class="ph" data-campo="atual_caixa">{{atual_caixa}}</span></td><td class="num"><span class="ph" data-campo="desvio_caixa">{{desvio_caixa}}</span></td><td class="num"><span class="ph" data-campo="valor_caixa">{{valor_caixa}}</span></td><td><span class="pill"><span class="ph" data-campo="status_caixa">{{status_caixa}}</span></span></td></tr></tbody><tfoot><tr><td><strong>Total</strong></td><td class="num">100,0%</td><td class="num">100,0%</td><td class="num"></td><td class="num"><span class="ph" data-campo="patrimonio_total">{{patrimonio_total}}</span></td><td></td></tr></tfoot></table>
 <div class="gap"></div>
 <div class="chart" data-img="2" data-grafico="anel" data-series="Renda fixa|Multimercado|Renda variável BR|Internacional|FIIs|Alternativos" style="flex:1 1 auto;flex:1 1 auto;min-height:52mm"><div class="sk-donut"></div><div class="cl">Carteira atual x&nbsp;meta</div><div class="cd">Duas roscas concêntricas: a interna com a meta, a externa com a posição&nbsp;atual.</div><ul class="legend"><li><i style="background:var(--c1)"></i>Renda&nbsp;fixa</li><li><i style="background:var(--c2)"></i>Multimercado</li><li><i style="background:var(--c3)"></i>Renda variável&nbsp;BR</li><li><i style="background:var(--c4)"></i>Internacional</li><li><i style="background:var(--c5)"></i>FIIs</li><li><i style="background:var(--c6)"></i>Alternativos</li></ul></div>
   </div>
@@ -1015,7 +1078,7 @@ table.tb{width:100%;border-collapse:collapse;font-size:8.2pt}
   </header>
   <div class="pg-body">
 <h1 class="t">Ações e fundos&nbsp;imobiliários</h1>
-<p class="lead">Como a parte em bolsa está distribuída — por setor, nas ações, e por segmento, nos fundos imobiliários. A relação papel a papel está no extrato da sua&nbsp;conta.</p>
+<p class="lead">Como a parte em bolsa está distribuída: por setor, nas ações, e por segmento, nos fundos imobiliários. A relação papel a papel está no extrato da sua&nbsp;conta.</p>
 <div class="cols2" style="flex:1 1 auto;align-items:stretch">
   <div class="chart" data-img="4" data-grafico="donut" data-series="Financeiro|Energia|Consumo|Indústria|Saúde|Outros" style="flex:1 1 auto;min-height:40mm"><div class="sk-donut"></div><div class="cl">Ações por&nbsp;setor</div><div class="cd">Rosca com a distribuição setorial das ações, na curadoria de setor da&nbsp;AUVP.</div><ul class="legend"><li><i style="background:var(--c1)"></i>Financeiro</li><li><i style="background:var(--c2)"></i>Energia</li><li><i style="background:var(--c3)"></i>Consumo</li><li><i style="background:var(--c4)"></i>Indústria</li><li><i style="background:var(--c5)"></i>Saúde</li><li><i style="background:var(--c6)"></i>Outros</li></ul></div>
   <div class="chart" data-img="5" data-grafico="donut" data-series="Tijolo|Papel|Híbrido|Fundo de fundos" style="flex:1 1 auto;min-height:40mm"><div class="sk-donut"></div><div class="cl">FIIs por&nbsp;segmento</div><div class="cd">Rosca com a distribuição por&nbsp;segmento.</div><ul class="legend"><li><i style="background:var(--c1)"></i>Tijolo</li><li><i style="background:var(--c2)"></i>Papel</li><li><i style="background:var(--c3)"></i>Híbrido</li><li><i style="background:var(--c4)"></i>Fundo de&nbsp;fundos</li></ul></div>

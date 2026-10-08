@@ -19,13 +19,14 @@ export const DOCUMENTOS = [
   { chave: 'relatorio-mensal', nome: 'Relatório mensal', formato: 'a4',
     descricao: 'Fechamento do mês: patrimônio, rentabilidade, alocação e movimentações.' },
   // `blocos` marca os documentos em que a ferramenta deixa montar páginas
-  // novas. São os dois que não cabem num molde fixo: o diagnóstico muda de
-  // forma conforme a carteira que se lê, e o macro precisa abrir espaço quando
-  // o mês traz um evento que ninguém previu.
-  { chave: 'diagnostico-carteira', nome: 'Diagnóstico de carteira', formato: 'a4', blocos: true,
-    descricao: 'Leitura da carteira atual, riscos encontrados e plano de ajuste.' },
+  // novas. O macro precisa abrir espaço quando o mês traz um evento que
+  // ninguém previu. O diagnóstico não: é a principal entrega inicial ao
+  // cliente, tem estrutura fixa, e o consultor só tira a página que não se
+  // aplica.
+  { chave: 'diagnostico-carteira', nome: 'Diagnóstico de carteira', formato: 'a4',
+    descricao: 'Proposta inicial ao cliente: perfil, estrutura meta, análise por classe e fluxo de aplicações.' },
   { chave: 'relatorio-macroeconomico', nome: 'Relatório macroeconômico', formato: 'a4', blocos: true,
-    descricao: 'Cenário do mês no Brasil e no exterior e o que ele muda na estratégia.' },
+    descricao: 'O relatório macro do mês: panorama, análises, carteira, classes, fechamento e agenda.' },
   { chave: 'apresentacao-geral', nome: 'Apresentação geral', formato: 'slide',
     descricao: 'Deck de apresentação do serviço, para reunião de proposta.' },
   { chave: 'relatorio-mensal-apresentacao', nome: 'Relatório mensal em apresentação', formato: 'slide',
@@ -110,6 +111,6 @@ export function rotuloVariante(sufixo, html) {
   const p = PRODUTOS.find((x) => x.chave === sufixo);
   if (p) return p.nome;
   const titulo = html && html.match(/<title>([^<]*)<\/title>/)?.[1];
-  const depois = titulo && titulo.split('—').slice(1).join('—').trim().replace(/, sem data$/, '');
+  const depois = titulo && titulo.split(': ').slice(1).join(': ').trim().replace(/, sem data$/, '');
   return depois || sufixo.split('-').map((s) => s[0].toUpperCase() + s.slice(1)).join(' ');
 }

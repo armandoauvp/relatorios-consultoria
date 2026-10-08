@@ -40,6 +40,7 @@ export const OPCOES = {
   liquidez: ['D+0', 'D+1', 'D+2', 'D+30', 'Diária', 'No vencimento'],
   pais: ['Brasil', 'Estados Unidos', 'Zona do Euro', 'China', 'Japão', 'Reino Unido', 'Global'],
   perfil: ['Conservador', 'Moderado', 'Arrojado'],
+  cenario: ['Pulverizada', 'Concentrada', 'Equilibrada', 'Em liquidez'],
   horizonte: ['Curto prazo (até 2 anos)', 'Médio prazo (2 a 5 anos)', 'Longo prazo (acima de 5 anos)'],
   cadencia: ['Mensal', 'Bimestral', 'Trimestral', 'Semestral', 'Anual', 'Sob demanda'],
 };
@@ -52,6 +53,7 @@ const POR_NOME = {
   data_documento: 'mes',
   ano_vigencia: 'ano', ano_corrente: 'ano', ano_seguinte: 'ano',
   perfil_investidor: opcoes('perfil'), horizonte_principal: opcoes('horizonte'),
+  cenario_carteira: opcoes('cenario'), titulo_do_mes: 'texto',
   selic_atual: 'percentual', retorno_12m_pct_cdi: 'percentual',
   retorno_esperado_proposta: 'percentual', risco_esperado_proposta: 'percentual',
   custo_perc_patrimonio: 'percentual', custo_proposto_perc: 'percentual',
@@ -66,10 +68,10 @@ const POR_NOME = {
 // 2. Pelo cabeçalho da coluna. Os de número vêm com a classe `num` na célula;
 //    os outros são escolha entre poucos valores.
 const CABECALHO_NUM = [
-  [/^(Valor|Posição|Exposição|Resultado no mês|Bruto|IR|Líquido|Em R\$\/ano|Custo da saída|Impacto estimado|Limite sugerido|Valor-alvo|Valor no período|Recuperável|Sob o teto|Posição \((R|US)\$\))$/, 'dinheiro'],
+  [/^(Valor|Valor \(R\$\)|Valor \(Aprox\.\)|Posição|Exposição|Resultado no mês|Bruto|IR|Líquido|Em R\$\/ano|Custo da saída|Impacto estimado|Limite sugerido|Valor-alvo|Valor no período|Recuperável|Sob o teto|Posição \((R|US)\$\))$/, 'dinheiro'],
   [/^Desvio$/, 'pp'],
-  [/^(Quantidade|Último dado|Último|Anterior)$/, 'numero'],
-  [/^(%|% .*|12 meses|24 meses|No mês|No ano|Mês|Ano|12m|24m|Desde o início|Atual|Meta|Alvo|Acumulado|Retorno 12m|Volatilidade 12m|Custo a\.a\.|Variação|Variação no mês|Hoje|Proposto|Mínimo|Máximo|Projeção|Projeção fim do ano|Consenso.*|\{\{ano_(corrente|seguinte)\}\})$/, 'percentual'],
+  [/^(Quantidade|Quantidade \(Aprox\.\)|Último dado|Último|Anterior)$/, 'numero'],
+  [/^(%|% .*|Distribuição \(%\)|Percentual|Percentual \(sobre o total\)|Taxa|12 meses|24 meses|No mês|No ano|Mês|Ano|12m|24m|Desde o início|Atual|Meta|Alvo|Acumulado|Retorno 12m|Volatilidade 12m|Custo a\.a\.|Variação|Variação no mês|Hoje|Proposto|Mínimo|Máximo|Projeção|Projeção fim do ano|Consenso.*|\{\{ano_(corrente|seguinte)\}\})$/, 'percentual'],
 ];
 const CABECALHO = [
   [/^(Data|Vencimento)$/, 'data'],
@@ -114,6 +116,10 @@ export function tipoDoCampo(nome, cabecalho = null, num = false) {
   if (/^reuniao_\d+_data$/.test(nome)) return { tipo: 'data' };
   // Na tabela de proventos a origem é o ativo e o tipo é dividendo, JCP, cupom.
   if (/^prov_\d+_tipo$/.test(nome)) return opcoes('provento');
+  // A expectativa por classe do macro: o rótulo é texto livre ("IPCA (40% da
+  // referência estrutural)"), e não a lista de classes que o prefixo sugere.
+  if (/^classe_[a-z]+_\d+_rotulo$/.test(nome)) return { tipo: 'texto' };
+  if (/^classe_[a-z]+_\d+_texto$/.test(nome)) return { tipo: 'longo' };
 
   if (cabecalho) {
     const cab = cabecalho.replace(/\s+/g, ' ').trim();

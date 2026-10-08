@@ -1,229 +1,238 @@
 # -*- coding: utf-8 -*-
+"""Relatório macroeconômico.
+
+Segue o formato que o time fecha todo mês: um resumo executivo, o painel de
+indicadores, os destaques, as análises do mês, a posição da carteira, a
+expectativa por classe, o fechamento, riscos e oportunidades, a agenda e a
+síntese. É texto corrido: uma seção começa logo depois da outra, e o que não
+cabe numa página continua na seguinte (a ferramenta reparte).
+
+Há dois tipos de seção. As da casa têm título fixo, porque existem todo mês:
+panorama, destaques, carteira, classes, fechamento, riscos, perspectivas e
+síntese. As de análise têm título editável, porque o assunto muda: num mês é a
+trajetória fiscal, no outro a eleição ou o crédito. Análise que o mês não pede
+fica em branco e some na exportação; análise que falta se monta com os blocos.
+
+O sumário não tem página escrita à mão. Cada seção marca o seu título com
+`data-toc`, e a ferramenta refaz o sumário depois de repaginar, com a página em
+que cada título caiu.
+"""
 from layout import *
 
-LEITURA = {
-    "consultoria": "O que este cenário significa para uma carteira diversificada de perfil moderado.",
-    "alta-renda": "O que este cenário significa para carteiras com acesso a produtos estruturados e exclusivos.",
-    "private": "O que este cenário significa para patrimônios com exposição internacional, estruturas e horizonte multigeracional.",
-    "assessoria": "O que este cenário significa para uma carteira montada na plataforma, com foco em renda fixa e nos produtos disponíveis para distribuição.",
-}
+# Quem assina o relatório. É o time de análise, o mesmo em todo segmento.
+ANALISTA = "Douglas Ribeiro"
+COORDENADOR = "Manoel Neto"
+
+PUBLICO = {"consultoria": "da Consultoria AUVP", "alta-renda": "do segmento Alta Renda",
+           "private": "do segmento Private Banking", "assessoria": "da Assessoria AUVP"}
+
+# Os oito números do painel. O rótulo vem escrito, porque é o mesmo todo mês;
+# o valor e a nota são do mês.
+PAINEL = ["Selic", "Ibovespa", "IPCA do mês", "Dólar", "Dívida bruta/PIB",
+          "Déficit nominal (12 meses)", "Dívida pública dos EUA", "IMA-B (NTN-B)"]
+
+# As classes da expectativa e quantos itens cada uma costuma ter.
+CLASSES = [("Renda fixa Brasil", "rf", 4), ("Renda variável Brasil", "rv", 3),
+           ("Fundos imobiliários", "fii", 2), ("Internacional", "intl", 3), ("Cripto", "cripto", 1)]
+
+FECHAMENTO = [("CDI", "cdi"), ("Ibovespa", "ibov"), ("IMA-B (NTN-B)", "imab"), ("IFIX", "ifix"),
+              ("Dólar (USD/BRL)", "dolar"), ("IPCA", "ipca")]
+
+
+def _titulo(chave, dica, padrao=None, rotulo=None, fixo=None):
+    """O título de uma seção, marcado para o sumário. `rotulo` troca o nome no
+    cabeçalho corrido a partir desta seção."""
+    texto = fixo if fixo is not None else ph(chave, dica, padrao=padrao)
+    r = ' data-rotulo="%s"' % rotulo if rotulo else ""
+    return '<h1 class="t" data-toc="%s"%s>%s</h1>' % (chave, r, texto)
+
+
+def _analise(k, n_sub, lead=True, tabela=False):
+    """Uma seção de análise do mês: título, linha de abertura e subtítulos com
+    parágrafo. O que ficar em branco sai."""
+    partes = [_titulo("analise_%s_titulo" % k, "Título da análise")]
+    if lead:
+        partes.append('<p class="lead">%s</p>' % ph("analise_%s_lead" % k, "Uma linha de abertura"))
+    for i in range(1, n_sub + 1):
+        partes.append("<h2>%s</h2>" % ph("analise_%s_%d_subtitulo" % (k, i), "Subtítulo, se houver"))
+        partes.append('<p class="small">%s</p>' % ph("analise_%s_%d_texto" % (k, i)))
+    if tabela:
+        partes.append(table([ph("analise_%s_col_%d" % (k, c)) for c in (1, 2, 3, 4)],
+                            [[ph("analise_%s_%d_%d" % (k, l, c)) for c in (1, 2, 3, 4)]
+                             for l in (1, 2, 3, 4, 5)],
+                            caption=ph("analise_%s_fonte" % k, "Fonte da tabela"), sm=True))
+    return "\n".join(partes)
 
 
 def build(t, seg):
     set_date_ph("mes_referencia")
     P = []
+    mes, fech = ph("mes_referencia"), ph("mes_fechamento", "O mês analisado. Ex.: Agosto")
 
     P.append(cover_a4(t, "Relatório", "Macroeconômico", "Cenário", "e Mercados",
-                      [x for x in [t["rotulo"], "Elaborado por " + ph("nome_analista"),
-                       ph("registro_analista"), ph("mes_referencia")] if x], grafismo=2))
+                      [x for x in [t["rotulo"], "Elaborado por " + ANALISTA,
+                       ph("registro_analista"), mes] if x], grafismo=2))
 
-    P.append(page_a4(t, "Resumo executivo", 2, """<h1 class="t">Resumo executivo</h1>
-<p class="lead">%(tese)s</p>
-<h2>Os cinco fatos do mês</h2>
-<ol class="tl">
-  <li><h4>%(f1t)s</h4><p>%(f1d)s</p></li>
-  <li><h4>%(f2t)s</h4><p>%(f2d)s</p></li>
-  <li><h4>%(f3t)s</h4><p>%(f3d)s</p></li>
-  <li><h4>%(f4t)s</h4><p>%(f4d)s</p></li>
-  <li><h4>%(f5t)s</h4><p>%(f5d)s</p></li>
-</ol>
-<h2>Onde mudamos de opinião</h2>
-<div class="note"><p>%(mudanca)s</p></div>
+    # As seções, na ordem do relatório, com a página em que caem no modelo em
+    # branco. É só o ponto de partida do sumário: preenchido, o texto cresce, e
+    # a ferramenta recalcula.
+    # O número é o do rodapé do modelo, que não conta a capa.
+    secoes = [("Panorama macroeconômico", 2), ("Principais destaques", 2),
+              ("Análise do mês: Brasil", 3), ("Análise do mês", 3), ("Análise do mês", 4),
+              ("Panorama global", 4), ("Análise do mês", 5),
+              ("Como a carteira da AUVP está posicionada", 5),
+              ("Expectativa para classes de ativos", 6), ("Fechamento do mês", 7),
+              ("Principais riscos e oportunidades", 7), ("Perspectivas para o mês", 8),
+              ("Síntese executiva e posicionamento recomendado", 9), ("Notas e avisos", 10)]
+
+    P.append(page_a4(t, "Resumo executivo", 2, """<span class="eyebrow">Relatório macro mensal</span>
+<h1 class="t">%(tit)s</h1>
+<p class="lead">Análise estratégica de cenário macroeconômico, fluxo de capital, geopolítica e
+posicionamento de portfólio para investidores %(pub)s.</p>
+<p class="small">%(res)s</p>
 <h2>Neste relatório</h2>
-<ol class="toc">%(toc)s</ol>""" % dict(
-        mes=ph("mes_referencia"), tese=ph("tese_central", "A leitura do mês em 2-3 frases"),
-        **{("f%dt" % i): ph("fato_%d_titulo" % i) for i in range(1, 6)},
-        **{("f%dd" % i): ph("fato_%d_detalhe" % i) for i in range(1, 6)},
-        mudanca=ph("mudanca_de_visao"),
-        toc="".join('<li><span class="n">%02d</span><span>%s</span><span class="d"></span><span class="p">%02d</span></li>'
-                    % (i, n, pg) for i, (n, pg) in enumerate([
-                        ("Cenário internacional", 3), ("Indicadores globais", 4),
-                        ("Brasil: atividade e inflação", 5), ("Brasil: juros, fiscal e câmbio", 6),
-                        ("Mercados no período", 7), ("Projeções", 8),
-                        ("Implicações para a carteira", 9), ("Agenda do próximo mês", 10),
-                        ("Notas e avisos", 11)], start=1)))))
+<ol class="toc" data-auto="">%(toc)s</ol>""" % dict(
+        tit=ph("titulo_do_mes", "A frase que resume o mês"), pub=PUBLICO[seg],
+        res=ph("resumo_executivo", "O mês em um parágrafo"),
+        toc="".join('<li><span class="n">%02d</span><span>%s</span><span class="d"></span>'
+                    '<span class="p">%02d</span></li>' % (i, n, pg)
+                    for i, (n, pg) in enumerate(secoes, start=1)))))
 
-    P.append(page_a4(t, "Internacional", 3, """<h1 class="t">Cenário internacional</h1>
-<p class="lead">%(res)s</p>
-<h2>Estados Unidos</h2>
-<p class="small">%(eua)s</p>
-<h2>Europa</h2>
-<p class="small">%(eur)s</p>
-<h2>China e Ásia</h2>
-<p class="small">%(chi)s</p>""" % dict(
-        res=ph("resumo_internacional"), eua=ph("analise_eua"),
-        eur=ph("analise_europa"), chi=ph("analise_china"))))
+    P.append(page_a4(t, "Panorama", 3, """%(t1)s
+<p class="lead">Painel de indicadores, Brasil e EUA, fechamento de %(fech)s</p>
+%(kpis)s
+<div class="gap"></div>
+<p class="legal">Fonte: %(fonte)s</p>
+<div class="esp"></div>
+%(t2)s
+<p class="lead">As cinco mensagens que %(fech)s confirmou e que moldam %(mes)s</p>
+<ol class="tl">%(dest)s</ol>""" % dict(
+        t1=_titulo("panorama", "", fixo="Panorama macroeconômico"),
+        t2=_titulo("destaques", "", fixo="Principais destaques"),
+        fech=fech, mes=mes, fonte=ph("fonte_painel", "Ex.: BCB, IBGE, Tesouro Nacional, Bloomberg"),
+        kpis=kpis([(ph("painel_%d_rotulo" % i, padrao=r), ph("painel_%d_valor" % i),
+                    ph("painel_%d_nota" % i)) for i, r in enumerate(PAINEL, start=1)]),
+        dest="".join("<li><h4>%s</h4><p>%s</p></li>" % (ph("destaque_%d_titulo" % i),
+                                                       ph("destaque_%d_texto" % i))
+                     for i in range(1, 6)))))
 
-    P.append(page_a4(t, "Internacional", 4, """<h1 class="t">Indicadores acompanhados</h1>
-<p class="lead">O que seguimos de perto lá fora, e como cada leitura se compara ao dado anterior e ao consenso.</p>
+    # As análises do mês. Três formas, na ordem do relatório de referência: a
+    # de subtítulos, a de cenários em tabela e a de linha de abertura.
+    P.append(page_a4(t, "Brasil", 4, """%(a1)s
+<div class="esp"></div>
+%(a2)s""" % dict(a1=_analise("brasil", 2, lead=False).replace(
+                     'data-toc="analise_brasil_titulo"',
+                     'data-toc="analise_brasil_titulo" data-rotulo="Brasil"', 1),
+                 a2=_analise("tema1", 1, tabela=True))))
+
+    P.append(page_a4(t, "Brasil", 5, """%(a3)s
+<div class="esp"></div>
+%(g)s""" % dict(a3=_analise("tema2", 2),
+                g=_titulo("global_titulo", "Título do panorama global",
+                          padrao="Panorama global", rotulo="Internacional")
+                  + "".join('\n<h2>%s</h2>\n<p class="small">%s</p>'
+                            % (ph("global_%d_subtitulo" % i), ph("global_%d_texto" % i))
+                            for i in (1, 2, 3)))))
+
+    P.append(page_a4(t, "Internacional", 6, """%(a4)s
+<div class="esp"></div>
+%(t)s
+<p class="lead">%(lead)s</p>
+%(tab)s""" % dict(
+        a4=_analise("tema3", 0).replace('<p class="lead">', '<p class="lead">', 1)
+           + '\n<p class="small">%s</p>\n<p class="small">%s</p>' % (
+               ph("analise_tema3_texto_1"), ph("analise_tema3_texto_2")),
+        t=_titulo("carteira", "", fixo="Como a carteira da AUVP está posicionada", rotulo="Carteira"),
+        lead=ph("carteira_lead", "Ex.: o que sustenta as decisões deste mês"),
+        tab=table(["Posição", "Racional"],
+                  [[ph("pos_%d_posicao" % i), ph("pos_%d_racional" % i)] for i in range(1, 5)],
+                  sm=True, widths=[30, 70]))))
+
+    P.append(page_a4(t, "Carteira", 7, """%(t)s
+<p class="lead">Estratégia de referência institucional, sem substituir a personalização por cliente.</p>
+%(classes)s""" % dict(
+        t=_titulo("classes", "", fixo="Expectativa para classes de ativos"),
+        classes="\n".join("<h2>%s</h2>\n%s" % (nome, "\n".join(
+            '<p class="small"><strong>%s</strong> %s</p>' % (
+                ph("classe_%s_%d_rotulo" % (k, i), "Ex.: IPCA (40% da referência estrutural)"),
+                ph("classe_%s_%d_texto" % (k, i))) for i in range(1, n + 1)))
+            for nome, k, n in CLASSES))))
+
+    P.append(page_a4(t, "Mercados", 8, """%(t1)s
+<p class="lead">Desempenho acumulado no ano dos principais indicadores de referência</p>
 %(tab)s
 <div class="gap"></div>
-%(ch)s""" % dict(
-        tab=table(["Indicador", "Último dado", "Anterior", "Consenso", "Leitura"],
-                  [[n, ph("gi_%s_atual" % k), ph("gi_%s_ant" % k), ph("gi_%s_cons" % k), ph("gi_%s_leitura" % k)]
-                   for n, k in [("Fed funds", "fed"), ("CPI EUA (a/a)", "cpi"), ("Payroll", "payroll"),
-                                ("Treasury 10 anos", "ust10"), ("BCE &mdash; taxa de depósito", "bce"),
-                                ("PIB China (a/a)", "pibchina"), ("Petróleo Brent", "brent"),
-                                ("Índice DXY", "dxy")]],
-                  nums=[1, 2, 3]),
-        ch=chart("Juros longos e dólar", "Treasury de 10 anos e índice DXY nos últimos 12 meses.",
-                 "line", "min-height:40mm", series=["Treasury 10 anos (%)", "DXY"], pontos=MESES))))
+<p class="legal">%(nota)s</p>
+<div class="esp"></div>
+%(t2)s
+<p class="lead">%(lead)s</p>
+<h2>Riscos no radar</h2>
+%(riscos)s""" % dict(
+        t1='<h1 class="t" data-toc="fechamento" data-rotulo="Mercados">Fechamento de %s</h1>' % fech,
+        tab=table(["Indicador", "No mês", "Acumulado no ano"],
+                  [[n, ph("fech_%s_mes" % k), ph("fech_%s_ano" % k)] for n, k in FECHAMENTO],
+                  nums=[1, 2], sm=True),
+        nota=ph("fechamento_nota", "Uma leitura curta dos números"),
+        t2=_titulo("riscos", "", fixo="Principais riscos e oportunidades"),
+        lead=ph("riscos_lead", "Ex.: cenários monitorados para o último trimestre"),
+        riscos=_cartoes("risco", 5))))
 
-    P.append(page_a4(t, "Brasil", 5, """<h1 class="t">Atividade e inflação</h1>
-<p class="lead">%(res)s</p>
-<h2>Atividade</h2>
-<p class="small">%(ativ)s</p>
-<h2>Mercado de trabalho e renda</h2>
-<p class="small">%(trab)s</p>
-<h2>Inflação</h2>
-<p class="small">%(infl)s</p>
+    P.append(page_a4(t, "Mercados", 9, """<h2>Oportunidades</h2>
+%(oport)s
+<div class="esp"></div>
+%(t)s
+<p class="lead">Eventos críticos que definem o mês</p>
 %(tab)s
 <div class="gap"></div>
-%(ch)s""" % dict(
-        res=ph("resumo_brasil_atividade"), ativ=ph("analise_atividade"), trab=ph("analise_trabalho"),
-        infl=ph("analise_inflacao"),
-        tab=table(["Indicador", "No mês", "12 meses", "Projeção fim do ano", "Meta / referência"],
-                  [[n, ph("bi_%s_mes" % k), ph("bi_%s_12m" % k), ph("bi_%s_proj" % k), ph("bi_%s_meta" % k)]
-                   for n, k in [("IPCA", "ipca"), ("IPCA núcleo", "nucleo"), ("IGP-M", "igpm"),
-                                ("PIB", "pib"), ("Desemprego (PNAD)", "desemp"), ("Massa salarial real", "massa")]],
-                  nums=[1, 2, 3]),
-        ch=chart("IPCA cheio e núcleos", "IPCA acumulado em 12 meses contra a média dos núcleos e o centro da meta.", "line", "min-height:38mm",
-                 series=["IPCA cheio", "Média dos núcleos", "Centro da meta"], pontos=MESES))))
+<p class="small">%(fecho)s</p>""" % dict(
+        oport=_cartoes("oportunidade", 3),
+        t='<h1 class="t" data-toc="perspectivas" data-rotulo="Agenda">Perspectivas para %s</h1>' % mes,
+        tab=table(["Data", "Evento / indicador", "Por que importa"],
+                  [[ph("ag_%d_data" % i), ph("ag_%d_evento" % i), ph("ag_%d_motivo" % i)]
+                   for i in range(1, 6)], sm=True, widths=[16, 30, 54]),
+        fecho=ph("perspectivas_texto", "O que a combinação desses eventos significa"))))
 
-    P.append(page_a4(t, "Brasil", 6, """<h1 class="t">Juros, fiscal e câmbio</h1>
-<h2>Política monetária</h2>
-<p class="small">%(cop)s</p>
-<div class="cols2">
-  <div><h3>Última decisão do Copom</h3>
-    <div class="dl">
-      <dt>Selic</dt><dd>%(selic)s</dd>
-      <dt>Decisão</dt><dd>%(dec)s</dd>
-      <dt>Placar</dt><dd>%(placar)s</dd>
-      <dt>Próxima reunião</dt><dd>%(prox)s</dd>
-    </div>
-  </div>
-  <div><h3>Curva de juros</h3><p class="small mut">%(curva)s</p></div>
-</div>
-<h2>Contas públicas</h2>
-<p class="small">%(fisc)s</p>
-%(tab)s
-<h2>Câmbio e contas externas</h2>
-<p class="small">%(cambio)s</p>
-<div class="gap"></div>
-%(ch)s""" % dict(
-        cop=ph("analise_politica_monetaria"), selic=ph("selic_atual"), dec=ph("decisao_copom"),
-        placar=ph("placar_copom"), prox=ph("data_proximo_copom"), curva=ph("analise_curva_juros"),
-        fisc=ph("analise_fiscal"), cambio=ph("analise_cambio"),
-        tab=table(["Indicador", "Último", "12 meses", "Projeção"],
-                  [[n, ph("fi_%s_ult" % k), ph("fi_%s_12m" % k), ph("fi_%s_proj" % k)]
-                   for n, k in [("Resultado primário (% PIB)", "primario"),
-                                ("Dívida bruta (% PIB)", "dbgg"),
-                                ("Câmbio (R$/US$)", "cambio"),
-                                ("Conta corrente (% PIB)", "cc")]], nums=[1, 2, 3]),
-        ch=chart("Curva de juros DI", "Curva atual contra a de um mês atrás e a de um ano atrás. Cada linha é um vértice.", "line", "min-height:36mm",
-                 series=["Hoje", "Um mês atrás", "Um ano atrás"],
-                 pontos=["jan/27", "jan/28", "jan/29", "jan/30", "jan/31", "jan/33", "jan/35"]))))
+    P.append(page_a4(t, "Síntese", 10, """%(t)s
+<p class="small">%(s1)s</p>
+<p class="small">%(s2)s</p>
+<p class="small">%(s3)s</p>""" % dict(
+        t=_titulo("sintese", "", fixo="Síntese executiva e posicionamento recomendado"),
+        s1=ph("sintese_1"), s2=ph("sintese_2"), s3=ph("sintese_3"))))
 
-    P.append(page_a4(t, "Mercados", 7, """<h1 class="t">Mercados no período</h1>
-<p class="lead">Retorno das principais classes e índices em %(mes)s, no ano e em 12 meses.</p>
-%(tab)s
-<div class="gap"></div>
-<div class="cols2">
-  <div><h2>Destaques positivos</h2><p class="small mut">%(pos)s</p></div>
-  <div><h2>Destaques negativos</h2><p class="small mut">%(neg)s</p></div>
-</div>""" % dict(
-        mes=ph("mes_referencia"), pos=ph("destaques_positivos"), neg=ph("destaques_negativos"),
-        tab=table(["Classe / índice", "No mês", "No ano", "12 meses", "24 meses", "Volatilidade 12m"],
-                  [[n, ph("mk_%s_mes" % k), ph("mk_%s_ano" % k), ph("mk_%s_12m" % k),
-                    ph("mk_%s_24m" % k), ph("mk_%s_vol" % k)]
-                   for n, k in [("CDI", "cdi"), ("IMA-B (inflação)", "imab"), ("IRF-M (prefixado)", "irfm"),
-                                ("Ibovespa", "ibov"), ("Small Caps", "small"), ("IFIX", "ifix"),
-                                ("S&amp;P 500 (US$)", "spx"), ("Nasdaq (US$)", "ndx"),
-                                ("MSCI Emergentes", "msciem"), ("Dólar (PTAX)", "usd"),
-                                ("Ouro (US$)", "gold"), ("Bitcoin (US$)", "btc")]],
-                  nums=[1, 2, 3, 4, 5],
-                  caption="Retornos nominais em moeda local, salvo indicação em contrário. Fonte: " + ph("fonte_dados_mercado")))))
-
-    P.append(page_a4(t, "Projeções", 8, """<h1 class="t">Projeções</h1>
-<p class="lead">Nossas projeções e a mediana do mercado. Onde divergimos, explicamos por quê.</p>
-<h2>Brasil</h2>
-%(tab)s
-<h2>Internacional</h2>
-%(tab2)s
-<h2>Onde divergimos do consenso</h2>
-%(cards)s""" % dict(
-        tab=table(["Indicador", "%s" % ph("ano_corrente"), "%s" % ph("ano_seguinte"),
-                   "Consenso " + ph("ano_corrente"), "Consenso " + ph("ano_seguinte")],
-                  [[n, ph("pj_%s_a1" % k), ph("pj_%s_a2" % k), ph("pj_%s_c1" % k), ph("pj_%s_c2" % k)]
-                   for n, k in [("IPCA (%)", "ipca"), ("Selic fim de período (%)", "selic"),
-                                ("PIB (%)", "pib"), ("Câmbio (R$/US$)", "cambio"),
-                                ("Resultado primário (% PIB)", "primario")]], nums=[1, 2, 3, 4]),
-        tab2=table(["Indicador", ph("ano_corrente"), ph("ano_seguinte"), "Viés"],
-                   [[n, ph("pg_%s_a1" % k), ph("pg_%s_a2" % k), ph("pg_%s_vies" % k)]
-                    for n, k in [("Fed funds (%)", "fed"), ("CPI EUA (%)", "cpi"),
-                                 ("PIB EUA (%)", "pibeua"), ("PIB China (%)", "pibchina")]], nums=[1, 2]),
-        cards=cards([(ph("divergencia_%d_titulo" % i), ph("divergencia_%d_racional" % i)) for i in (1, 2, 3)]))))
-
-    P.append(page_a4(t, "Implicações", 9, """<h1 class="t">Implicações para a carteira</h1>
-<p class="lead">%(leitura)s</p>
-<h2>Posicionamento por classe</h2>
-%(tab)s
-<h2>Riscos que monitoramos</h2>
-%(tab2)s
-<div class="gap"></div>
-<div class="note"><p><strong>Em uma frase.</strong> %(frase)s</p></div>""" % dict(
-        nome=t["nome"], leitura=LEITURA[seg],
-        tab=table(["Classe", "Visão", "Variação x mês anterior", "Racional", "Como implementar"],
-                  [[c, '<span class="pill">' + ph("vis_%s_visao" % k) + "</span>",
-                    ph("vis_%s_delta" % k), ph("vis_%s_racional" % k), ph("vis_%s_como" % k)]
-                   for c, k in [("Renda fixa pós", "rfpos"), ("Renda fixa inflação", "rfipca"),
-                                ("Renda fixa prefixada", "rfpre"), ("Multimercado", "multi"),
-                                ("Renda variável BR", "rvbr"), ("Internacional", "intl"),
-                                ("Fundos imobiliários", "fii"), ("Alternativos", "alt")]]),
-        tab2=table(["Risco", "Probabilidade", "Impacto", "Sinal de alerta", "O que faríamos"],
-                   [[ph("risco_%d_nome" % i), '<span class="pill">' + ph("risco_%d_prob" % i) + "</span>",
-                     '<span class="pill">' + ph("risco_%d_impacto" % i) + "</span>",
-                     ph("risco_%d_gatilho" % i), ph("risco_%d_acao" % i)] for i in (1, 2, 3)]),
-        frase=ph("sintese_posicionamento"))))
-
-    P.append(page_a4(t, "Agenda", 10, """<h1 class="t">Agenda de %(prox)s</h1>
-<p class="lead">Datas e eventos que podem mover os mercados no próximo período.</p>
-<h2>Calendário</h2>
-%(tab)s
-<h2>O que estaremos observando</h2>
-%(cards)s""" % dict(
-        prox=ph("mes_seguinte"),
-        tab=table(["Data", "Evento / indicador", "País", "Relevância", "Por que importa"],
-                  [[ph("ag_%d_data" % i), ph("ag_%d_evento" % i), ph("ag_%d_pais" % i),
-                    '<span class="pill">' + ph("ag_%d_relevancia" % i) + "</span>", ph("ag_%d_motivo" % i)]
-                   for i in range(1, 9)]),
-        cards=cards([(ph("observar_%d_titulo" % i), ph("observar_%d_detalhe" % i)) for i in (1, 2, 3)]))))
-
-    P.append(page_a4(t, "Notas e avisos", 11, """<h1 class="t">Notas metodológicas e avisos</h1>
+    P.append(page_a4(t, "Notas e avisos", 11, """%(t)s
 <h2>Fontes</h2>
 <div class="dl">
-  <dt>Dados de mercado</dt><dd>%(f1)s</dd>
-  <dt>Indicadores macro</dt><dd>%(f2)s</dd>
-  <dt>Consenso de mercado</dt><dd>%(f3)s</dd>
-  <dt>Data de fechamento</dt><dd>%(f4)s</dd>
+  <dt>Indicadores macro</dt><dd>%(f1)s</dd>
+  <dt>Cenários e projeções</dt><dd>%(f2)s</dd>
 </div>
-<h2>Declaração do analista</h2>
-<p class="legal">%(decl)s</p>
 <h2>Avisos legais</h2>
 <p class="legal">%(disc)s</p>
 <p class="legal">Este relatório tem caráter exclusivamente informativo e educacional e não constitui oferta, recomendação individualizada, proposta de investimento ou solicitação de compra ou venda de qualquer ativo. As opiniões refletem a leitura do time na data de fechamento e podem mudar sem aviso prévio. Projeções são exercícios sujeitos a erro e não representam promessa ou garantia de resultado.</p>
 <p class="legal">Rentabilidade passada não representa garantia de rentabilidade futura. Antes de investir, avalie a adequação do produto ao seu perfil e leia os documentos oficiais de cada investimento. É proibida a reprodução, redistribuição ou compartilhamento total ou parcial deste documento sem autorização prévia e por escrito.</p>
 <h2>Contato</h2>
 <div class="dl">
-  <dt>Analista responsável</dt><dd>%(an)s, %(reg)s</dd>
+  <dt>Analista responsável</dt><dd>%(an)s</dd>
+  <dt>Registro</dt><dd>%(reg)s</dd>
+  <dt>Coordenador responsável</dt><dd>%(coord)s</dd>
   <dt>E-mail</dt><dd>%(email)s</dd>
   <dt>Ouvidoria</dt><dd>%(ouv)s</dd>
-  <dt>Razão social</dt><dd>%(razao)s, CNPJ %(cnpj)s</dd>
+  <dt>Razão social</dt><dd>%(razao)s</dd>
+  <dt>CNPJ</dt><dd>%(cnpj)s</dd>
 </div>""" % dict(
-        f1=ph("fonte_dados_mercado"), f2=ph("fonte_dados_macro"), f3=ph("fonte_consenso"),
-        f4=ph("data_fechamento"), decl=ph("declaracao_analista", "Declaração exigida pela Resolução CVM 20"),
+        t=_titulo("notas", "", fixo="Notas e avisos"),
+        f1=ph("fonte_indicadores", "Ex.: BCB, IBGE, Tesouro Nacional, Bloomberg"),
+        f2=ph("fonte_cenarios"),
         disc=ph("disclaimer_regulatorio", "Texto aprovado pelo compliance para este segmento"),
-        an=ph("nome_analista"), reg=ph("registro_analista"), email=ph("email_contato"),
-        ouv=ph("canal_ouvidoria"), razao=ph("razao_social"), cnpj=ph("cnpj"))))
+        an=ANALISTA, reg=ph("registro_analista"), coord=COORDENADOR,
+        email=ph("email_contato"), ouv=ph("canal_ouvidoria"),
+        razao=ph("razao_social"), cnpj=ph("cnpj"))))
 
     return P
+
+
+def _cartoes(tipo, n):
+    """Riscos e oportunidades: o tema, a leitura e a ação da carteira."""
+    return '<div class="cards" style="--n:3">%s</div>' % "".join(
+        '<div class="card"><h4>%s</h4><p>%s</p><p><strong>Ação.</strong> %s</p></div>' % (
+            ph("%s_%d_titulo" % (tipo, i)), ph("%s_%d_texto" % (tipo, i)),
+            ph("%s_%d_acao" % (tipo, i))) for i in range(1, n + 1))

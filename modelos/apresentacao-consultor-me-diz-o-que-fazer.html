@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Apresentação do consultor — Me Diz o Que Fazer (básico)</title>
+<title>Apresentação do consultor: Me Diz o Que Fazer (básico)</title>
 <style>
 :root{
   --brand:#023620; --accent:#EFBF4F; --accent-dk:#EFBF4F;
@@ -37,6 +37,10 @@ a{color:inherit;text-decoration:none}
 p{margin:0 0 3mm}
 ul{margin:0 0 3mm;padding-left:4mm}
 li{margin:0 0 1mm}
+/* Texto corrido justificado, em todos os documentos. A hifenização fecha os
+   vãos que a justificação abre em coluna estreita. Quem precisa de outro
+   alinhamento declara o seu, e a classe vence o elemento. */
+p,li{text-align:justify;hyphens:auto;-webkit-hyphens:auto}
 strong{font-weight:700}
 .ph{background:var(--ph);border-radius:.6mm;padding:0 1mm;font-weight:600;overflow-wrap:break-word;text-transform:none;letter-spacing:0;font-size:.94em}
 /* O campo que já vem preenchido não é lacuna: lê-se como o texto que é, e o
@@ -440,14 +444,73 @@ table.tb{width:100%;border-collapse:collapse;font-size:8.2pt}
 .page.dark .note{background:rgba(255,255,255,.06);border-left-color:rgba(255,255,255,.4)}
 
 
+/* ---------- diagnóstico ----------
+   O gráfico de risco e retorno do relatório antigo, em fio; a lista numerada
+   da metodologia; e a assinatura do consultor, que fecha o documento. */
+.rr-box{display:flex;justify-content:center;margin:1mm 0 5mm}
+.rr{width:100mm;height:auto;overflow:visible}
+.rr line,.rr polyline{fill:none;stroke:var(--ink-2);stroke-width:1px;vector-effect:non-scaling-stroke}
+.rr .ax{stroke:var(--ink)}
+.rr .rt{stroke:var(--accent);stroke-width:1.33px}
+.rr text{font-size:8px;fill:var(--ink-2);letter-spacing:.08em;text-transform:uppercase}
+ol.numerada{margin:0 0 3mm;padding-left:5mm}
+ol.numerada li{margin-bottom:2mm}
+.rr .guia{stroke:var(--line);stroke-dasharray:3 3}
+.rr .rt{fill:none}
+/* a caixa em que o consultor escreve o que viu em cada classe */
+.consideracoes{border:1px solid var(--line);border-left:1.33px solid var(--accent);padding:3mm 4mm;
+  min-height:22mm;font-size:9pt}
+.consideracoes p:last-child{margin-bottom:0}
+.assinatura{margin-top:auto;padding-top:8mm;width:72mm;display:flex;flex-direction:column;gap:2mm}
+.assinatura .imgbox{width:100%}
+.assinatura .ln{border-top:1px solid var(--ink);padding-top:1.5mm;font-size:8pt}
+/* As listas do relatório de proposta, com os marcadores dele: 1), a), i). */
+ol.pontos,ol.alfa,ol.romano{list-style:none;margin:0 0 3mm;padding-left:7mm}
+ol.pontos{counter-reset:pt}ol.alfa{counter-reset:al}ol.romano{counter-reset:ro;margin:1.5mm 0 0}
+ol.pontos>li,ol.alfa>li,ol.romano>li{position:relative;margin-bottom:2mm}
+ol.pontos>li::before{counter-increment:pt;content:counter(pt) ")"}
+ol.alfa>li::before{counter-increment:al;content:counter(al,lower-alpha) ")"}
+ol.romano>li::before{counter-increment:ro;content:counter(ro,lower-roman) ")"}
+ol.pontos>li::before,ol.alfa>li::before,ol.romano>li::before{position:absolute;left:-7mm;
+  color:var(--brand);font-weight:700}
+.apos-tab{margin-top:4mm}
+.apos-lista{margin-top:3mm}
+.item-tab{margin:4mm 0 2mm;font-weight:700}
+.item-tab.topo,h3.topo{margin-top:0}
+h3.cenario{margin-top:0;color:var(--brand);letter-spacing:.06em}
+/* o título que, no relatório antigo, vinha dentro da imagem do gráfico */
+.tit-graf{text-align:center;font-weight:700;font-size:8.6pt;margin:0 0 2mm}
+.graf-bloco{display:flex;flex-direction:column}
+.par-graf{flex:0 0 auto;align-items:stretch;margin:5mm 0}
+.meta-lado .cab{background:var(--brand);color:#fff;text-align:center;font-size:6.6pt;font-weight:600;
+  letter-spacing:.08em;text-transform:uppercase;padding:2mm;margin-bottom:2mm}
+.meta-lado>div{display:flex;flex-direction:column}
+.fig-fixa{margin:2mm 0 0}
+.fig-fixa img{display:block;width:100%;height:auto}
+.fonte{text-align:center;font-size:7.4pt;color:var(--ink-2);margin:1.5mm 0 4mm}
+/* campo que decide o que fica no documento, e que não se imprime */
+.so-campo{display:none}
+.disclaimer{margin-top:auto;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  padding:3mm 0 1mm}
+.disclaimer p{font-size:7pt;line-height:1.5;color:var(--ink-2);margin-bottom:2mm}
+.disclaimer .dt{font-weight:700;color:var(--ink);letter-spacing:.06em;text-transform:uppercase}
+/* a assinatura que fecha o relatório: a foto, o nome e a marca */
+.assina{margin-top:auto;align-self:flex-end;display:flex;align-items:center;gap:4mm;padding-top:8mm}
+.assina-foto{width:17mm;height:17mm;border-radius:50%;flex:0 0 auto;padding:0}
+.assina-foto .cl{font-size:5.6pt}
+.assina-id{display:flex;flex-direction:column;align-items:flex-start;gap:2mm}
+.assina-id .nm{font-size:9pt;font-weight:700}
+.rr.ra text{text-transform:none;letter-spacing:0;font-size:8.5px}
+.rr .seta line,.rr .seta polyline{stroke:var(--ink)}
+
 /* o mesmo painel dos slides, na escala do A4 */
 .painel{background:var(--soft);border-top:1.33px solid var(--brand);padding:4mm 5mm}
 .painel>:last-child{margin-bottom:0}
 .painel h3:first-child{margin-top:0}
 
 /* altura da folha — os dois números saem de `npm run altura -- --ajustar` */
-@page{size:210mm 1235mm;margin:0}
-.page.longa{height:1235mm;padding:0;font-size:10pt}
+@page{size:210mm 1230mm;margin:0}
+.page.longa{height:1230mm;padding:0;font-size:10pt}
 @media print{.page.longa{break-after:auto}}
 
 /* as faixas: a folha alterna fundo para marcar onde uma parte acaba e outra
@@ -613,7 +676,7 @@ table.tb{width:100%;border-collapse:collapse;font-size:8.2pt}
     <div class="esp"></div>
     <div class="lg-sec">
       <h2>Como funciona no dia a&nbsp;dia</h2>
-      <div class="corrido"><p>O atendimento é pelo WhatsApp e funciona sob demanda. Quer dizer que você chama quando precisa, sem depender da nossa agenda. Recebeu um dinheiro para investir, ficou na dúvida sobre um ativo ou quer conferir se a carteira ainda faz sentido, é só mandar&nbsp;mensagem.</p><p>Não tem limite de conversa nem dia certo para falar com a gente. O atendimento é feito exclusivamente pelo WhatsApp — é lá que o seu consultor está, e é para lá que você manda mensagem sempre que&nbsp;precisar.</p><p>Quem compra e quem vende é você, na sua conta. O consultor diz o que faz sentido, quanto e por quê, e fica com você tirando dúvida até a hora de&nbsp;executar.</p></div>
+      <div class="corrido"><p>O atendimento é pelo WhatsApp e funciona sob demanda. Quer dizer que você chama quando precisa, sem depender da nossa agenda. Recebeu um dinheiro para investir, ficou na dúvida sobre um ativo ou quer conferir se a carteira ainda faz sentido, é só mandar&nbsp;mensagem.</p><p>Não tem limite de conversa nem dia certo para falar com a gente. O atendimento é feito exclusivamente pelo WhatsApp: é lá que o seu consultor está, e é para lá que você manda mensagem sempre que&nbsp;precisar.</p><p>Quem compra e quem vende é você, na sua conta. O consultor diz o que faz sentido, quanto e por quê, e fica com você tirando dúvida até a hora de&nbsp;executar.</p></div>
     </div>
     <div class="esp"></div>
     <div class="lg-sec">

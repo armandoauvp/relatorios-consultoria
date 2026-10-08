@@ -20,7 +20,7 @@ da consultoria e por segmento, e a versão em branco sai também sem a data no c
 | Documento | Formato | Páginas | Consultoria | Alta Renda | Private | Assessoria |
 | --- | --- | --- | :-: | :-: | :-: | :-: |
 | Relatório mensal | A4 retrato | 11–12 | ✓ | ✓ | ✓ | ✓ |
-| Diagnóstico de carteira | A4 retrato | 10 | ✓ | ✓ | ✓ | ✓ |
+| Diagnóstico de carteira | A4 retrato | 27–30 | ✓ | ✓ | ✓ | ✓ |
 | Relatório macroeconômico | A4 retrato | 11 | ✓ | ✓ | ✓ | ✓ |
 | Apresentação geral | 16:9 | 14 | ✓ | ✓ | ✓ | ✓ |
 | Relatório mensal em apresentação | 16:9 | 11 | ✓ | ✓ | ✓ | ✓ |
@@ -108,6 +108,12 @@ folga que os respiros elásticos repartem entre as seções.
 A ferramenta de preenchimento faz a mesma conta no navegador: antes de exportar ela mede a
 folha já preenchida e escreve a altura medida no arquivo que sai. Quem escreve textos mais
 curtos nos campos leva uma folha mais curta.
+
+### O macro automatizado
+
+O relatório macroeconômico se gera a partir do conteúdo que o time fecha no mês: o Claude
+passa o texto para um rascunho JSON e `npm run macro -- macro/<ano>-<mês>/rascunho.json` sai
+com o PDF dos quatro segmentos. O passo a passo está em [`macro/README.md`](macro/README.md).
 
 ### Documentos prontos
 
@@ -458,15 +464,24 @@ quatro segmentos ganham ainda uma página própria: estruturas e sucessão no pr
 transparência de remuneração na assessoria — esta última fecha o que a apresentação
 geral do segmento promete ao cliente.
 
-**Diagnóstico de carteira** — escopo e método; perfil, objetivos e restrições;
-fotografia da carteira atual; pontos fortes e pontos de atenção; concentração por
-emissor, prazo e moeda; custos e eficiência tributária; carteira proposta; plano de
-transição; premissas e limitações.
+**Diagnóstico de carteira**: é o relatório de proposta que a consultoria já usava
+(Relatorio_de_Proposta_AUVP_Capital_v2) no desenho novo. A sequência, a numeração dos tópicos,
+os gráficos e todos os textos são os dele, palavra por palavra: só muda a forma. Apresentação e
+disclaimer; 1. Contexto; 2. Estrutura meta e camadas de proteção (2.1 a 2.5); 3. Análise da
+carteira atual e proposta por classe (3.1 a 3.6); 4. Fluxo de aplicações (4.1 a 4.3); 5.
+Próximos passos, com a assinatura do consultor. As instruções em vermelho do relatório antigo
+viraram a dica do campo em que o consultor escreve, e os colchetes viraram campos no próprio
+parágrafo. O texto do perfil e o do cenário vêm todos no modelo, e fica só o que corresponde à
+escolha (`data-se-campo`). Os dois gráficos que são iguais para todo cliente (o retorno
+histórico dos títulos públicos e a curva de juros) são as imagens do relatório antigo, em
+`assets/diagnostico/`: para atualizar a curva, troque o PNG e refaça o build.
 
-**Relatório macroeconômico** — resumo executivo com os cinco fatos do mês e onde a
-casa mudou de opinião; cenário internacional; Brasil em atividade e inflação; juros,
-fiscal e câmbio; desempenho dos mercados; projeções contra o consenso; implicações
-para a carteira do segmento; agenda do mês seguinte.
+**Relatório macroeconômico**: o formato que o time fecha todo mês, em texto corrido.
+Resumo executivo com o sumário; panorama com oito indicadores; os cinco destaques; as análises
+do mês, de título livre (Brasil, temas, global); a posição da carteira; a expectativa por
+classe; o fechamento; riscos e oportunidades; a agenda; a síntese; as notas, assinadas pelo
+analista e pelo coordenador responsáveis. O que não cabe numa página continua na seguinte, e
+o sumário se refaz com a página em que cada seção caiu (`data-toc`).
 
 **Apresentação geral** — capa, divisórias de seção, quem somos, números, método em
 cinco etapas, diferenciais e entregas, governança e alçadas, tela de planos e taxas,
