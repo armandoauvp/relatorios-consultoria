@@ -61,11 +61,35 @@ TRAJETORIA = [
 
 # O fecho recapitula o deck em quatro números, já que não leva contato: é o
 # que o cliente fica olhando enquanto a conversa segue.
+# Cada número vem com um desenho pequeno que retoma o slide de onde ele saiu:
+# o pódio do ranking, a grade do processo seletivo, a órbita das soluções e as
+# barras do cashback. Em todos, o dourado marca o mesmo papel: o destaque.
+_B = 'fill="#fff" fill-opacity=".32"'
+_O = 'fill="#EFBF4F"'
+MINI = {
+    "podio": ('<rect x="3" y="21" width="10.5" height="15" rx="1" %s/>'
+              '<rect x="14.75" y="9" width="10.5" height="27" rx="1" %s/>'
+              '<rect x="26.5" y="25" width="10.5" height="11" rx="1" %s/>'
+              '<path d="M3 36.5h34" stroke="#fff" stroke-opacity=".5" stroke-width=".6"/>') % (_B, _O, _B),
+    "grade": "".join('<circle cx="%g" cy="%g" r="%g" %s/>' % (
+                 5 + c * 5, 5 + r * 5, 1.7 if (c, r) == (4, 2) else 1.25,
+                 _O if (c, r) == (4, 2) else _B) for r in range(7) for c in range(7)),
+    "orbita": ('<circle cx="20" cy="20" r="14" fill="none" stroke="#fff" stroke-opacity=".38" stroke-width=".6"/>'
+               + "".join('<circle cx="%.2f" cy="%.2f" r="2.6" fill="#fff" fill-opacity=".85"/>' % (
+                   20 + 14 * __import__("math").cos(__import__("math").radians(a)),
+                   20 + 14 * __import__("math").sin(__import__("math").radians(a)))
+                   for a in (-60, 0, 60, 120, 180, 240))
+               + '<circle cx="20" cy="20" r="6.5" %s/>' % _O),
+    "barras": ('<rect x="3" y="11" width="24" height="6.5" rx="1" %s/>'
+               '<rect x="3" y="23" width="24" height="6.5" rx="1" fill="#fff" fill-opacity=".85"/>'
+               '<rect x="27.6" y="23" width="9.4" height="6.5" rx="1" %s/>') % (_B, _O),
+}
+
 RESUMO = [
-    ("1º lugar", "no ranking do BTG Pactual, pelo segundo ano consecutivo"),
-    ("0,01%", "dos candidatos passam no processo seletivo do nosso time"),
-    ("360°", "cuidado com o patrimônio inteiro, no Brasil e no exterior"),
-    ("Cashback", "em renda fixa e no aluguel de ações, como saldo na sua conta"),
+    ("podio", "1º lugar", "no ranking do BTG Pactual, pelo segundo ano consecutivo"),
+    ("grade", "0,01%", "dos candidatos passam no processo seletivo do nosso time"),
+    ("orbita", "360°", "cuidado com o patrimônio inteiro, no Brasil e no exterior"),
+    ("barras", "Cashback", "em renda fixa e no aluguel de ações, como saldo na sua conta"),
 ]
 
 TIME = [
@@ -389,7 +413,10 @@ def build(t, seg):
   <p class="ai-txt">Fale com o seu consultor e entenda por que somos a melhor consultoria do Brasil para você.</p>
 </div>
 <span class="eyebrow ai-resumo-k">Por que a AUVP Capital</span>
-<ol class="ai-marcos ai-resumo">%s</ol>""" % "".join('<li><span class="n">%s</span><span class="l">%s</span></li>' % m for m in RESUMO) + """
+<div class="ai-resumo">%s</div>""" % "".join(
+        '<div class="ai-rs"><svg viewBox="0 0 40 40" class="ai-rs-ic">%s</svg>'
+        '<div><span class="n">%s</span><span class="l">%s</span></div></div>' % (MINI[k], n, l)
+        for k, n, l in RESUMO) + """
 <p class="legal ai-fim-legal">Material de caráter informativo, que não constitui oferta nem recomendação individualizada. Benefícios sujeitos a elegibilidade e às condições vigentes; rentabilidade passada não garante rentabilidade futura.</p>""",
         dark=True, cls="ai-fecho", fundo='<div class="ai-graf-clip">%s</div>' % graf_arcos(GRAF_SLIDE_W, "top-right")))
 
@@ -534,7 +561,16 @@ CSS = """
 .ai-fim{flex:1 1 auto;display:flex;flex-direction:column;justify-content:center;max-width:200mm}
 .ai-fim .rule{width:50.3mm;margin-bottom:10mm}
 .ai-resumo-k{margin:0 0 2mm;color:rgba(255,255,255,.65)}
-.ai-marcos.ai-resumo{margin:0 0 9mm;width:212mm}
+/* o resumo do fecho: quatro painéis, cada um com o desenho do slide de onde
+   o número saiu e o número ao lado dele */
+.ai-resumo{display:grid;grid-template-columns:repeat(4,1fr);gap:5mm;margin:0 0 8mm}
+.ai-rs{display:flex;align-items:center;gap:4.5mm;padding:5mm 5mm;border-radius:2.5mm;
+  background:rgba(255,255,255,.06)}
+.ai-rs-ic{width:17mm;height:17mm;flex:0 0 auto;display:block}
+.ai-rs .n{display:block;font-size:19pt;font-weight:800;line-height:1;letter-spacing:-.02em;color:#fff}
+.ai-rs .l{display:block;margin-top:1.8mm;font-size:8.6pt;line-height:1.38;color:rgba(255,255,255,.78)}
+/* no fecho o grafismo é só textura: mais apagado que o padrão do sistema */
+.slide.ai-fecho .graf{opacity:.2}
 .ai-fim-t{margin:0 0 5mm;font-size:36pt;font-weight:800;line-height:1.05;letter-spacing:-.02em;text-transform:uppercase}
 .ai-fim .ai-txt{font-size:12.5pt;max-width:150mm}
 .ai-fim-legal{margin:0;font-size:7.6pt;max-width:165mm;text-align:left}
