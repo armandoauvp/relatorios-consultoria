@@ -53,7 +53,7 @@ def lamina(t, sec, body, dark=False, cls="", fundo=""):
 # ------------------------------------------------------------------ conteúdo
 
 TRAJETORIA = [
-    ("2020", "Fundação da AUVP, como escola de investimentos"),
+    ("2020", "nasce a AUVP, como escola de investimentos"),
     ("+50 mil", "alunos formados na maior escola de investimentos do Brasil"),
     ("360°", "um ecossistema financeiro completo, da educação à gestão patrimonial"),
     ("1º lugar", "no ranking do BTG Pactual, pelo segundo ano consecutivo"),
@@ -225,7 +225,7 @@ def build(t, seg):
 
     # 1. Capa — a frase do deck anterior, no desenho de capa do sistema.
     S.append(cover_slide(t, "Conheça a", "melhor consultoria do Brasil",
-                         "Consultoria de investimentos",
+                         "Gestão financeira transparente e completa",
                          [ph("nome_cliente"), ph("nome_responsavel")]))
 
     # 2. Quem somos — o texto das páginas 2 e 3 do deck anterior, reduzido ao
@@ -233,7 +233,8 @@ def build(t, seg):
     S.append(lamina(t, "Sobre nós", """<div class="ai-qs">
   <h1 class="t">Quem somos</h1>
   <p class="ai-lead">A maior consultoria de investimentos de Goiás e uma das mais relevantes do Brasil.</p>
-  <p class="ai-txt">Atuamos de forma independente, com foco absoluto na geração de valor para nossos clientes. A satisfação do cliente vem em primeiro lugar.</p>
+  <p class="ai-txt">Atuamos de forma independente, com foco absoluto na geração de valor para nossos clientes.</p>
+  <p class="ai-txt"><strong>A satisfação do cliente vem em primeiro lugar.</strong></p>
 </div>
 <ol class="ai-marcos">%s</ol>""" % "".join('<li><span class="n">%s</span><span class="l">%s</span></li>' % m
                                        for m in TRAJETORIA),
@@ -242,7 +243,7 @@ def build(t, seg):
               % _b64(FOTO_PREMIO)))
 
     # 3. Na mídia — os recortes de imprensa como estavam.
-    S.append(lamina(t, "Na mídia", """<h1 class="t">Na mídia</h1>
+    S.append(lamina(t, "Sobre nós", """<h1 class="t">Na mídia</h1>
 <p class="lead">O que a imprensa tem falado sobre a AUVP e sobre quem está por trás dela.</p>
 <div class="ai-midia"><img alt="Reportagens sobre a AUVP no Entrelinhas, no JBr, no g1 e n'O Globo" src="data:image/jpeg;base64,%s"></div>"""
                     % _b64(FOTO_MIDIA)))
@@ -250,6 +251,7 @@ def build(t, seg):
     # 4. O time — os três pilares da página 4, com o 0,01% desenhado: dez mil
     # pontos e um aceso diz o tamanho do filtro melhor do que a porcentagem.
     S.append(lamina(t, "Nosso time", """<h1 class="t">Você será atendido pelos melhores do mercado</h1>
+<p class="lead">Quem cuida do seu patrimônio passou por um filtro rigoroso e segue em formação toda semana.</p>
 <div class="ai-time">
   <div class="ai-filtro">
     %(pontos)s
@@ -267,7 +269,7 @@ def build(t, seg):
     # 5. Soluções 360° — a roda do Clube do Valor (pág. 14) com o conteúdo da
     # nossa página de soluções patrimoniais.
     S.append(lamina(t, "A consultoria", """<h1 class="t">Soluções patrimoniais 360°</h1>
-<p class="lead">A carteira é o centro, mas a sua vida financeira não para nela. Cuidamos do patrimônio por inteiro, no Brasil e no exterior.</p>
+<p class="lead">Além da carteira de investimentos, cuidamos de tudo o que mexe com o seu patrimônio, no Brasil e no exterior.</p>
 <div class="ai-roda-box">%s</div>""" % roda(t)))
 
     # 6. Implementação — a recomendação chegando no celular (Clube do Valor,
@@ -275,7 +277,7 @@ def build(t, seg):
     S.append(lamina(t, "A consultoria", """<div class="ai-impl">
   <div class="ai-impl-tx">
     <h1 class="t">Implementação da estratégia</h1>
-    <p class="ai-txt">A estratégia não fica no papel. O que o seu consultor acompanha chega até você, no celular, no ritmo certo.</p>
+    <p class="lead">A estratégia não fica no papel. O que o seu consultor acompanha chega até você, no celular, no ritmo certo.</p>
   </div>
   <ol class="ai-chamadas">%(cham)s</ol>
   <div class="ai-decide">
@@ -306,6 +308,7 @@ def build(t, seg):
     <div class="ai-barra">
       <span class="ai-barra-k"><strong>Com a AUVP Capital</strong></span>
       <div class="ai-trilho"><span class="b1 b-marca">Rendimento do título</span><span class="b2">%(ck)s+ cashback</span></div>
+      <span class="ai-cb-nota">volta para a sua conta como saldo</span>
     </div>
   </div>
 </div>
@@ -343,10 +346,13 @@ CSS = """
 .slide.ai-foto{background:#000}
 .ai-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:70% 50%;z-index:0}
 .ai-veu{position:absolute;inset:0;z-index:1;
-  background:linear-gradient(90deg,rgba(1,18,10,.97) 0%,rgba(1,18,10,.9) 42%,rgba(1,18,10,.35) 72%,rgba(0,0,0,.1) 100%)}
+  background:linear-gradient(90deg,rgba(0,0,0,.96) 0%,rgba(0,0,0,.88) 42%,rgba(0,0,0,.35) 72%,rgba(0,0,0,.1) 100%)}
 .slide.ai-foto .grain{z-index:2}
-.ai-qs{max-width:165mm}
-.ai-lead{font-size:17pt;line-height:1.3;font-weight:700;margin:2mm 0 5mm;text-align:left}
+/* overlay de foto é sempre preto; o slide também */
+.slide.ai-foto{background:#000}
+.ai-qs{max-width:178mm}
+.ai-qs .ai-txt{margin:0 0 2mm;font-size:12pt}
+.ai-lead{font-size:22pt;line-height:1.25;font-weight:700;margin:2mm 0 6mm;text-align:left;letter-spacing:-.01em}
 .ai-marcos{list-style:none;margin:auto 0 4mm;padding:0;display:grid;grid-template-columns:repeat(4,1fr);
   column-gap:8mm;width:225mm}
 .ai-marcos li{position:relative;padding-top:9mm;margin:0;text-align:left}
@@ -373,7 +379,8 @@ CSS = """
 .ai-big{font-size:46pt;font-weight:800;line-height:1;letter-spacing:-.03em;color:#fff}
 .ai-filtro-tx p{margin:0;font-size:10.5pt;line-height:1.5;color:rgba(255,255,255,.82);text-align:left}
 .ai-pilares{list-style:none;margin:0;padding:0;position:relative}
-.ai-pilares::before{content:"";position:absolute;left:4.5mm;top:5mm;bottom:5mm;width:1px;background:rgba(255,255,255,.3)}
+/* o trilho liga um número ao seguinte e para no último, em vez de seguir solto pelo texto */
+.ai-pilares li:not(:last-child)::after{content:"";position:absolute;left:4.5mm;top:9mm;bottom:-8mm;width:1px;background:rgba(255,255,255,.3)}
 .ai-pilares li{position:relative;display:grid;grid-template-columns:9mm 1fr;gap:5mm;margin:0 0 8mm}
 .ai-pilares li:last-child{margin-bottom:0}
 .ai-pilares .nb{width:9mm;height:9mm;border-radius:50%;background:#fff;color:var(--brand);
@@ -408,8 +415,8 @@ CSS = """
 .ai-chamadas li{position:absolute;left:0;width:151.6mm;margin:0;transform:translateY(-50%);
   display:flex;flex-direction:column;align-items:flex-start}
 .ai-chamadas span{font-size:7.6pt;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.65)}
-.ai-chamadas b{font-size:13pt;font-weight:600;color:#D6E8DD;margin-top:.5mm}
-.ai-chamadas i{position:absolute;left:84mm;right:0;top:50%;height:1px;background:#fff}
+.ai-chamadas b{font-size:13pt;font-weight:600;color:#fff;margin-top:.5mm}
+.ai-chamadas i{position:absolute;left:68mm;right:0;top:50%;height:1px;background:#fff}
 .ai-chamadas i::after{content:"";position:absolute;right:-1.6mm;top:-1.6mm;width:3.2mm;height:3.2mm;border-radius:50%;background:#fff}
 .ai-cel-clip{position:absolute;left:165.5mm;top:31.2mm;bottom:0;width:78mm;overflow:hidden;z-index:3}
 .ai-cel{position:relative;margin:.5mm 1mm 0;width:76mm;height:178mm;border-radius:11mm;background:#0A0D0B;
@@ -423,7 +430,7 @@ CSS = """
 .ai-notif{background:rgba(255,255,255,.82);border-radius:4mm;padding:2.6mm 3.2mm;color:#12160F;min-height:22mm}
 .ai-app{display:flex;align-items:center;gap:1.6mm;font-size:6.6pt;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#4A5248;margin-bottom:1mm}
 .ai-app i{margin-left:auto;font-style:normal;text-transform:none;letter-spacing:0;color:#7E8A84}
-.ai-app-ic{display:flex;align-items:center;justify-content:center;width:5mm;height:5mm;border-radius:1.3mm;background:var(--brand);padding:.8mm}
+.ai-app-ic{display:flex;align-items:center;justify-content:center;width:5mm;height:5mm;border-radius:1.3mm;background:#000;padding:.8mm}
 .ai-notif b{display:block;font-size:9pt;line-height:1.25}
 .ai-notif p{margin:.6mm 0 0;font-size:7.8pt;line-height:1.35;color:#4A5248;text-align:left}
 .ai-decide{position:absolute;left:240mm;right:0;top:50%;transform:translateY(-50%)}
@@ -449,6 +456,7 @@ CSS = """
 .ai-trilho .b2 .ai-ck{width:4.4mm;height:4.4mm}
 .ai-trilho .b2 .ai-ck circle{fill:#12160F}
 .ai-trilho .b2 .ai-ck path{stroke:var(--accent)}
+.ai-cb-nota{display:block;margin:1.5mm 0 0 72%;padding-left:4mm;font-size:8.4pt;color:var(--ink-2)}
 .ai-ck{width:6mm;height:6mm;flex:0 0 auto;display:block}
 .ai-ck circle{fill:var(--brand)}
 .ai-ck path{fill:none;stroke:#fff;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
@@ -464,5 +472,7 @@ CSS = """
 .ai-fim-t{margin:0 0 5mm;font-size:34pt;font-weight:800;line-height:1.05;letter-spacing:-.02em;text-transform:uppercase}
 .ai-fim .ai-txt{font-size:12.5pt;max-width:150mm}
 .ai-fim-dl{font-size:12pt;gap:4mm 8mm}
-.ai-fim-legal{margin:0;font-size:7.6pt;max-width:220mm;text-align:left}
+.ai-fim-legal{margin:0;font-size:7.6pt;max-width:165mm;text-align:left}
+/* a marca da faixa branca da capa sai preta, nunca verde */
+.cv-band .logo svg [class^=lg-]{fill:#000}
 """
