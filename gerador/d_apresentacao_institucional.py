@@ -284,11 +284,24 @@ def celular(t):
         cx=CEL_X, cy=CEL_Y, ly=LISTA_Y, notif=notif, chx=CHAMADA_X, cham="".join(chamadas))
 
 
+CAPA_PROVAS = [
+    ("1º lugar", "no ranking do BTG Pactual"),
+    ("+50 mil", "alunos formados pela AUVP"),
+    ("360°", "soluções para o patrimônio"),
+]
+
+
 def capa(t):
     """A capa com o mesmo cabeçalho e o mesmo pé dos slides de conteúdo: a
-    marca e o rótulo não mudam de lugar quando se passa da capa para o resto."""
+    marca e o rótulo não mudam de lugar quando se passa da capa para o resto.
+
+    O desenho é o olho da AUVP em escala de parede, sangrando pela direita, como
+    na capa do deck anterior: os anéis dele são os mesmos que voltam na órbita
+    das soluções. Embaixo, três provas curtas do que o deck vai contar."""
+    provas = "".join('<li><b>%s</b><span>%s</span></li>' % p for p in CAPA_PROVAS)
     return """<section class="slide dark ai-capa">
-  <div class="grain"></div><div class="ai-graf-clip">%(graf)s</div>
+  <div class="grain"></div>
+  <div class="ai-graf-clip"><div class="ai-capa-olho">%(olho)s</div></div>
   <div class="in">
     <header class="pg-head">
       <div class="sec">Consultoria</div>
@@ -296,15 +309,16 @@ def capa(t):
     </header>
     <div class="pg-body">
       <div class="ai-capa-bloco">
-        <div class="rule"></div>
-        <h1 class="cv-t"><span class="lt">Conheça a </span>melhor consultoria do Brasil</h1>
-        <div class="cv-sub">Gestão financeira transparente e completa</div>
+        <div class="ai-capa-k">Conheça a</div>
+        <h1 class="ai-capa-t">Melhor consultoria do&nbsp;Brasil</h1>
+        <div class="ai-capa-sub">Gestão financeira transparente e completa</div>
       </div>
+      <ul class="ai-capa-provas">%(provas)s</ul>
     </div>
     <footer class="pg-foot"><span></span><span>%(confid)s</span></footer>
   </div>
-</section>""" % dict(graf=graf_arcos(GRAF_SLIDE_W, "bottom-right"), logo=logo_svg(t, 6.3),
-                     confid=CONFID)
+</section>""" % dict(olho=load_svg(t["logo"], "co", viewbox="-8 8 351 224"), logo=logo_svg(t, 6.3),
+                     provas=provas, confid=CONFID)
 
 
 CHECK = ('<svg viewBox="0 0 24 24" class="ai-ck"><circle cx="12" cy="12" r="12"/>'
@@ -580,8 +594,19 @@ CSS = """
    tamanho do slide, recortada, ele fica onde está. */
 .ai-graf-clip{position:absolute;inset:0;overflow:hidden;z-index:2;pointer-events:none}
 .ai-capa .pg-body{justify-content:center}
-.ai-capa-bloco{margin:auto 0}
-.ai-capa .rule{width:50.3mm;margin-bottom:14mm}
-.ai-capa .cv-sub{margin-top:4mm}
+.ai-capa-bloco{margin:auto 0;max-width:185mm}
+/* o olho em escala de parede: só o desenho, apagado, sangrando pela direita */
+.ai-capa-olho{position:absolute;right:-74mm;top:50%;width:255mm;transform:translateY(-46%);opacity:.07}
+.ai-capa-olho svg{display:block;width:100%;height:auto}
+.ai-capa-k{font-size:22pt;font-weight:300;letter-spacing:.02em;text-transform:uppercase;line-height:1;margin-bottom:3mm}
+.ai-capa-t{margin:0;font-size:56pt;font-weight:800;line-height:.98;letter-spacing:-.025em;text-transform:uppercase}
+.ai-capa-sub{margin-top:7mm;padding-top:6mm;border-top:1px solid rgba(255,255,255,.3);max-width:150mm;
+  font-size:14pt;font-weight:400;color:rgba(255,255,255,.85)}
+.ai-capa-provas{list-style:none;margin:0 0 2mm;padding:0;display:flex;gap:0}
+.ai-capa-provas li{margin:0;padding:0 9mm;border-left:1px solid rgba(255,255,255,.25);display:flex;align-items:baseline;gap:2.5mm}
+.ai-capa-provas li:first-child{padding-left:0;border-left:0}
+.ai-capa-provas b{font-size:15pt;font-weight:800;letter-spacing:-.01em}
+.ai-capa-provas li:first-child b{color:var(--accent)}
+.ai-capa-provas span{font-size:9.5pt;color:rgba(255,255,255,.72)}
 
 """
