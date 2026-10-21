@@ -28,11 +28,11 @@ Estes se repetem na maior parte dos modelos. Vale manter um arquivo único com e
 | `registro_cvm_empresa` | Registro da empresa na CVM | 4 de 40 |
 | `canal_ouvidoria` | Telefone ou e-mail da ouvidoria | 24 de 40 |
 | `disclaimer_regulatorio` | Texto legal aprovado pelo compliance, específico do segmento | 24 de 40 |
-| `nome_cliente` | Nome do cliente destinatário | 31 de 40 |
-| `nome_responsavel` | Consultor, assessor ou banker responsável | 31 de 40 |
+| `nome_cliente` | Nome do cliente destinatário | 30 de 40 |
+| `nome_responsavel` | Consultor, assessor ou banker responsável | 30 de 40 |
 | `registro_cvm_ou_ancord` | Registro do responsável (CVM 19 / Ancord) | 12 de 40 |
-| `email_contato` | E-mail de contato exibido no documento | 30 de 40 |
-| `whatsapp_contato` | WhatsApp direto do responsável | 14 de 40 |
+| `email_contato` | E-mail de contato exibido no documento | 29 de 40 |
+| `whatsapp_contato` | WhatsApp direto do responsável | 13 de 40 |
 | `canal_atendimento` | Canal e horário de atendimento | 12 de 40 |
 | `link_agendamento` | URL de agendamento (a mesma do QR code) | 8 de 40 |
 | `mes_referencia` | Mês de referência, ex.: Agosto de 2026 | 12 de 40 |
@@ -131,7 +131,7 @@ plano_3_taxa
 
 Arquivos: `modelos/apresentacao-institucional-consultoria.html`
 
-Variantes: consultoria &middot; 4 variáveis
+Variantes: consultoria &middot; 0 variáveis
 
 <details><summary>Ver as 0 variáveis específicas deste documento</summary>
 

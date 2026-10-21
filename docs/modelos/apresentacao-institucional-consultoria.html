@@ -439,7 +439,7 @@ table.tb{width:100%;border-collapse:collapse;font-size:9.5pt}
 .ai-roda .ic *{fill:none;stroke:#fff;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
 .ai-centro{position:absolute;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:1.2mm;
   color:#fff;text-align:center;font-size:8pt;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.2}
-.ai-olho{display:block;width:12mm}
+.ai-olho{display:block;width:13mm}
 .ai-olho svg,.ai-app-ic svg{display:block;width:100%;height:auto}
 /* o título fica na altura do centro do nó; a descrição desce dele */
 .ai-rot{position:absolute;width:74mm;margin-top:-3.2mm}
@@ -509,24 +509,29 @@ table.tb{width:100%;border-collapse:collapse;font-size:9.5pt}
 
 /* fecho */
 .slide.ai-fecho .graf{z-index:2}
-.ai-fim{flex:1 1 auto;display:grid;grid-template-columns:1.25fr 1fr;gap:16mm;align-items:center}
-.ai-fim-t{margin:0 0 5mm;font-size:34pt;font-weight:800;line-height:1.05;letter-spacing:-.02em;text-transform:uppercase}
+.ai-fim{flex:1 1 auto;display:flex;flex-direction:column;justify-content:center;max-width:200mm}
+.ai-fim .rule{width:50.3mm;margin-bottom:10mm}
+.ai-resumo-k{margin:0 0 2mm;color:rgba(255,255,255,.65)}
+.ai-marcos.ai-resumo{margin:0 0 9mm;width:240mm}
+.ai-fim-t{margin:0 0 5mm;font-size:36pt;font-weight:800;line-height:1.05;letter-spacing:-.02em;text-transform:uppercase}
 .ai-fim .ai-txt{font-size:12.5pt;max-width:150mm}
-.ai-fim-dl{font-size:12pt;gap:4mm 8mm}
 .ai-fim-legal{margin:0;font-size:7.6pt;max-width:165mm;text-align:left}
 /* capa: o mesmo cabeçalho e pé dos outros slides, para a marca não mudar de lugar */
-.slide.ai-capa .graf{z-index:2}
+/* O grafismo sangra pelo pé do slide. Solto, o Chromium o empurra para a
+   página seguinte na impressão e ele some da capa; dentro de uma caixa do
+   tamanho do slide, recortada, ele fica onde está. */
+.ai-graf-clip{position:absolute;inset:0;overflow:hidden;z-index:2;pointer-events:none}
 .ai-capa .pg-body{justify-content:center}
 .ai-capa-bloco{margin:auto 0}
 .ai-capa .rule{width:50.3mm;margin-bottom:14mm}
 .ai-capa .cv-sub{margin-top:4mm}
-.ai-capa-id{font-size:10pt;gap:1.5mm 6mm}
+
 
 </style>
 </head>
 <body>
 <section class="slide dark ai-capa">
-  <div class="graf" style="right:-22.33mm;bottom:-20.35mm;transform:scaleY(-1);width:190.00mm"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 593.78 581.33">
+  <div class="grain"></div><div class="ai-graf-clip"><div class="graf" style="right:-22.33mm;bottom:-20.35mm;transform:scaleY(-1);width:190.00mm"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 593.78 581.33">
   <defs>
     <style>
       .g3-1 {
@@ -667,7 +672,7 @@ table.tb{width:100%;border-collapse:collapse;font-size:9.5pt}
     <path class="g3-9" d="M548.45,102.9v-63.72h-63.72c0,16.89,6.72,33.11,18.66,45.05,11.94,11.94,28.16,18.66,45.05,18.66Z"/>
     <path class="g3-2" d="M548.45,39.19h-49.06c0,13.01,5.17,25.5,14.37,34.69,9.2,9.2,21.69,14.37,34.69,14.37v-49.06Z"/>
   </g>
-</svg></div><div class="grain"></div>
+</svg></div></div>
   <div class="in">
     <header class="pg-head">
       <div class="sec">Consultoria</div>
@@ -715,7 +720,6 @@ table.tb{width:100%;border-collapse:collapse;font-size:9.5pt}
         <h1 class="cv-t"><span class="lt">Conheça&nbsp;a </span>melhor consultoria do&nbsp;Brasil</h1>
         <div class="cv-sub">Gestão financeira transparente e&nbsp;completa</div>
       </div>
-      <div class="dl ai-capa-id"><dt>Para</dt><dd><span class="ph" data-campo="nome_cliente">{{nome_cliente}}</span></dd><dt>Consultor</dt><dd><span class="ph" data-campo="nome_responsavel">{{nome_responsavel}}</span></dd></div>
     </div>
     <footer class="pg-foot"><span></span><span>DOCUMENTO CONFIDENCIAL. PROIBIDO O&nbsp;COMPARTILHAMENTO</span></footer>
   </div>
@@ -952,7 +956,7 @@ table.tb{width:100%;border-collapse:collapse;font-size:9.5pt}
     <circle cx="153" cy="56" r="21" fill="url(#ai-disco)"/>
     <circle cx="175.00" cy="17.89" r="6.6" class="no"/><g class="ic" transform="translate(171.100 13.995) scale(0.3250)"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10.5h18M6.5 14.5h4"/></g><circle cx="197.00" cy="56.00" r="6.6" class="no"/><g class="ic" transform="translate(193.100 52.100) scale(0.3250)"><path d="M3 21h18M5 21V9l7-5 7 5v12M9.5 12h1.5M13 12h1.5M9.5 16h1.5M13 16h1.5"/></g><circle cx="175.00" cy="94.11" r="6.6" class="no"/><g class="ic" transform="translate(171.100 90.205) scale(0.3250)"><path d="M12 3l7 3v5.5c0 4.6-3 8-7 9.5-4-1.5-7-4.9-7-9.5V6z"/><path d="M9 12.2l2.1 2.1 4-4.2"/></g><circle cx="131.00" cy="94.11" r="6.6" class="no"/><g class="ic" transform="translate(127.100 90.205) scale(0.3250)"><path d="M4 8.5h14.5M15 5l3.5 3.5L15 12M20 15.5H5.5M9 12l-3.5 3.5L9 19"/></g><circle cx="109.00" cy="56.00" r="6.6" class="no"/><g class="ic" transform="translate(105.100 52.100) scale(0.3250)"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9.5 17.5l5-6"/><circle cx="10" cy="12" r="1.1"/><circle cx="14" cy="17" r="1.1"/></g><circle cx="131.00" cy="17.89" r="6.6" class="no"/><g class="ic" transform="translate(127.100 13.995) scale(0.3250)"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="3.8" ry="9"/><path d="M3 12h18M4.6 7.5h14.8M4.6 16.5h14.8"/></g>
   </svg>
-  <div class="ai-centro" style="left:153mm;top:56mm"><span class="ai-olho"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 20 335 200">
+  <div class="ai-centro" style="left:153mm;top:56mm"><span class="ai-olho"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-8 8 351 224">
   <defs>
     <style>
       .ey-1 {
@@ -989,7 +993,7 @@ table.tb{width:100%;border-collapse:collapse;font-size:9.5pt}
   </g>
   <path class="ey-1" d="M390.68,213.59h313.06v11.2h-301.86c-6.03,0-11.2-4.88-11.2-11.2Z"/>
 </svg></span><span>Seu<br>patrimônio</span></div>
-  <div class="ai-rot dir" style="left:185.60mm;top:17.89mm"><h4>Crédito</h4><p>Soluções alinhadas ao seu planejamento&nbsp;patrimonial</p></div><div class="ai-rot dir" style="left:207.60mm;top:56.00mm"><h4>Holdings</h4><p>Estruturação familiar e&nbsp;empresarial</p></div><div class="ai-rot dir" style="left:185.60mm;top:94.11mm"><h4>Seguro de&nbsp;vida</h4><p>Com foco em otimizar a&nbsp;sucessão</p></div><div class="ai-rot esq" style="right:185.60mm;top:94.11mm"><h4>Câmbio</h4><p>Operações integradas ao&nbsp;ecossistema</p></div><div class="ai-rot esq" style="right:207.60mm;top:56.00mm"><h4>Planejamento&nbsp;tributário</h4><p>Consultoria tributária e planejamento de saída&nbsp;fiscal</p></div><div class="ai-rot esq" style="right:185.60mm;top:17.89mm"><h4>Internacional</h4><p>Offshore e acesso a mercados&nbsp;internacionais</p></div>
+  <div class="ai-rot dir" style="left:188.60mm;top:17.89mm"><h4>Crédito</h4><p>Soluções alinhadas ao seu planejamento&nbsp;patrimonial</p></div><div class="ai-rot dir" style="left:210.60mm;top:56.00mm"><h4>Holdings</h4><p>Estruturação familiar e&nbsp;empresarial</p></div><div class="ai-rot dir" style="left:188.60mm;top:94.11mm"><h4>Seguro de&nbsp;vida</h4><p>Com foco em otimizar a&nbsp;sucessão</p></div><div class="ai-rot esq" style="right:188.60mm;top:94.11mm"><h4>Câmbio</h4><p>Operações integradas ao&nbsp;ecossistema</p></div><div class="ai-rot esq" style="right:210.60mm;top:56.00mm"><h4>Planejamento&nbsp;tributário</h4><p>Consultoria tributária e planejamento de saída&nbsp;fiscal</p></div><div class="ai-rot esq" style="right:188.60mm;top:17.89mm"><h4>Internacional</h4><p>Offshore e acesso a mercados&nbsp;internacionais</p></div>
 </div></div>
     </div>
     <footer class="pg-foot"><span class="no">04</span><span>DOCUMENTO CONFIDENCIAL. PROIBIDO O&nbsp;COMPARTILHAMENTO</span></footer>
@@ -1002,7 +1006,7 @@ table.tb{width:100%;border-collapse:collapse;font-size:9.5pt}
     <div class="ai-dia">Segunda-feira</div>
     <div class="ai-hora">08:30</div>
     <div class="ai-lista" style="top:50mm"><div class="ai-notif">
-        <div class="ai-app"><span class="ai-app-ic"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 20 335 200">
+        <div class="ai-app"><span class="ai-app-ic"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-8 8 351 224">
   <defs>
     <style>
       .ey-1 {
@@ -1041,7 +1045,7 @@ table.tb{width:100%;border-collapse:collapse;font-size:9.5pt}
 </svg></span><span>AUVP&nbsp;Capital</span><i>agora</i></div>
         <b>Recomendações de renda fixa</b><p>Os títulos que passaram pelo filtro de emissor, prazo e taxa nesta&nbsp;semana.</p>
       </div><div class="ai-notif">
-        <div class="ai-app"><span class="ai-app-ic"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 20 335 200">
+        <div class="ai-app"><span class="ai-app-ic"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-8 8 351 224">
   <defs>
     <style>
       .ey-1 {
@@ -1080,7 +1084,7 @@ table.tb{width:100%;border-collapse:collapse;font-size:9.5pt}
 </svg></span><span>AUVP&nbsp;Capital</span><i>agora</i></div>
         <b>Relatório mensal da carteira</b><p>Onde seu patrimônio está, o que rendeu e o que mudou no&nbsp;mês.</p>
       </div><div class="ai-notif">
-        <div class="ai-app"><span class="ai-app-ic"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 20 335 200">
+        <div class="ai-app"><span class="ai-app-ic"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-8 8 351 224">
   <defs>
     <style>
       .ey-1 {
@@ -1249,7 +1253,7 @@ table.tb{width:100%;border-collapse:collapse;font-size:9.5pt}
   </div>
 </section>
 <section class="slide dark ai-fecho">
-  <div class="graf" style="right:-22.33mm;bottom:-20.35mm;transform:scaleY(-1);width:190.00mm"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 593.78 581.33">
+  <div class="ai-graf-clip"><div class="graf" style="right:-22.33mm;bottom:-20.35mm;transform:scaleY(-1);width:190.00mm"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 593.78 581.33">
   <defs>
     <style>
       .g3-1 {
@@ -1390,7 +1394,7 @@ table.tb{width:100%;border-collapse:collapse;font-size:9.5pt}
     <path class="g3-9" d="M548.45,102.9v-63.72h-63.72c0,16.89,6.72,33.11,18.66,45.05,11.94,11.94,28.16,18.66,45.05,18.66Z"/>
     <path class="g3-2" d="M548.45,39.19h-49.06c0,13.01,5.17,25.5,14.37,34.69,9.2,9.2,21.69,14.37,34.69,14.37v-49.06Z"/>
   </g>
-</svg></div><div class="grain"></div>
+</svg></div></div><div class="grain"></div>
   <div class="in">
     <header class="pg-head">
       <div class="sec">Faça&nbsp;parte</div>
@@ -1434,16 +1438,12 @@ table.tb{width:100%;border-collapse:collapse;font-size:9.5pt}
     </header>
     <div class="pg-body">
 <div class="ai-fim">
-  <div>
-    <h1 class="ai-fim-t">Pronto para dar o próximo&nbsp;passo?</h1>
-    <p class="ai-txt">Fale com o seu consultor e entenda por que somos a melhor consultoria do Brasil para&nbsp;você.</p>
-  </div>
-  <div class="dl ai-fim-dl">
-    <dt>Consultor</dt><dd><span class="ph" data-campo="nome_responsavel">{{nome_responsavel}}</span></dd>
-    <dt>WhatsApp</dt><dd><span class="ph" data-campo="whatsapp_contato" data-link="whatsapp">{{whatsapp_contato}}</span></dd>
-    <dt>E-mail</dt><dd><span class="ph" data-campo="email_contato" data-link="mailto">{{email_contato}}</span></dd>
-  </div>
+  <div class="rule"></div>
+  <h1 class="ai-fim-t">Pronto para dar o próximo&nbsp;passo?</h1>
+  <p class="ai-txt">Fale com o seu consultor e entenda por que somos a melhor consultoria do Brasil para&nbsp;você.</p>
 </div>
+<span class="eyebrow ai-resumo-k">Por que a AUVP&nbsp;Capital</span>
+<ol class="ai-marcos ai-resumo"><li><span class="n">1º&nbsp;lugar</span><span class="l">no ranking do BTG Pactual, pelo segundo ano&nbsp;consecutivo</span></li><li><span class="n">0,01%</span><span class="l">dos candidatos passam no processo seletivo do nosso&nbsp;time</span></li><li><span class="n">360°</span><span class="l">cuidado com o patrimônio inteiro, no Brasil e no&nbsp;exterior</span></li><li><span class="n">Cashback</span><span class="l">em renda fixa e no aluguel de ações, como saldo na sua&nbsp;conta</span></li></ol>
 <p class="legal ai-fim-legal">Material de caráter informativo, que não constitui oferta nem recomendação individualizada. Benefícios sujeitos a elegibilidade e às condições vigentes; rentabilidade passada não garante rentabilidade&nbsp;futura.</p>
     </div>
     <footer class="pg-foot"><span class="no">07</span><span>DOCUMENTO CONFIDENCIAL. PROIBIDO O&nbsp;COMPARTILHAMENTO</span></footer>

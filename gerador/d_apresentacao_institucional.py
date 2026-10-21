@@ -9,9 +9,9 @@ três ideias tiradas do material do Clube do Valor: a roda de soluções em volt
 do patrimônio, a recomendação chegando no celular do cliente e o cashback
 mostrado como comparação, e não como parágrafo.
 
-É material para mandar e para projetar, por isso não tem data no cabeçalho:
-apresentação com data carimbada nasce vencida. Os únicos campos são os de quem
-apresenta e para quem.
+É material para mandar e para projetar, e é da casa, não de quem apresenta:
+não tem data, assinatura, nome de cliente nem contato de consultor. Qualquer
+consultor usa o mesmo arquivo, sem preencher nada.
 """
 from layout import *
 from layout import _b64  # noqa: F401  (nome privado não vem no import *)
@@ -27,7 +27,7 @@ FOTO_MIDIA = "assets/institucional/na-midia.jpg"
 def olho(t, cls="ai-olho"):
     """Só o olho da marca, sem a palavra. O viewBox recorta o desenho do logo
     completo; o resto do arquivo fica fora da caixa e não aparece."""
-    return '<span class="%s">%s</span>' % (cls, load_svg(t["logo"], "ey", viewbox="0 20 335 200"))
+    return '<span class="%s">%s</span>' % (cls, load_svg(t["logo"], "ey", viewbox="-8 8 351 224"))
 
 
 def lamina(t, sec, body, dark=False, cls="", fundo=""):
@@ -57,6 +57,15 @@ TRAJETORIA = [
     ("+50 mil", "alunos formados na maior escola de investimentos do Brasil"),
     ("360°", "um ecossistema financeiro completo, da educação à gestão patrimonial"),
     ("1º lugar", "no ranking do BTG Pactual, pelo segundo ano consecutivo"),
+]
+
+# O fecho recapitula o deck em quatro números, já que não leva contato: é o
+# que o cliente fica olhando enquanto a conversa segue.
+RESUMO = [
+    ("1º lugar", "no ranking do BTG Pactual, pelo segundo ano consecutivo"),
+    ("0,01%", "dos candidatos passam no processo seletivo do nosso time"),
+    ("360°", "cuidado com o patrimônio inteiro, no Brasil e no exterior"),
+    ("Cashback", "em renda fixa e no aluguel de ações, como saldo na sua conta"),
 ]
 
 TIME = [
@@ -190,9 +199,9 @@ def roda(t):
                    % (nx, ny, rn, nx - 12 * esc, ny - 12 * esc, esc, ICONES[titulo]))
         direita = math.cos(math.radians(a)) > 0
         if direita:
-            pos = "left:%.2fmm" % (nx + rn + 4)
+            pos = "left:%.2fmm" % (nx + rn + 7)
         else:
-            pos = "right:%.2fmm" % (W - (nx - rn - 4))
+            pos = "right:%.2fmm" % (W - (nx - rn - 7))
         rot.append('<div class="ai-rot %s" style="%s;top:%.2fmm"><h4>%s</h4><p>%s</p></div>'
                    % ("dir" if direita else "esq", pos, ny, titulo, desc))
 
@@ -249,11 +258,11 @@ def celular(t):
         cx=CEL_X, cy=CEL_Y, ly=LISTA_Y, notif=notif, chx=CHAMADA_X, cham="".join(chamadas))
 
 
-def capa(t, ident):
+def capa(t):
     """A capa com o mesmo cabeçalho e o mesmo pé dos slides de conteúdo: a
     marca e o rótulo não mudam de lugar quando se passa da capa para o resto."""
     return """<section class="slide dark ai-capa">
-  %(graf)s<div class="grain"></div>
+  <div class="grain"></div><div class="ai-graf-clip">%(graf)s</div>
   <div class="in">
     <header class="pg-head">
       <div class="sec">Consultoria</div>
@@ -265,12 +274,11 @@ def capa(t, ident):
         <h1 class="cv-t"><span class="lt">Conheça a </span>melhor consultoria do Brasil</h1>
         <div class="cv-sub">Gestão financeira transparente e completa</div>
       </div>
-      <div class="dl ai-capa-id">%(ident)s</div>
     </div>
     <footer class="pg-foot"><span></span><span>%(confid)s</span></footer>
   </div>
 </section>""" % dict(graf=graf_arcos(GRAF_SLIDE_W, "bottom-right"), logo=logo_svg(t, 6.3),
-                     ident="".join("<dt>%s</dt><dd>%s</dd>" % par for par in ident), confid=CONFID)
+                     confid=CONFID)
 
 
 CHECK = ('<svg viewBox="0 0 24 24" class="ai-ck"><circle cx="12" cy="12" r="12"/>'
@@ -283,7 +291,7 @@ def build(t, seg):
     S = []
 
     # 1. Capa — a frase do deck anterior, no desenho de capa do sistema.
-    S.append(capa(t, [("Para", ph("nome_cliente")), ("Consultor", ph("nome_responsavel"))]))
+    S.append(capa(t))
 
     # 2. Quem somos — o texto das páginas 2 e 3 do deck anterior, reduzido ao
     # que se lê em voz alta, e a história da casa virando uma linha de marcos.
@@ -371,22 +379,17 @@ def build(t, seg):
         ck=CHECK,
         bens="".join('<div><h4>%s<span>%s</span></h4><p>%s</p></div>' % (CHECK, a, b) for a, b in BENEFICIOS))))
 
-    # 8. Fecho — a chamada da última página do deck anterior, com o contato de
-    # quem apresenta.
+    # 8. Fecho — a chamada da última página do deck anterior. Sem contato: o
+    # documento é da casa, e quem apresenta já está na conversa.
     S.append(lamina(t, "Faça parte", """<div class="ai-fim">
-  <div>
-    <h1 class="ai-fim-t">Pronto para dar o próximo passo?</h1>
-    <p class="ai-txt">Fale com o seu consultor e entenda por que somos a melhor consultoria do Brasil para você.</p>
-  </div>
-  <div class="dl ai-fim-dl">
-    <dt>Consultor</dt><dd>%(resp)s</dd>
-    <dt>WhatsApp</dt><dd>%(whats)s</dd>
-    <dt>E-mail</dt><dd>%(email)s</dd>
-  </div>
+  <div class="rule"></div>
+  <h1 class="ai-fim-t">Pronto para dar o próximo passo?</h1>
+  <p class="ai-txt">Fale com o seu consultor e entenda por que somos a melhor consultoria do Brasil para você.</p>
 </div>
-<p class="legal ai-fim-legal">Material de caráter informativo, que não constitui oferta nem recomendação individualizada. Benefícios sujeitos a elegibilidade e às condições vigentes; rentabilidade passada não garante rentabilidade futura.</p>""" % dict(
-        resp=ph("nome_responsavel"), whats=ph("whatsapp_contato"), email=ph("email_contato")),
-        dark=True, cls="ai-fecho", fundo=graf_arcos(GRAF_SLIDE_W, "bottom-right")))
+<span class="eyebrow ai-resumo-k">Por que a AUVP Capital</span>
+<ol class="ai-marcos ai-resumo">%s</ol>""" % "".join('<li><span class="n">%s</span><span class="l">%s</span></li>' % m for m in RESUMO) + """
+<p class="legal ai-fim-legal">Material de caráter informativo, que não constitui oferta nem recomendação individualizada. Benefícios sujeitos a elegibilidade e às condições vigentes; rentabilidade passada não garante rentabilidade futura.</p>""",
+        dark=True, cls="ai-fecho", fundo='<div class="ai-graf-clip">%s</div>' % graf_arcos(GRAF_SLIDE_W, "bottom-right")))
 
     return S
 
@@ -455,7 +458,7 @@ CSS = """
 .ai-roda .ic *{fill:none;stroke:#fff;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
 .ai-centro{position:absolute;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:1.2mm;
   color:#fff;text-align:center;font-size:8pt;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.2}
-.ai-olho{display:block;width:12mm}
+.ai-olho{display:block;width:13mm}
 .ai-olho svg,.ai-app-ic svg{display:block;width:100%;height:auto}
 /* o título fica na altura do centro do nó; a descrição desce dele */
 .ai-rot{position:absolute;width:74mm;margin-top:-3.2mm}
@@ -525,16 +528,21 @@ CSS = """
 
 /* fecho */
 .slide.ai-fecho .graf{z-index:2}
-.ai-fim{flex:1 1 auto;display:grid;grid-template-columns:1.25fr 1fr;gap:16mm;align-items:center}
-.ai-fim-t{margin:0 0 5mm;font-size:34pt;font-weight:800;line-height:1.05;letter-spacing:-.02em;text-transform:uppercase}
+.ai-fim{flex:1 1 auto;display:flex;flex-direction:column;justify-content:center;max-width:200mm}
+.ai-fim .rule{width:50.3mm;margin-bottom:10mm}
+.ai-resumo-k{margin:0 0 2mm;color:rgba(255,255,255,.65)}
+.ai-marcos.ai-resumo{margin:0 0 9mm;width:240mm}
+.ai-fim-t{margin:0 0 5mm;font-size:36pt;font-weight:800;line-height:1.05;letter-spacing:-.02em;text-transform:uppercase}
 .ai-fim .ai-txt{font-size:12.5pt;max-width:150mm}
-.ai-fim-dl{font-size:12pt;gap:4mm 8mm}
 .ai-fim-legal{margin:0;font-size:7.6pt;max-width:165mm;text-align:left}
 /* capa: o mesmo cabeçalho e pé dos outros slides, para a marca não mudar de lugar */
-.slide.ai-capa .graf{z-index:2}
+/* O grafismo sangra pelo pé do slide. Solto, o Chromium o empurra para a
+   página seguinte na impressão e ele some da capa; dentro de uma caixa do
+   tamanho do slide, recortada, ele fica onde está. */
+.ai-graf-clip{position:absolute;inset:0;overflow:hidden;z-index:2;pointer-events:none}
 .ai-capa .pg-body{justify-content:center}
 .ai-capa-bloco{margin:auto 0}
 .ai-capa .rule{width:50.3mm;margin-bottom:14mm}
 .ai-capa .cv-sub{margin-top:4mm}
-.ai-capa-id{font-size:10pt;gap:1.5mm 6mm}
+
 """
