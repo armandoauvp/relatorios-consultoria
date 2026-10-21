@@ -15,6 +15,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from layout import *  # noqa: E402,F403  (traz também tudo de common)
 import d_apresentacao_geral
+import d_apresentacao_institucional
 import d_carta_apresentacao
 import d_consultor
 import d_consultor_simples
@@ -42,6 +43,13 @@ DOCUMENTOS = [
          titulo="Relatório Macroeconômico: %s", builder=d_macro.build),
     dict(chave="apresentacao-geral", formato="slide",
          titulo="Apresentação Geral: %s", builder=d_apresentacao_geral.build),
+    # A versão curta, para a primeira conversa: quem somos, o time, as
+    # soluções e os benefícios, em oito slides. Só da consultoria, que é de
+    # onde vinha o deck que ela substitui.
+    dict(chave="apresentacao-institucional", formato="slide",
+         titulo="Apresentação institucional: %s", builder=d_apresentacao_institucional.build,
+         css=d_apresentacao_institucional.CSS,
+         variantes=[("consultoria", THEMES["consultoria"]["nome_full"], "consultoria")]),
     dict(chave="relatorio-mensal-apresentacao", formato="slide",
          titulo="Relatório Mensal (apresentação): %s", builder=d_mensal_apresentacao.build),
     # Vai para quem ouviu a proposta e ainda não decidiu: fica entre a
@@ -121,6 +129,8 @@ def monta(doc, sufixo, rotulo, tema):
     # A folha longa é o A4 com a altura da página trocada: ela reaproveita a
     # tipografia e os componentes inteiros, e só o `@page` e o corpo mudam.
     css = {"a4": CSS_A4, "slide": CSS_SLIDE, "longa": CSS_A4 + CSS_LONGA}[doc["formato"]]
+    # O documento que tem desenho próprio traz o CSS dele, e só ele o carrega.
+    css += doc.get("css", "")
     html = head(doc["titulo"] % rotulo, tokens(t) + "\n" + css) + \
         renumera(sem_viuvas("\n".join(paginas))) + "\n" + FOOT
     caminho = os.path.join(OUT, "%s-%s.html" % (doc["chave"], sufixo))

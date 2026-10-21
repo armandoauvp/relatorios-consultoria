@@ -29,6 +29,8 @@ export const DOCUMENTOS = [
     descricao: 'O relatório macro do mês: panorama, análises, carteira, classes, fechamento e agenda.' },
   { chave: 'apresentacao-geral', nome: 'Apresentação geral', formato: 'slide',
     descricao: 'Deck de apresentação do serviço, para reunião de proposta.' },
+  { chave: 'apresentacao-institucional', nome: 'Apresentação institucional (curta)', formato: 'slide',
+    descricao: 'Oito slides para a primeira conversa: quem somos, na mídia, o time, soluções 360°, implementação e benefícios.' },
   { chave: 'relatorio-mensal-apresentacao', nome: 'Relatório mensal em apresentação', formato: 'slide',
     descricao: 'O fechamento do mês em formato de reunião.' },
   { chave: 'carta-apresentacao', nome: 'Carta de apresentação', formato: 'slide',

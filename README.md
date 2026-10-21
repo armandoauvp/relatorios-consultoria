@@ -1,7 +1,7 @@
 # Modelos de relatórios — AUVP Capital e AUVP Private Banking
 
 Modelos de uso dos relatórios e apresentações entregues aos clientes, prontos para
-serem preenchidos e exportados em PDF. São **39 arquivos HTML independentes**: cada
+serem preenchidos e exportados em PDF. São **40 arquivos HTML independentes**: cada
 um traz o próprio CSS, a própria fonte e a própria paleta, abre com duplo clique em
 qualquer navegador e não depende de nenhum outro arquivo do repositório.
 
@@ -12,7 +12,7 @@ Os modelos são **gerados** a partir de `gerador/`, e não editados à mão. Par
 acrescentar uma página, um documento ou um segmento, veja
 [`CONSTRUCAO.md`](CONSTRUCAO.md).
 
-## Os 39 modelos
+## Os 40 modelos
 
 Seis documentos existem nos quatro segmentos. A apresentação do consultor varia por plano
 da consultoria e por segmento, e a versão em branco sai também sem a data no cabeçalho.
@@ -23,6 +23,7 @@ da consultoria e por segmento, e a versão em branco sai também sem a data no c
 | Diagnóstico de carteira | A4 retrato | 27–30 | ✓ | ✓ | ✓ | ✓ |
 | Relatório macroeconômico | A4 retrato | 11 | ✓ | ✓ | ✓ | ✓ |
 | Apresentação geral | 16:9 | 14 | ✓ | ✓ | ✓ | ✓ |
+| Apresentação institucional (curta) | 16:9 | 8 | ✓ | | | |
 | Relatório mensal em apresentação | 16:9 | 11 | ✓ | ✓ | ✓ | ✓ |
 | Carta de apresentação | 16:9 | 13 | ✓ | ✓ | ✓ | ✓ |
 | Apresentação do consultor | folha 210 mm × altura do texto | 1 | 3 planos | ✓ | ✓ | ✓ |
@@ -257,7 +258,7 @@ mesmo arquivo no navegador: os campos ainda não preenchidos ficam destacados.
 
 **2. Gerar o PDF.**
 
-A pasta `pdf/` já traz um PDF de cada um dos 39 modelos, numa subpasta por produto, para quem só quer ler o
+A pasta `pdf/` já traz um PDF de cada um dos 40 modelos, numa subpasta por produto, para quem só quer ler o
 resultado sem instalar nada. Para regerar depois de editar um modelo:
 
 ```sh
@@ -519,7 +520,7 @@ conversa em volta deles.
 ## Estrutura do repositório
 
 ```
-modelos/                        39 modelos HTML independentes
+modelos/                        40 modelos HTML independentes
 pdf/<produto>/                  um PDF de cada modelo, versionado (saída do npm run pdf)
 scripts/render.mjs              HTML -> PDF via Playwright
 scripts/altura.mjs              mede o conteúdo das folhas longas e ajusta a altura

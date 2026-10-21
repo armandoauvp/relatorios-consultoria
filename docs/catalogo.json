@@ -119,6 +119,22 @@
    ]
   },
   {
+   "chave": "apresentacao-institucional",
+   "nome": "Apresentação institucional (curta)",
+   "formato": "slide",
+   "descricao": "Oito slides para a primeira conversa: quem somos, na mídia, o time, soluções 360°, implementação e benefícios.",
+   "variantes": [
+    {
+     "sufixo": "consultoria",
+     "rotulo": "Consultoria",
+     "arquivo": "apresentacao-institucional-consultoria.html",
+     "paginas": 8,
+     "campos": 4,
+     "imagens": 0
+    }
+   ]
+  },
+  {
    "chave": "apresentacao-livre",
    "nome": "Apresentação em branco (16:9)",
    "formato": "slide",
