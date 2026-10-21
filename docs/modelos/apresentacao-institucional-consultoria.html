@@ -452,12 +452,13 @@ table.tb{width:100%;border-collapse:collapse;font-size:9.5pt}
 .ai-impl-tx{width:128mm}
 /* as chamadas são do mesmo plano do celular: coordenadas do slide, não do texto */
 .ai-chamadas{list-style:none;margin:0;padding:0;position:absolute;top:0;z-index:4}
-.ai-chamadas li{position:absolute;left:0;margin:0;height:0;width:0}
-.ai-chamadas b{position:absolute;left:0;top:0;transform:translateY(-50%);white-space:nowrap;
+.ai-chamadas li{position:absolute;margin:0;height:0;width:0}
+/* alinhados à direita, encostando no começo do fio */
+.ai-chamadas b{position:absolute;right:4mm;top:0;transform:translateY(-50%);white-space:nowrap;text-align:right;
   font-size:13pt;font-weight:600;line-height:6mm;color:#fff}
-.ai-chamadas span{position:absolute;left:0;bottom:3.8mm;white-space:nowrap;
+.ai-chamadas span{position:absolute;right:4mm;bottom:3.8mm;white-space:nowrap;text-align:right;
   font-size:7.6pt;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.65)}
-.ai-chamadas i{position:absolute;top:-.5px;height:1px;background:#fff}
+.ai-chamadas i{position:absolute;left:0;top:-.5px;height:1px;background:#fff}
 .ai-chamadas i::after{content:"";position:absolute;right:-1.6mm;top:-1.6mm;width:3.2mm;height:3.2mm;border-radius:50%;background:#fff}
 .ai-cel-clip{position:absolute;bottom:0;width:78mm;overflow:hidden;z-index:3}
 .ai-cel{position:relative;margin:.5mm 1mm 0;width:76mm;height:178mm;border-radius:11mm;background:#0A0D0B;
@@ -1125,7 +1126,7 @@ table.tb{width:100%;border-collapse:collapse;font-size:9.5pt}
       </div></div>
   </div>
 </div></div>
-<ol class="ai-chamadas" style="left:16mm"><li style="top:95.10mm"><span>Toda&nbsp;semana</span><b>Recomendações de renda fixa</b><i style="left:68.00mm;width:88.90mm"></i></li><li style="top:120.10mm"><span>Todo&nbsp;mês</span><b>Relatório mensal da carteira</b><i style="left:68.00mm;width:88.90mm"></i></li><li style="top:145.10mm"><span>Todo&nbsp;mês</span><b>Relatório macroeconômico</b><i style="left:68.00mm;width:88.90mm"></i></li></ol><div class="grain"></div>
+<ol class="ai-chamadas" style="left:16mm"><li style="top:95.10mm;left:68.00mm"><span>Toda&nbsp;semana</span><b>Recomendações de renda fixa</b><i style="width:88.90mm"></i></li><li style="top:120.10mm;left:68.00mm"><span>Todo&nbsp;mês</span><b>Relatório mensal da carteira</b><i style="width:88.90mm"></i></li><li style="top:145.10mm;left:68.00mm"><span>Todo&nbsp;mês</span><b>Relatório macroeconômico</b><i style="width:88.90mm"></i></li></ol><div class="grain"></div>
   <div class="in">
     <header class="pg-head">
       <div class="sec">A&nbsp;consultoria</div>

@@ -240,9 +240,11 @@ def celular(t):
     chamadas = []
     for i, (k, tit, _) in enumerate(NOTIFICACOES):
         y = CEL_Y + CEL_TOPO + LISTA_Y + NOTIF_H / 2 + i * (NOTIF_H + NOTIF_GAP)
-        chamadas.append('<li style="top:%.2fmm"><span>%s</span><b>%s</b>'
-                        '<i style="left:%.2fmm;width:%.2fmm"></i></li>'
-                        % (y, k, tit, FIO_X - CHAMADA_X, card_x - FIO_X))
+        # o li fica no ponto onde o fio começa: o texto encosta nele pela
+        # direita e o fio segue dali até a notificação
+        chamadas.append('<li style="top:%.2fmm;left:%.2fmm"><span>%s</span><b>%s</b>'
+                        '<i style="width:%.2fmm"></i></li>'
+                        % (y, FIO_X - CHAMADA_X, k, tit, card_x - FIO_X))
     # O celular sangra pelo pé do slide, como no material de referência. Fica
     # numa caixa própria que termina na borda do slide e recorta o resto: assim
     # o aparelho não conta como conteúdo estourando a página.
@@ -471,12 +473,13 @@ CSS = """
 .ai-impl-tx{width:128mm}
 /* as chamadas são do mesmo plano do celular: coordenadas do slide, não do texto */
 .ai-chamadas{list-style:none;margin:0;padding:0;position:absolute;top:0;z-index:4}
-.ai-chamadas li{position:absolute;left:0;margin:0;height:0;width:0}
-.ai-chamadas b{position:absolute;left:0;top:0;transform:translateY(-50%);white-space:nowrap;
+.ai-chamadas li{position:absolute;margin:0;height:0;width:0}
+/* alinhados à direita, encostando no começo do fio */
+.ai-chamadas b{position:absolute;right:4mm;top:0;transform:translateY(-50%);white-space:nowrap;text-align:right;
   font-size:13pt;font-weight:600;line-height:6mm;color:#fff}
-.ai-chamadas span{position:absolute;left:0;bottom:3.8mm;white-space:nowrap;
+.ai-chamadas span{position:absolute;right:4mm;bottom:3.8mm;white-space:nowrap;text-align:right;
   font-size:7.6pt;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.65)}
-.ai-chamadas i{position:absolute;top:-.5px;height:1px;background:#fff}
+.ai-chamadas i{position:absolute;left:0;top:-.5px;height:1px;background:#fff}
 .ai-chamadas i::after{content:"";position:absolute;right:-1.6mm;top:-1.6mm;width:3.2mm;height:3.2mm;border-radius:50%;background:#fff}
 .ai-cel-clip{position:absolute;bottom:0;width:78mm;overflow:hidden;z-index:3}
 .ai-cel{position:relative;margin:.5mm 1mm 0;width:76mm;height:178mm;border-radius:11mm;background:#0A0D0B;
