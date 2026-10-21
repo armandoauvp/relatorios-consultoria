@@ -142,58 +142,84 @@ def campo_pontos():
                  ta=ax, tb=bx)
 
 
+# Ícones das soluções, em traço, numa grade de 24 x 24.
+ICONES = {
+    "Crédito": '<rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10.5h18M6.5 14.5h4"/>',
+    "Holdings": '<path d="M3 21h18M5 21V9l7-5 7 5v12M9.5 12h1.5M13 12h1.5M9.5 16h1.5M13 16h1.5"/>',
+    "Seguro de vida": '<path d="M12 3l7 3v5.5c0 4.6-3 8-7 9.5-4-1.5-7-4.9-7-9.5V6z"/><path d="M9 12.2l2.1 2.1 4-4.2"/>',
+    "Câmbio": '<path d="M4 8.5h14.5M15 5l3.5 3.5L15 12M20 15.5H5.5M9 12l-3.5 3.5L9 19"/>',
+    "Planejamento tributário": '<path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9.5 17.5l5-6"/><circle cx="10" cy="12" r="1.1"/><circle cx="14" cy="17" r="1.1"/>',
+    "Internacional": '<circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="3.8" ry="9"/><path d="M3 12h18M4.6 7.5h14.8M4.6 16.5h14.8"/>',
+}
+
+
 def roda(t):
-    """A roda das soluções, numa caixa de 306 x 112 mm desenhada em milímetros:
-    o SVG traz o anel, os números e os fios; os textos são HTML posicionados nas
-    mesmas coordenadas, para continuarem texto de verdade no PDF."""
+    """O patrimônio no centro e as seis frentes em órbita, à mesma distância
+    dele: nenhuma vale mais que a outra, e por isso todas têm a mesma cor. O
+    anel de marcas entre o centro e a órbita é o mostrador dos 360°. Cada nó
+    leva o ícone, e o nome fica ao lado dele, sem fio de ligação: o texto
+    encosta no nó.
+
+    Desenhado em milímetros numa caixa de 306 x 112 mm. O SVG traz o desenho;
+    os textos são HTML posicionados nas mesmas coordenadas, para continuarem
+    texto de verdade no PDF."""
     import math
     W, H = 306.0, 112.0
     cx, cy = W / 2, H / 2
-    ro, ri, rd = 47.0, 32.0, 27.5
-    cores = ["#023620", "#3F7D5C", "#8FBFA3", "#023620", "#3F7D5C", "#8FBFA3"]
-    tinta = ["#fff", "#fff", "#023620", "#fff", "#fff", "#023620"]
-    # centros dos segmentos, em graus no sentido horário a partir das 3 horas
-    centros = [-60, 0, 60, 120, 180, 240]
-    gap = 2.2
-    segs, nums, fios, rot = [], [], [], []
+    R, rn, rd = 44.0, 6.6, 21.0          # órbita, nó e disco central
+    angulos = [-60, 0, 60, 120, 180, 240]  # sentido horário, a partir das 3 horas
 
     def pt(r, a):
         return cx + r * math.cos(math.radians(a)), cy + r * math.sin(math.radians(a))
 
-    for i, a in enumerate(centros):
-        a0, a1 = a - 30 + gap / 2, a + 30 - gap / 2
-        x0, y0 = pt(ro, a0); x1, y1 = pt(ro, a1)
-        x2, y2 = pt(ri, a1); x3, y3 = pt(ri, a0)
-        segs.append('<path d="M%.2f %.2fA%g %g 0 0 1 %.2f %.2fL%.2f %.2fA%g %g 0 0 0 %.2f %.2fZ" fill="%s"/>'
-                    % (x0, y0, ro, ro, x1, y1, x2, y2, ri, ri, x3, y3, cores[i]))
-        nx, ny = pt((ro + ri) / 2, a)
-        nums.append('<text x="%.2f" y="%.2f" fill="%s">%d</text>' % (nx, ny, tinta[i], i + 1))
-        # o fio sai da borda externa do segmento e corre na horizontal até o texto
-        fx, fy = pt(ro + 1.5, a)
+    marcas = []
+    for k in range(0, 360, 6):
+        r0, r1 = (26.2, 30.2) if k % 30 == 0 else (27.4, 29.4)
+        (x0, y0), (x1, y1) = pt(r0, k), pt(r1, k)
+        marcas.append('<line x1="%.2f" y1="%.2f" x2="%.2f" y2="%.2f"%s/>'
+                      % (x0, y0, x1, y1, ' class="m30"' if k % 30 == 0 else ""))
+
+    raios, nos, rot = [], [], []
+    esc = 7.8 / 24                       # ícone de 7,8 mm dentro do nó
+    for (titulo, desc), a in zip(SOLUCOES, angulos):
+        nx, ny = pt(R, a)
+        (sx, sy), (ex, ey) = pt(rd + 1.5, a), pt(R - rn - 1, a)
+        raios.append('<line x1="%.2f" y1="%.2f" x2="%.2f" y2="%.2f"/>' % (sx, sy, ex, ey))
+        nos.append('<circle cx="%.2f" cy="%.2f" r="%g" class="no"/>'
+                   '<g class="ic" transform="translate(%.3f %.3f) scale(%.4f)">%s</g>'
+                   % (nx, ny, rn, nx - 12 * esc, ny - 12 * esc, esc, ICONES[titulo]))
         direita = math.cos(math.radians(a)) > 0
-        ex = cx + 74 if direita else cx - 74
-        fios.append('<line x1="%.2f" y1="%.2f" x2="%.2f" y2="%.2f"/><circle cx="%.2f" cy="%.2f" r=".9"/>'
-                    % (fx, fy, ex, fy, ex, fy))
-        titulo, desc = SOLUCOES[i]
-        lado = "dir" if direita else "esq"
-        pos = ("left:%.2fmm" % (ex + 3)) if direita else ("right:%.2fmm" % (W - ex + 3))
-        rot.append('<div class="ai-rot %s" style="%s;top:%.2fmm"><h4><b>%d</b>%s</h4><p>%s</p></div>'
-                   % (lado, pos, fy, i + 1, titulo, desc))
+        if direita:
+            pos = "left:%.2fmm" % (nx + rn + 4)
+        else:
+            pos = "right:%.2fmm" % (W - (nx - rn - 4))
+        rot.append('<div class="ai-rot %s" style="%s;top:%.2fmm"><h4>%s</h4><p>%s</p></div>'
+                   % ("dir" if direita else "esq", pos, ny, titulo, desc))
 
     return """<div class="ai-roda" style="width:%(W)gmm;height:%(H)gmm">
   <svg viewBox="0 0 %(W)g %(H)g" class="ai-roda-svg">
     <defs><linearGradient id="ai-disco" x1="1" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="#023620"/><stop offset="1" stop-color="#000"/></linearGradient></defs>
-    <circle cx="%(cx)g" cy="%(cy)g" r="%(rh)g" class="ai-halo"/>
-    <g class="ai-fios">%(fios)s</g>
-    %(segs)s
+    <circle cx="%(cx)g" cy="%(cy)g" r="%(R)g" class="orbita"/>
+    <g class="raios">%(raios)s</g>
+    <g class="marcas">%(marcas)s</g>
     <circle cx="%(cx)g" cy="%(cy)g" r="%(rd)g" fill="url(#ai-disco)"/>
-    <g class="ai-nums">%(nums)s</g>
+    %(nos)s
   </svg>
   <div class="ai-centro" style="left:%(cx)gmm;top:%(cy)gmm">%(olho)s<span>Seu<br>patrimônio</span></div>
   %(rot)s
-</div>""" % dict(W=W, H=H, cx=cx, cy=cy, rd=rd, rh=ro + 6, segs="".join(segs), nums="".join(nums),
-                 fios="".join(fios), rot="".join(rot), olho=olho(t))
+</div>""" % dict(W=W, H=H, cx=cx, cy=cy, R=R, rd=rd, marcas="".join(marcas), raios="".join(raios),
+                 nos="".join(nos), rot="".join(rot), olho=olho(t))
+
+
+# Geometria do celular, em mm a partir do canto do slide. As chamadas da
+# esquerda saem destes mesmos números, e por isso cada fio chega exatamente no
+# meio da notificação dele.
+CEL_X, CEL_Y = 165.5, 31.2           # caixa que recorta o aparelho
+CEL_BORDA = 1.0 + 2.4 + 4.0          # margem + moldura + respiro da tela, na horizontal
+CEL_TOPO = 0.5 + 2.4                 # margem + moldura, na vertical
+LISTA_Y, NOTIF_H, NOTIF_GAP = 50.0, 22.0, 3.0
+CHAMADA_X, FIO_X = 16.0, 84.0        # onde começam o texto e o fio
 
 
 def celular(t):
@@ -201,17 +227,50 @@ def celular(t):
         <div class="ai-app">%(olho)s<span>AUVP Capital</span><i>agora</i></div>
         <b>%(tit)s</b><p>%(txt)s</p>
       </div>""" % dict(olho=olho(t, "ai-app-ic"), tit=tit, txt=txt) for _, tit, txt in NOTIFICACOES)
+    card_x = CEL_X + CEL_BORDA
+    chamadas = []
+    for i, (k, tit, _) in enumerate(NOTIFICACOES):
+        y = CEL_Y + CEL_TOPO + LISTA_Y + NOTIF_H / 2 + i * (NOTIF_H + NOTIF_GAP)
+        chamadas.append('<li style="top:%.2fmm"><span>%s</span><b>%s</b>'
+                        '<i style="left:%.2fmm;width:%.2fmm"></i></li>'
+                        % (y, k, tit, FIO_X - CHAMADA_X, card_x - FIO_X))
     # O celular sangra pelo pé do slide, como no material de referência. Fica
     # numa caixa própria que termina na borda do slide e recorta o resto: assim
     # o aparelho não conta como conteúdo estourando a página.
-    return """<div class="ai-cel-clip"><div class="ai-cel">
+    return """<div class="ai-cel-clip" style="left:%(cx)gmm;top:%(cy)gmm"><div class="ai-cel">
   <div class="ai-tela">
     <div class="ai-ilha"></div>
     <div class="ai-dia">Segunda-feira</div>
     <div class="ai-hora">08:30</div>
-    <div class="ai-lista">%s</div>
+    <div class="ai-lista" style="top:%(ly)gmm">%(notif)s</div>
   </div>
-</div></div>""" % notif
+</div></div>
+<ol class="ai-chamadas" style="left:%(chx)gmm">%(cham)s</ol>""" % dict(
+        cx=CEL_X, cy=CEL_Y, ly=LISTA_Y, notif=notif, chx=CHAMADA_X, cham="".join(chamadas))
+
+
+def capa(t, ident):
+    """A capa com o mesmo cabeçalho e o mesmo pé dos slides de conteúdo: a
+    marca e o rótulo não mudam de lugar quando se passa da capa para o resto."""
+    return """<section class="slide dark ai-capa">
+  %(graf)s<div class="grain"></div>
+  <div class="in">
+    <header class="pg-head">
+      <div class="sec">Consultoria</div>
+      <div class="rt">%(logo)s</div>
+    </header>
+    <div class="pg-body">
+      <div class="ai-capa-bloco">
+        <div class="rule"></div>
+        <h1 class="cv-t"><span class="lt">Conheça a </span>melhor consultoria do Brasil</h1>
+        <div class="cv-sub">Gestão financeira transparente e completa</div>
+      </div>
+      <div class="dl ai-capa-id">%(ident)s</div>
+    </div>
+    <footer class="pg-foot"><span></span><span>%(confid)s</span></footer>
+  </div>
+</section>""" % dict(graf=graf_arcos(GRAF_SLIDE_W, "bottom-right"), logo=logo_svg(t, 6.3),
+                     ident="".join("<dt>%s</dt><dd>%s</dd>" % par for par in ident), confid=CONFID)
 
 
 CHECK = ('<svg viewBox="0 0 24 24" class="ai-ck"><circle cx="12" cy="12" r="12"/>'
@@ -224,9 +283,7 @@ def build(t, seg):
     S = []
 
     # 1. Capa — a frase do deck anterior, no desenho de capa do sistema.
-    S.append(cover_slide(t, "Conheça a", "melhor consultoria do Brasil",
-                         "Gestão financeira transparente e completa",
-                         [ph("nome_cliente"), ph("nome_responsavel")]))
+    S.append(capa(t, [("Para", ph("nome_cliente")), ("Consultor", ph("nome_responsavel"))]))
 
     # 2. Quem somos — o texto das páginas 2 e 3 do deck anterior, reduzido ao
     # que se lê em voz alta, e a história da casa virando uma linha de marcos.
@@ -279,14 +336,12 @@ def build(t, seg):
     <h1 class="t">Implementação da estratégia</h1>
     <p class="lead">A estratégia não fica no papel. O que o seu consultor acompanha chega até você, no celular, no ritmo certo.</p>
   </div>
-  <ol class="ai-chamadas">%(cham)s</ol>
   <div class="ai-decide">
     <span class="ai-decide-k">Na prática</span>
     <p class="ai-decide-t">O consultor recomenda. Quem decide é sempre você.</p>
     <p class="ai-txt">Cada recomendação vem com o racional por trás, e o seu consultor está no WhatsApp para a dúvida que aparecer no caminho.</p>
   </div>
-</div>""" % dict(cham="".join('<li style="top:%gmm"><span>%s</span><b>%s</b><i></i></li>' % (y, k, tit)
-                              for y, (k, tit, _) in zip((60.8, 87.0, 113.2), NOTIFICACOES))),
+</div>""",
         dark=True, cls="ai-impl-sl", fundo=celular(t)))
 
     # 7. Benefícios — os quatro da página 12, com o cashback mostrado como
@@ -392,33 +447,35 @@ CSS = """
 .ai-roda-box{flex:1 1 auto;min-height:0;display:flex;align-items:center;justify-content:center}
 .ai-roda{position:relative;flex:0 0 auto}
 .ai-roda-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
-.ai-halo{fill:none;stroke:var(--line);stroke-width:.3}
-.ai-fios line{stroke:#9BA29D;stroke-width:.3;stroke-dasharray:.8 .8}
-.ai-fios circle{fill:var(--brand)}
-.ai-nums text{font-family:'Anek Latin',sans-serif;font-size:4.6px;font-weight:800;text-anchor:middle;dominant-baseline:central}
-.ai-centro{position:absolute;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:1.5mm;
-  color:#fff;text-align:center;font-size:9pt;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.2}
-.ai-olho{display:block;width:15mm}
+.ai-roda .orbita{fill:none;stroke:#C9D1CC;stroke-width:.35}
+.ai-roda .raios line{stroke:#C9D1CC;stroke-width:.35}
+.ai-roda .marcas line{stroke:#9BA29D;stroke-width:.3}
+.ai-roda .marcas line.m30{stroke:var(--brand);stroke-width:.45}
+.ai-roda .no{fill:var(--brand)}
+.ai-roda .ic *{fill:none;stroke:#fff;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+.ai-centro{position:absolute;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:1.2mm;
+  color:#fff;text-align:center;font-size:8pt;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.2}
+.ai-olho{display:block;width:12mm}
 .ai-olho svg,.ai-app-ic svg{display:block;width:100%;height:auto}
-.ai-rot{position:absolute;width:72mm;transform:translateY(-50%)}
+/* o título fica na altura do centro do nó; a descrição desce dele */
+.ai-rot{position:absolute;width:74mm;margin-top:-3.2mm}
 .ai-rot.esq{text-align:right}
-.ai-rot h4{margin:0 0 1mm;font-size:11.5pt;font-weight:700;display:flex;align-items:center;gap:2mm}
-.ai-rot.esq h4{justify-content:flex-end;flex-direction:row-reverse}
-.ai-rot h4 b{flex:0 0 auto;width:5.2mm;height:5.2mm;border-radius:50%;background:var(--brand);color:#fff;
-  font-size:7.6pt;font-weight:800;display:flex;align-items:center;justify-content:center}
-.ai-rot p{margin:0;font-size:9pt;line-height:1.4;color:var(--ink-2);text-align:inherit}
+.ai-rot h4{margin:0 0 1mm;font-size:12pt;line-height:6.4mm;font-weight:700}
+.ai-rot p{margin:0;font-size:9.2pt;line-height:1.4;color:var(--ink-2);text-align:inherit}
 
 /* implementação: o celular */
 .ai-impl{flex:1 1 auto;position:relative}
 .ai-impl-tx{width:128mm}
-.ai-chamadas{list-style:none;margin:0;padding:0}
-.ai-chamadas li{position:absolute;left:0;width:151.6mm;margin:0;transform:translateY(-50%);
-  display:flex;flex-direction:column;align-items:flex-start}
-.ai-chamadas span{font-size:7.6pt;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.65)}
-.ai-chamadas b{font-size:13pt;font-weight:600;color:#fff;margin-top:.5mm}
-.ai-chamadas i{position:absolute;left:68mm;right:0;top:50%;height:1px;background:#fff}
+/* as chamadas são do mesmo plano do celular: coordenadas do slide, não do texto */
+.ai-chamadas{list-style:none;margin:0;padding:0;position:absolute;top:0;z-index:4}
+.ai-chamadas li{position:absolute;left:0;margin:0;height:0;width:0}
+.ai-chamadas b{position:absolute;left:0;top:0;transform:translateY(-50%);white-space:nowrap;
+  font-size:13pt;font-weight:600;line-height:6mm;color:#fff}
+.ai-chamadas span{position:absolute;left:0;bottom:3.8mm;white-space:nowrap;
+  font-size:7.6pt;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.65)}
+.ai-chamadas i{position:absolute;top:-.5px;height:1px;background:#fff}
 .ai-chamadas i::after{content:"";position:absolute;right:-1.6mm;top:-1.6mm;width:3.2mm;height:3.2mm;border-radius:50%;background:#fff}
-.ai-cel-clip{position:absolute;left:165.5mm;top:31.2mm;bottom:0;width:78mm;overflow:hidden;z-index:3}
+.ai-cel-clip{position:absolute;bottom:0;width:78mm;overflow:hidden;z-index:3}
 .ai-cel{position:relative;margin:.5mm 1mm 0;width:76mm;height:178mm;border-radius:11mm;background:#0A0D0B;
   padding:2.4mm;box-shadow:0 0 0 .35mm rgba(255,255,255,.28)}
 .ai-tela{position:relative;height:100%;border-radius:9mm;overflow:hidden;padding:5mm 4mm;
@@ -426,8 +483,8 @@ CSS = """
 .ai-ilha{width:24mm;height:6mm;border-radius:4mm;background:#0A0D0B;margin:0 auto 6mm}
 .ai-dia{text-align:center;font-size:10.5pt;font-weight:600;color:#1C3A2B}
 .ai-hora{text-align:center;font-size:40pt;font-weight:700;line-height:1;color:#123323;letter-spacing:-.02em;margin:1mm 0 7mm}
-.ai-lista{display:flex;flex-direction:column;gap:3mm}
-.ai-notif{background:rgba(255,255,255,.82);border-radius:4mm;padding:2.6mm 3.2mm;color:#12160F;min-height:22mm}
+.ai-lista{position:absolute;left:4mm;right:4mm;display:flex;flex-direction:column;gap:3mm}
+.ai-notif{background:rgba(255,255,255,.82);border-radius:4mm;padding:2.6mm 3.2mm;color:#12160F;height:22mm;overflow:hidden}
 .ai-app{display:flex;align-items:center;gap:1.6mm;font-size:6.6pt;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#4A5248;margin-bottom:1mm}
 .ai-app i{margin-left:auto;font-style:normal;text-transform:none;letter-spacing:0;color:#7E8A84}
 .ai-app-ic{display:flex;align-items:center;justify-content:center;width:5mm;height:5mm;border-radius:1.3mm;background:#000;padding:.8mm}
@@ -473,6 +530,11 @@ CSS = """
 .ai-fim .ai-txt{font-size:12.5pt;max-width:150mm}
 .ai-fim-dl{font-size:12pt;gap:4mm 8mm}
 .ai-fim-legal{margin:0;font-size:7.6pt;max-width:165mm;text-align:left}
-/* a marca da faixa branca da capa sai preta, nunca verde */
-.cv-band .logo svg [class^=lg-]{fill:#000}
+/* capa: o mesmo cabeçalho e pé dos outros slides, para a marca não mudar de lugar */
+.slide.ai-capa .graf{z-index:2}
+.ai-capa .pg-body{justify-content:center}
+.ai-capa-bloco{margin:auto 0}
+.ai-capa .rule{width:50.3mm;margin-bottom:14mm}
+.ai-capa .cv-sub{margin-top:4mm}
+.ai-capa-id{font-size:10pt;gap:1.5mm 6mm}
 """
