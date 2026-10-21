@@ -391,7 +391,7 @@ def build(t, seg):
 <span class="eyebrow ai-resumo-k">Por que a AUVP Capital</span>
 <ol class="ai-marcos ai-resumo">%s</ol>""" % "".join('<li><span class="n">%s</span><span class="l">%s</span></li>' % m for m in RESUMO) + """
 <p class="legal ai-fim-legal">Material de caráter informativo, que não constitui oferta nem recomendação individualizada. Benefícios sujeitos a elegibilidade e às condições vigentes; rentabilidade passada não garante rentabilidade futura.</p>""",
-        dark=True, cls="ai-fecho", fundo='<div class="ai-graf-clip">%s</div>' % graf_arcos(GRAF_SLIDE_W, "bottom-right")))
+        dark=True, cls="ai-fecho", fundo='<div class="ai-graf-clip">%s</div>' % graf_arcos(GRAF_SLIDE_W, "top-right")))
 
     return S
 
@@ -534,7 +534,7 @@ CSS = """
 .ai-fim{flex:1 1 auto;display:flex;flex-direction:column;justify-content:center;max-width:200mm}
 .ai-fim .rule{width:50.3mm;margin-bottom:10mm}
 .ai-resumo-k{margin:0 0 2mm;color:rgba(255,255,255,.65)}
-.ai-marcos.ai-resumo{margin:0 0 9mm;width:240mm}
+.ai-marcos.ai-resumo{margin:0 0 9mm;width:212mm}
 .ai-fim-t{margin:0 0 5mm;font-size:36pt;font-weight:800;line-height:1.05;letter-spacing:-.02em;text-transform:uppercase}
 .ai-fim .ai-txt{font-size:12.5pt;max-width:150mm}
 .ai-fim-legal{margin:0;font-size:7.6pt;max-width:165mm;text-align:left}
