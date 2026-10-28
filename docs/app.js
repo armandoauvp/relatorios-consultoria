@@ -279,7 +279,7 @@ const AMOSTRAS = {
   'alta-renda': ['#010F08', '#EFBF4F'],
   private: ['#666666', '#8C939A'],
   assessoria: ['#005F45', '#EFBF4F'],
-  seguros: ['#023620', '#EFBF4F'],
+  'protecao-patrimonial': ['#023620', '#EFBF4F'],
 };
 
 /** As variantes de um documento que pertencem a este produto.

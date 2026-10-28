@@ -30,13 +30,13 @@ da consultoria e por segmento, e a versão em branco sai também sem a data no c
 | Wealth Planning: proposta | 16:9 | 7 | | | ✓ | |
 | Wealth Planning: snapshot | 16:9 | 10 | | | ✓ | |
 
-E um produto à parte: a **AUVP Seguros** tem uma apresentação de produtos, em 16:9 com 6
-slides (`apresentacao-produtos-seguros`). É produto próprio, mas usa a identidade da
-consultoria, e na ferramenta aparece como o produto **Seguros**. O texto é todo da casa:
+E um produto à parte: a **AUVP Proteção Patrimonial** tem uma apresentação de produtos, em 16:9 com 6
+slides (`apresentacao-produtos-protecao-patrimonial`). É produto próprio, mas usa a identidade da
+consultoria, e na ferramenta aparece como o produto **Proteção Patrimonial**. O texto é todo da casa:
 o modelo não tem nenhum campo, sai sem data no cabeçalho e sem o aviso de
 confidencialidade no pé. O tom mais leve vem só do desenho, com ícone em cada cobertura,
 o diagrama de um perfil cotado em várias seguradoras e a fileira dos quatro seguros no
-cabeçalho. A copy fica em `gerador/d_seguros.py` e entra como foi aprovada.
+cabeçalho. A copy fica em `gerador/d_protecao_patrimonial.py` e entra como foi aprovada.
 
 A apresentação de cada consultor existe duas vezes: com e sem a data no pé, esta
 última no sufixo `-sem-data`. É o documento que a pessoa manda para um cliente novo a

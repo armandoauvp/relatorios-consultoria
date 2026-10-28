@@ -21,9 +21,9 @@
    "descricao": "Assessoria de investimentos, verde mais claro."
   },
   {
-   "chave": "seguros",
-   "nome": "Seguros",
-   "descricao": "AUVP Seguros, produto próprio na identidade da consultoria."
+   "chave": "protecao-patrimonial",
+   "nome": "Proteção Patrimonial",
+   "descricao": "AUVP Proteção Patrimonial, produto próprio na identidade da consultoria."
   }
  ],
  "documentos": [
@@ -171,9 +171,9 @@
    "descricao": "Como cotamos e comparamos, e os seguros de vida, auto, RC profissional para médicos e planos de saúde.",
    "variantes": [
     {
-     "sufixo": "seguros",
-     "rotulo": "Seguros",
-     "arquivo": "apresentacao-produtos-seguros.html",
+     "sufixo": "protecao-patrimonial",
+     "rotulo": "Proteção Patrimonial",
+     "arquivo": "apresentacao-produtos-protecao-patrimonial.html",
      "paginas": 6,
      "campos": 0,
      "imagens": 0

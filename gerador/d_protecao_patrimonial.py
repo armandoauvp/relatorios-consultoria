@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-"""Apresentação de produtos da AUVP Seguros.
+"""Apresentação de produtos da AUVP Proteção Patrimonial.
 
-A AUVP Seguros é produto próprio, na identidade da consultoria. O material
+A AUVP Proteção Patrimonial é produto próprio, na identidade da consultoria. O material
 mostra como a casa trabalha — cotar em várias seguradoras, comparar e
 recomendar — e os quatro seguros que oferece.
 
@@ -168,7 +168,7 @@ def build(t, seg):
 
     # ------------------------------------------------------------------ capa
     S.append(cover_slide(
-        t, "AUVP", "Seguros", "As melhores seguradoras do mercado,<br>comparadas para você.",
+        t, "AUVP", "Proteção Patrimonial", "As melhores seguradoras do mercado,<br>comparadas para você.",
         ['<div class="sg-capa">%s</div>' % "".join(
             '<span>%s</span>' % icone(p) for p in PRODUTOS)],
         confid="", cls="sg-cv"))
@@ -180,7 +180,7 @@ def build(t, seg):
     <p class="mut">Quem contrata seguro direto com uma única seguradora fica com opções limitadas e
     dificilmente sabe se está pagando o preço justo pela cobertura certa.</p>
     %(unico)s
-    <p><strong>Na AUVP Seguros, fazemos esse trabalho por você:</strong> cotamos nas principais seguradoras e
+    <p><strong>Na AUVP Proteção Patrimonial, fazemos esse trabalho por você:</strong> cotamos nas principais seguradoras e
     operadoras do mercado, comparamos coberturas, condições e preços, e apresentamos a opção com o
     melhor custo-benefício para o seu momento de vida.</p>
     %(amplo)s

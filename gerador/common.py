@@ -74,14 +74,15 @@ THEMES = {
     ),
 }
 
-# A AUVP Seguros é produto próprio, mas na identidade da consultoria: mesmas
+# A AUVP Proteção Patrimonial é produto próprio, mas na identidade da consultoria: mesmas
 # cores, mesma logo. Muda o nome, e a faixa da capa fica sem rótulo, porque o
 # título da capa já é o nome do produto.
 #
 # `tons` são os verdes da marca que dão cor às ilustrações do material: menta,
 # sálvia e verde-médio, os mesmos da paleta dos gráficos. O dourado entra só
 # como destaque, pelo `--accent`.
-THEMES["seguros"] = dict(THEMES["consultoria"], nome="Seguros", nome_full="AUVP Seguros", rotulo="",
+THEMES["protecao-patrimonial"] = dict(THEMES["consultoria"], nome="Proteção Patrimonial",
+                                      nome_full="AUVP Proteção Patrimonial", rotulo="",
                          tons=["#D6E8DD", "#8FBFA3", "#3F7D5C"])
 
 CONFID = "DOCUMENTO CONFIDENCIAL. PROIBIDO O COMPARTILHAMENTO"
@@ -1035,7 +1036,7 @@ CSS_A4 += """
 """
 
 CSS_SLIDE += """
-/* ---------- AUVP Seguros ----------
+/* ---------- AUVP Proteção Patrimonial ----------
    O tom mais leve do material vem daqui, e não do texto: ícone em traço fino
    em cada cobertura, um diagrama sem palavras e a fileira dos quatro seguros
    no cabeçalho. A cor sai dos verdes da marca (`--tom-1` a `--tom-3`) e o

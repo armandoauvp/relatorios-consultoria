@@ -149,7 +149,7 @@ apresentação do consultor, que não deve dizer "proibido o compartilhamento".
 O slide 16:9 tem a mesma estrutura, com `.slide` no lugar de `.page` e as mesmas classes
 de cabeçalho e rodapé. `.slide.dark` inverte para o fundo em degradê.
 
-Material aberto ao público, como a apresentação da AUVP Seguros, sai sem data e sem o
+Material aberto ao público, como a apresentação da AUVP Proteção Patrimonial, sai sem data e sem o
 aviso: `slide(..., data=False, rodape=...)` tira a data do cabeçalho e troca o texto do pé,
 e `topo=` põe um elemento ao lado da logo (ali, a fileira dos quatro seguros).
 `cover_slide(..., confid="")` faz o mesmo na capa, e `cls=` deixa a capa mudar de arranjo
