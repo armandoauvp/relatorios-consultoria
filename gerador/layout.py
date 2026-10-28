@@ -140,12 +140,15 @@ def page_a4(t, sec, no, body, date_ph=None, dark=False, cls="", data=True, attrs
 
 # ---------------------------------------------------------------- 16:9
 
-def cover_slide(t, title_light, title_bold, subtitle, ident_lines):
+def cover_slide(t, title_light, title_bold, subtitle, ident_lines, confid=CONFID, cls=""):
     """Capa 16:9 nas medidas da página 1 de "MODELO SLIDES AUVP CAPITAL.pdf":
-    faixa branca até 26,3 mm, régua curta em 68,4 mm, título 44,6 pt."""
+    faixa branca até 26,3 mm, régua curta em 68,4 mm, título 44,6 pt.
+
+    `confid` é o aviso do pé; material aberto ao público passa outro texto, ou
+    nenhum. `cls` vai no `<section>`, para a capa que muda de arranjo."""
     ident = "".join("<div>%s</div>" % l for l in ident_lines)
     lt = '<span class="lt">%s </span>' % title_light if title_light else ""
-    return """<section class="slide dark cover">
+    return """<section class="slide dark cover%(cls)s">
   <div class="grain"></div>
   %(graf)s
   <div class="cv-band">%(rotulo)s%(logo)s</div>
@@ -158,7 +161,7 @@ def cover_slide(t, title_light, title_bold, subtitle, ident_lines):
 </section>""" % dict(graf=graf_arcos(GRAF_SLIDE_W, "bottom-right"),
                      rotulo='<div class="nm">%s</div>' % t["rotulo"] if t["rotulo"] else "",
                      logo=logo_svg(t, 7.0, ink=True), lt=lt, tb=title_bold, sub=subtitle,
-                     confid=CONFID, ident=ident)
+                     confid=confid, ident=ident, cls=" " + cls if cls else "")
 
 
 def divider_slide(t, no, title, sub=""):
@@ -178,13 +181,15 @@ def divider_slide(t, no, title, sub=""):
                      sub='<div class="dv-sub">%s</div>' % sub if sub else "")
 
 
-def slide(t, sec, no, body, dark=False, date_ph=None):
+def slide(t, sec, no, body, dark=False, date_ph=None, data=True, topo="", rodape=CONFID):
+    """`data=False` tira a data do cabeçalho, como em `page_a4`; `topo` entra
+    ao lado da logo. `rodape` troca o aviso de confidencialidade do pé."""
     return """<section class="slide%(dk)s">
   %(grain)s
   <div class="in">
     <header class="pg-head">
       <div class="sec">%(sec)s</div>
-      <div class="rt"><div class="dt">%(dt)s</div>%(logo)s</div>
+      <div class="rt">%(dt)s%(topo)s%(logo)s</div>
     </header>
     <div class="pg-body">
 %(body)s
@@ -192,8 +197,9 @@ def slide(t, sec, no, body, dark=False, date_ph=None):
     <footer class="pg-foot"><span class="no">%(no)s</span><span>%(confid)s</span></footer>
   </div>
 </section>""" % dict(dk=" dark" if dark else "", grain='<div class="grain"></div>' if dark else "",
-                     sec=sec, dt=ph(date_ph or DATE_PH), logo=logo_svg(t, 6.3, ink=not dark), body=body,
-                     no="%02d" % no, confid=CONFID)
+                     sec=sec, dt='<div class="dt">%s</div>' % ph(date_ph or DATE_PH) if data else "",
+                     topo=topo, logo=logo_svg(t, 6.3, ink=not dark), body=body,
+                     no="%02d" % no, confid=rodape)
 
 
 # ---------------------------------------------------------------- blocos

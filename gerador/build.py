@@ -23,6 +23,7 @@ import d_livre
 import d_macro
 import d_mensal
 import d_mensal_apresentacao
+import d_seguros
 import d_wealth_proposta
 import d_wealth_snapshot
 
@@ -75,6 +76,11 @@ DOCUMENTOS = [
     dict(chave="wealth-snapshot", formato="slide",
          titulo="Wealth Planning Snapshot: %s", builder=d_wealth_snapshot.build,
          variantes=[("private", THEMES["private"]["nome_full"], "private")]),
+    # A AUVP Seguros é produto próprio, na identidade da consultoria. Sem campo
+    # nenhum: é texto da casa, igual para todo cliente.
+    dict(chave="apresentacao-produtos", formato="slide",
+         titulo="Apresentação de produtos: %s", builder=d_seguros.build,
+         variantes=[("seguros", THEMES["seguros"]["nome_full"], "seguros")]),
 ]
 
 

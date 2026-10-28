@@ -74,6 +74,11 @@ THEMES = {
     ),
 }
 
+# A AUVP Seguros é produto próprio, mas na identidade da consultoria: mesmas
+# cores, mesma logo. Muda o nome, e a faixa da capa fica sem rótulo, porque o
+# título da capa já é o nome do produto.
+THEMES["seguros"] = dict(THEMES["consultoria"], nome="Seguros", nome_full="AUVP Seguros", rotulo="")
+
 CONFID = "DOCUMENTO CONFIDENCIAL. PROIBIDO O COMPARTILHAMENTO"
 
 def _b64(path):
@@ -1021,6 +1026,89 @@ CSS_A4 += """
 .painel{background:var(--soft);border-top:1.33px solid var(--brand);padding:4mm 5mm}
 .painel>:last-child{margin-bottom:0}
 .painel h3:first-child{margin-top:0}
+"""
+
+CSS_SLIDE += """
+/* ---------- AUVP Seguros ----------
+   O tom mais leve do material vem daqui, e não do texto: ícone em traço fino
+   em cada cobertura, um diagrama sem palavras e a fileira dos quatro seguros
+   no cabeçalho. Tudo na cor da marca; o dourado fica de fora, como nos
+   gráficos. */
+.sg-ic{display:block;width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:1.4;
+  stroke-linecap:round;stroke-linejoin:round}
+.sg-bola{flex:0 0 auto;width:11mm;height:11mm;border-radius:50%;border:1px solid var(--brand);
+  background:var(--paper);color:var(--brand);display:flex;align-items:center;justify-content:center}
+.sg-bola .sg-ic{width:6.2mm;height:6.2mm}
+
+/* em qual dos quatro seguros se está */
+.sg-nav{display:flex;gap:2mm}
+.sg-nav span{width:6.5mm;height:6.5mm;border-radius:50%;border:1px solid var(--line);color:var(--ink-2);
+  display:flex;align-items:center;justify-content:center}
+.sg-nav span.on{background:var(--brand);border-color:var(--brand);color:#fff}
+.sg-nav .sg-ic{width:4mm;height:4mm}
+
+/* Capa sem a régua: o título e o subtítulo, centrados na altura da área
+   escura. O vão entre os dois (6 mm) é maior que a entrelinha do subtítulo,
+   para as duas linhas dele lerem como um bloco só. */
+.slide.cover.sg-cv .cv-block{top:26.3mm;bottom:0;display:flex;flex-direction:column;justify-content:center}
+.slide.cover.sg-cv .cv-block .rule{display:none}
+.slide.cover.sg-cv .cv-sub{margin-top:6mm}
+.sg-capa{display:flex;gap:3mm;justify-content:flex-end}
+.sg-capa span{width:10mm;height:10mm;border-radius:50%;border:1px solid rgba(255,255,255,.5);color:#fff;
+  display:flex;align-items:center;justify-content:center}
+.sg-capa .sg-ic{width:5.5mm;height:5.5mm}
+
+/* uma seguradora só contra várias ao mesmo tempo */
+.sg-cmp{display:grid;grid-template-columns:1fr 100mm;gap:5mm 14mm;align-items:center}
+.sg-cmp p{margin:0}
+.sg-dg{display:block;width:100%;height:auto;overflow:visible}
+.sg-dg svg{fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;overflow:visible}
+.sg-dg .fio{fill:none;stroke:var(--line);stroke-width:.5}
+.sg-dg .fio.mudo{stroke:var(--ink-2);stroke-dasharray:1.5 1.5;opacity:.5}
+.sg-dg .fio.sel{stroke:var(--brand);stroke-width:.7}
+.sg-dg .n-pes{fill:var(--paper);stroke:var(--brand);stroke-width:.5}
+.sg-dg .n-pes-i,.sg-dg .n-sel-i{color:var(--brand)}
+.sg-dg .n-mudo{fill:var(--soft);stroke:var(--line);stroke-width:.5}
+.sg-dg .n-mudo-i,.sg-dg .n-seg-i{color:var(--ink-2)}
+.sg-dg .n-seg{fill:var(--paper);stroke:var(--line);stroke-width:.5}
+.sg-dg .n-sel{fill:var(--paper);stroke:var(--brand);stroke-width:.7}
+.sg-dg .n-fim{fill:var(--brand)}
+.sg-dg .n-fim-i{color:#fff}
+
+/* os quatro passos, com o ícone no lugar do número */
+.sg-trilha{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);column-gap:8mm}
+.sg-trilha li{position:relative;min-width:0;margin:0;padding-top:15mm}
+.sg-trilha li::after{content:"";position:absolute;left:11mm;right:-8mm;top:5.5mm;height:1px;background:var(--line)}
+.sg-trilha li:last-child::after{display:none}
+.sg-trilha .sg-bola{position:absolute;left:0;top:0}
+.sg-trilha h4{font-size:10.5pt;font-weight:700;margin:0 0 1mm}
+.sg-trilha p{font-size:9pt;color:var(--ink-2);margin:0;line-height:1.45}
+
+/* página de produto: o seguro à esquerda, as coberturas à direita */
+.sg-prod{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:1fr 1.15fr;gap:16mm;align-items:center}
+.sg-prod>*{min-width:0}
+.sg-med{position:relative;width:30mm;height:30mm;border-radius:50%;margin:10mm 0 12mm 10mm;
+  background:linear-gradient(225deg,var(--brand) 0%,#000 100%);color:#fff;
+  display:flex;align-items:center;justify-content:center}
+.sg-med::before,.sg-med::after{content:"";position:absolute;border-radius:50%;border:1px solid var(--line)}
+.sg-med::before{inset:-5mm}
+.sg-med::after{inset:-10mm;opacity:.6}
+.sg-med .sg-ic{width:15mm;height:15mm;stroke-width:1.2}
+.sg-esq h1.t{margin-bottom:5mm}
+.sg-esq .lead{max-width:none;margin-bottom:4mm}
+.sg-apoio{font-size:10pt;margin:0}
+.sg-dir h2{margin-top:0}
+.sg-cob{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:5mm}
+/* rótulo curto não se justifica nem se hifeniza */
+.sg-cob li{display:flex;align-items:center;gap:5mm;margin:0;padding:6mm 6mm;background:var(--soft);
+  border-top:1.33px solid var(--brand);font-size:11pt;font-weight:600;line-height:1.3;
+  text-align:left;hyphens:manual;-webkit-hyphens:manual}
+.sg-cob .sg-bola{width:12mm;height:12mm}
+.sg-cob li>span:last-child{min-width:0}
+.sg-cob.impar li:last-child{grid-column:span 2}
+.sg-cob.grande li{flex-direction:column;align-items:flex-start;gap:6mm;padding:8mm 6mm;min-height:50mm;font-size:13pt}
+.sg-cob.grande .sg-bola{width:18mm;height:18mm}
+.sg-cob.grande .sg-bola .sg-ic{width:10mm;height:10mm}
 """
 
 ALTURA_LONGA = 1420
