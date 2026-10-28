@@ -1,7 +1,7 @@
 # Modelos de relatórios — AUVP Capital e AUVP Private Banking
 
 Modelos de uso dos relatórios e apresentações entregues aos clientes, prontos para
-serem preenchidos e exportados em PDF. São **39 arquivos HTML independentes**: cada
+serem preenchidos e exportados em PDF. São **40 arquivos HTML independentes**: cada
 um traz o próprio CSS, a própria fonte e a própria paleta, abre com duplo clique em
 qualquer navegador e não depende de nenhum outro arquivo do repositório.
 
@@ -12,7 +12,7 @@ Os modelos são **gerados** a partir de `gerador/`, e não editados à mão. Par
 acrescentar uma página, um documento ou um segmento, veja
 [`CONSTRUCAO.md`](CONSTRUCAO.md).
 
-## Os 39 modelos
+## Os 40 modelos
 
 Seis documentos existem nos quatro segmentos. A apresentação do consultor varia por plano
 da consultoria e por segmento, e a versão em branco sai também sem a data no cabeçalho.
@@ -29,6 +29,14 @@ da consultoria e por segmento, e a versão em branco sai também sem a data no c
 | Apresentação do consultor (uma página) | A4 retrato | 1 | ✓ | ✓ | ✓ | ✓ |
 | Wealth Planning: proposta | 16:9 | 7 | | | ✓ | |
 | Wealth Planning: snapshot | 16:9 | 10 | | | ✓ | |
+
+E um produto à parte: a **AUVP Seguros** tem uma apresentação de produtos, em 16:9 com 6
+slides (`apresentacao-produtos-seguros`). É produto próprio, mas usa a identidade da
+consultoria, e na ferramenta aparece como o produto **Seguros**. O texto é todo da casa:
+o modelo não tem nenhum campo, sai sem data no cabeçalho e sem o aviso de
+confidencialidade no pé. O tom mais leve vem só do desenho, com ícone em cada cobertura,
+o diagrama de um perfil cotado em várias seguradoras e a fileira dos quatro seguros no
+cabeçalho. A copy fica em `gerador/d_seguros.py` e entra como foi aprovada.
 
 A apresentação de cada consultor existe duas vezes: com e sem a data no pé, esta
 última no sufixo `-sem-data`. É o documento que a pessoa manda para um cliente novo a
@@ -257,7 +265,7 @@ mesmo arquivo no navegador: os campos ainda não preenchidos ficam destacados.
 
 **2. Gerar o PDF.**
 
-A pasta `pdf/` já traz um PDF de cada um dos 39 modelos, numa subpasta por produto, para quem só quer ler o
+A pasta `pdf/` já traz um PDF de cada um dos 40 modelos, numa subpasta por produto, para quem só quer ler o
 resultado sem instalar nada. Para regerar depois de editar um modelo:
 
 ```sh
@@ -267,7 +275,7 @@ npm run pdf -- relatorio-mensal      # só os que casam com o filtro
 ```
 
 Se a mudança foi no sistema visual e não no preenchimento, o caminho é outro: edite
-`gerador/` e rode `npm run all`, que reconstrói os 41 modelos, o dicionário e os PDFs.
+`gerador/` e rode `npm run all`, que reconstrói os 40 modelos, o dicionário e os PDFs.
 
 Os PDFs são reproduzíveis a partir de `modelos/`; ao editar um modelo, regere o PDF
 correspondente no mesmo commit para os dois não saírem de sincronia.
@@ -519,7 +527,7 @@ conversa em volta deles.
 ## Estrutura do repositório
 
 ```
-modelos/                        39 modelos HTML independentes
+modelos/                        40 modelos HTML independentes
 pdf/<produto>/                  um PDF de cada modelo, versionado (saída do npm run pdf)
 scripts/render.mjs              HTML -> PDF via Playwright
 scripts/altura.mjs              mede o conteúdo das folhas longas e ajusta a altura

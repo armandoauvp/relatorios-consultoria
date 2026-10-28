@@ -13,6 +13,7 @@ export const PRODUTOS = [
   { chave: 'alta-renda', nome: 'Alta Renda', descricao: 'Clientes de alta renda, identidade em verde quase preto.' },
   { chave: 'private', nome: 'Private Banking', descricao: 'Marca própria, paleta em cinzas com azul-turquesa escuro pontual, sem amarelo.' },
   { chave: 'assessoria', nome: 'Assessoria', descricao: 'Assessoria de investimentos, verde mais claro.' },
+  { chave: 'seguros', nome: 'Seguros', descricao: 'AUVP Seguros, produto próprio na identidade da consultoria.' },
 ];
 
 export const DOCUMENTOS = [
@@ -51,6 +52,9 @@ export const DOCUMENTOS = [
     descricao: 'Proposta do Estudo Preliminar de Wealth Planning (EPWP): escopo, frentes, entregáveis e investimento.' },
   { chave: 'wealth-snapshot', nome: 'Wealth Planning: snapshot', formato: 'slide', blocos: true,
     descricao: 'Fotografia patrimonial do caso, conclusões preliminares e frentes de evolução.' },
+  // A apresentação da AUVP Seguros: texto da casa, sem campos e sem data.
+  { chave: 'apresentacao-produtos', nome: 'Apresentação de produtos', formato: 'slide',
+    descricao: 'Como cotamos e comparamos, e os seguros de vida, auto, RC profissional para médicos e planos de saúde.' },
 ];
 
 // Ordem dos planos da consultoria na ferramenta, do autoatendimento à
