@@ -117,73 +117,29 @@ def navegacao(atual):
         for p in PRODUTOS)
 
 
-def coberturas(itens, cls="sg-cob"):
-    """As coberturas como lista de itens com ícone. A classe decide o arranjo:
-    peças em grade (`sg-cob`, com `vert` ou `grande`), faixa (`sg-faixa`) ou
-    lista numerada (`sg-lista`)."""
+def coberturas(itens, grande=False):
+    cls = "sg-cob" + (" grande" if grande else "") + (" impar" if len(itens) % 2 else "")
     return '<ul class="%s">%s</ul>' % (cls, "".join(
         '<li><span class="sg-bola">%s</span><span>%s</span></li>' % (icone(i), txt)
         for i, txt in itens))
 
 
-def medalhao(chave, pequeno=False):
-    return '<div class="sg-med%s">%s</div>' % (" pq" if pequeno else "", icone(chave))
-
-
-def titulo(chave, nome):
-    """O medalhão pequeno ao lado do título, para quando o título não tem a
-    coluna só para ele."""
-    return '<div class="sg-tit">%s<h1 class="t">%s</h1></div>' % (medalhao(chave, True), nome)
-
-
-# Os quatro seguros dividem o cabeçalho, o rodapé e os ícones, mas não o
-# arranjo: cada um põe em primeiro plano o que o seu texto tem de próprio. Vida
-# tem mais coberturas e vai no negativo; Auto tem um parágrafo só e corre na
-# horizontal; RC tem a frase mais forte e ela vira citação; Saúde tem duas
-# modalidades e divide a página.
-
-def pagina(t, no, nome, chave, corpo, dark=False, fundo=""):
-    return slide(t, nome, no, corpo, dark=dark, data=False, topo=navegacao(chave),
-                 rodape=t["nome_full"], fundo=fundo)
-
-
-def vida(t, no, nome, chave, textos, lista, itens):
-    corpo = """<div class="sg-prod sg-vida">
-  <div class="sg-esq">%(med)s<h1 class="t">%(nome)s</h1>
-    <p class="lead">%(p1)s</p><p class="sg-apoio">%(p2)s</p></div>
-  <div class="sg-dir"><h2>%(lista)s</h2>%(cob)s</div>
-</div>""" % dict(med=medalhao(chave), nome=nome, p1=textos[0], p2=textos[1], lista=lista,
-                 cob=coberturas(itens, "sg-cob vert"))
-    return pagina(t, no, nome, chave, corpo, dark=True,
-                  fundo=graf_arcos(GRAF_SLIDE_W, "bottom-right"))
-
-
-def auto(t, no, nome, chave, textos, lista, itens):
-    corpo = """<div class="center sg-auto">
-  <div class="sg-topo">%(tit)s<p class="lead">%(p1)s</p></div>
-  <div><h2>%(lista)s</h2>%(cob)s</div>
-</div>""" % dict(tit=titulo(chave, nome), p1=textos[0], lista=lista,
-                 cob=coberturas(itens, "sg-faixa"))
-    return pagina(t, no, nome, chave, corpo)
-
-
-def rc(t, no, nome, chave, textos, lista, itens):
-    corpo = """<div class="sg-prod sg-rc">
-  <div class="sg-esq">%(tit)s<p class="lead">%(p1)s</p>
-    <blockquote class="sg-cit"><p>%(p2)s</p></blockquote></div>
-  <div class="sg-dir painel"><h2>%(lista)s</h2>%(cob)s</div>
-</div>""" % dict(tit=titulo(chave, nome), p1=textos[0], p2=textos[1], lista=lista,
-                 cob=coberturas(itens, "sg-lista"))
-    return pagina(t, no, nome, chave, corpo)
-
-
-def saude(t, no, nome, chave, textos, lista, itens):
-    corpo = """<div class="sg-prod sg-saude">
-  <div class="sg-bloco"><div class="grain"></div>%(med)s<h1 class="t">%(nome)s</h1></div>
-  <div class="sg-dir"><p class="lead">%(p1)s</p><h2>%(lista)s</h2>%(cob)s</div>
-</div>""" % dict(med=medalhao(chave), nome=nome, p1=textos[0], lista=lista,
-                 cob=coberturas(itens, "sg-cob grande"))
-    return pagina(t, no, nome, chave, corpo)
+def produto(t, no, nome, chave, textos, titulo_lista, itens, grande=False):
+    corpo = """<div class="sg-prod">
+  <div class="sg-esq">
+    <div class="sg-med">%(med)s</div>
+    <h1 class="t">%(nome)s</h1>
+    %(textos)s
+  </div>
+  <div class="sg-dir">
+    <h2>%(lista)s</h2>
+    %(cob)s
+  </div>
+</div>""" % dict(med=icone(chave), nome=nome, lista=titulo_lista,
+                 textos="".join('<p class="%s">%s</p>' % ("lead" if j == 0 else "sg-apoio", p)
+                                for j, p in enumerate(textos)),
+                 cob=coberturas(itens, grande))
+    return slide(t, nome, no, corpo, data=False, topo=navegacao(chave), rodape=t["nome_full"])
 
 
 PILARES = [
@@ -229,7 +185,7 @@ conversa com seus investimentos e com a construção do seu patrimônio.</p></di
         data=False, rodape=t["nome_full"]))
 
     # ----------------------------------------------------------------- vida
-    S.append(vida(t, 3, "Seguro de Vida", "vida", [
+    S.append(produto(t, 3, "Seguro de Vida", "vida", [
         "Comparamos as principais seguradoras de vida do mercado para encontrar a combinação "
         "ideal entre capital, coberturas e preço, sem pagar por coberturas que você não precisa.",
         "O seguro de vida protege a família e o patrimônio contra imprevistos. Ele garante "
@@ -244,7 +200,7 @@ conversa com seus investimentos e com a construção do seu patrimônio.</p></di
     ]))
 
     # ----------------------------------------------------------------- auto
-    S.append(auto(t, 4, "Seguro Auto", "auto", [
+    S.append(produto(t, 4, "Seguro Auto", "auto", [
         "O preço do seguro auto pode variar muito de uma seguradora para outra para o mesmo carro "
         "e o mesmo motorista. Por isso, cotamos nas principais seguradoras e trazemos a melhor "
         "relação entre cobertura e preço para o seu perfil de uso.",
@@ -257,7 +213,7 @@ conversa com seus investimentos e com a construção do seu patrimônio.</p></di
     ]))
 
     # ------------------------------------------------------- rc profissional
-    S.append(rc(t, 5, "RC Profissional para Médicos", "medico", [
+    S.append(produto(t, 5, "RC Profissional para Médicos", "medico", [
         "Cotamos nas seguradoras especializadas em Responsabilidade Civil Profissional e "
         "comparamos limites, coberturas e preço, para que o médico tenha a proteção adequada à "
         "sua especialidade pagando o justo.",
@@ -271,13 +227,13 @@ conversa com seus investimentos e com a construção do seu patrimônio.</p></di
     ]))
 
     # --------------------------------------------------------------- saúde
-    S.append(saude(t, 6, "Planos de Saúde", "saude", [
+    S.append(produto(t, 6, "Planos de Saúde", "saude", [
         "Cotamos nas principais operadoras de saúde e comparamos rede credenciada, abrangência, "
         "coparticipação e mensalidade, para encontrar o plano com o melhor custo-benefício para "
         "você, sua família ou sua empresa.",
     ], "Modalidades", [
         ("familia", "Individual e familiar"),
         ("empresa", "Empresarial"),
-    ]))
+    ], grande=True))
 
     return S

@@ -181,12 +181,11 @@ def divider_slide(t, no, title, sub=""):
                      sub='<div class="dv-sub">%s</div>' % sub if sub else "")
 
 
-def slide(t, sec, no, body, dark=False, date_ph=None, data=True, topo="", rodape=CONFID, fundo=""):
+def slide(t, sec, no, body, dark=False, date_ph=None, data=True, topo="", rodape=CONFID):
     """`data=False` tira a data do cabeçalho, como em `page_a4`; `topo` entra
-    ao lado da logo. `rodape` troca o aviso de confidencialidade do pé.
-    `fundo` vai atrás do conteúdo, solto na página: um grafismo que sangra."""
+    ao lado da logo. `rodape` troca o aviso de confidencialidade do pé."""
     return """<section class="slide%(dk)s">
-  %(grain)s%(fundo)s
+  %(grain)s
   <div class="in">
     <header class="pg-head">
       <div class="sec">%(sec)s</div>
@@ -199,7 +198,7 @@ def slide(t, sec, no, body, dark=False, date_ph=None, data=True, topo="", rodape
   </div>
 </section>""" % dict(dk=" dark" if dark else "", grain='<div class="grain"></div>' if dark else "",
                      sec=sec, dt='<div class="dt">%s</div>' % ph(date_ph or DATE_PH) if data else "",
-                     topo=topo, fundo=fundo, logo=logo_svg(t, 6.3, ink=not dark), body=body,
+                     topo=topo, logo=logo_svg(t, 6.3, ink=not dark), body=body,
                      no="%02d" % no, confid=rodape)
 
 
