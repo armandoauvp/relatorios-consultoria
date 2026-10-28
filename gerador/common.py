@@ -77,7 +77,12 @@ THEMES = {
 # A AUVP Seguros é produto próprio, mas na identidade da consultoria: mesmas
 # cores, mesma logo. Muda o nome, e a faixa da capa fica sem rótulo, porque o
 # título da capa já é o nome do produto.
-THEMES["seguros"] = dict(THEMES["consultoria"], nome="Seguros", nome_full="AUVP Seguros", rotulo="")
+#
+# `tons` são os verdes da marca que dão cor às ilustrações do material: menta,
+# sálvia e verde-médio, os mesmos da paleta dos gráficos. O dourado entra só
+# como destaque, pelo `--accent`.
+THEMES["seguros"] = dict(THEMES["consultoria"], nome="Seguros", nome_full="AUVP Seguros", rotulo="",
+                         tons=["#D6E8DD", "#8FBFA3", "#3F7D5C"])
 
 CONFID = "DOCUMENTO CONFIDENCIAL. PROIBIDO O COMPARTILHAMENTO"
 
@@ -114,7 +119,8 @@ def tokens(t):
   --g-pos:#1F7A4C; --g-neg:#B3402F; --g-neu:#F1EDE4;
   --g-seq-1:#E6EEE9; --g-seq-2:#B9CFC2; --g-seq-3:#7FA690; --g-seq-4:#3F7D5C; --g-seq-5:#023620;
 }""" % dict(t, accent_dk=t.get("accent_dk", t["accent"]), chart_vars=" ".join(
-        "--c%d:%s;" % (i, c) for i, c in enumerate(t["chart"], start=1)))
+        "--c%d:%s;" % (i, c) for i, c in enumerate(t["chart"], start=1)) + "".join(
+        " --tom-%d:%s;" % (i, c) for i, c in enumerate(t.get("tons", []), start=1)))
 
 
 def com_rotulo(t, texto, sep=", "):
@@ -1032,19 +1038,26 @@ CSS_SLIDE += """
 /* ---------- AUVP Seguros ----------
    O tom mais leve do material vem daqui, e não do texto: ícone em traço fino
    em cada cobertura, um diagrama sem palavras e a fileira dos quatro seguros
-   no cabeçalho. Tudo na cor da marca; o dourado fica de fora, como nos
-   gráficos. */
+   no cabeçalho. A cor sai dos verdes da marca (`--tom-1` a `--tom-3`) e o
+   dourado só destaca: o seguro aceso, o caminho escolhido, a recomendação e,
+   no negativo, o fio das peças. O fundo alterna entre verde e branco. */
 .sg-ic{display:block;width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:1.4;
   stroke-linecap:round;stroke-linejoin:round}
 .sg-bola{flex:0 0 auto;width:11mm;height:11mm;border-radius:50%;border:1px solid var(--brand);
   background:var(--paper);color:var(--brand);display:flex;align-items:center;justify-content:center}
 .sg-bola .sg-ic{width:6.2mm;height:6.2mm}
+/* os discos em rodízio de tons; no claro o ícone é verde-escuro, no escuro é branco */
+.sg-bola.t1,.sg-bola.t2,.sg-bola.t3,.sg-bola.t4{border:0}
+.sg-bola.t1{background:var(--tom-1)}
+.sg-bola.t2{background:var(--tom-2)}
+.sg-bola.t3{background:var(--tom-3);color:#fff}
+.sg-bola.t4{background:var(--brand);color:#fff}
 
 /* em qual dos quatro seguros se está */
 .sg-nav{display:flex;gap:2mm}
 .sg-nav span{width:6.5mm;height:6.5mm;border-radius:50%;border:1px solid var(--line);color:var(--ink-2);
   display:flex;align-items:center;justify-content:center}
-.sg-nav span.on{background:var(--brand);border-color:var(--brand);color:#fff}
+.sg-nav span.on{background:var(--accent);border-color:var(--accent);color:var(--brand)}
 .sg-nav .sg-ic{width:4mm;height:4mm}
 
 /* Capa sem a régua: o título e o subtítulo, centrados na altura da área
@@ -1065,15 +1078,23 @@ CSS_SLIDE += """
 .sg-dg svg{fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;overflow:visible}
 .sg-dg .fio{fill:none;stroke:var(--line);stroke-width:.5}
 .sg-dg .fio.mudo{stroke:var(--ink-2);stroke-dasharray:1.5 1.5;opacity:.5}
-.sg-dg .fio.sel{stroke:var(--brand);stroke-width:.7}
-.sg-dg .n-pes{fill:var(--paper);stroke:var(--brand);stroke-width:.5}
-.sg-dg .n-pes-i,.sg-dg .n-sel-i{color:var(--brand)}
+.sg-dg .fio.sel{stroke:var(--accent);stroke-width:.9}
+.sg-dg .n-pes{fill:var(--brand)}
+.sg-dg .n-pes-i{color:#fff}
+.sg-dg .n-sel-i{color:var(--brand)}
 .sg-dg .n-mudo{fill:var(--soft);stroke:var(--line);stroke-width:.5}
-.sg-dg .n-mudo-i,.sg-dg .n-seg-i{color:var(--ink-2)}
-.sg-dg .n-seg{fill:var(--paper);stroke:var(--line);stroke-width:.5}
-.sg-dg .n-sel{fill:var(--paper);stroke:var(--brand);stroke-width:.7}
-.sg-dg .n-fim{fill:var(--brand)}
-.sg-dg .n-fim-i{color:#fff}
+.sg-dg .n-mudo-i{color:var(--ink-2)}
+.sg-dg .n-seg-i{color:var(--brand)}
+.sg-dg .n-seg.t1{fill:var(--tom-1)}
+.sg-dg .n-seg.t2{fill:var(--tom-2)}
+.sg-dg .n-seg.t3{fill:var(--tom-3)}
+.sg-dg .n-seg.t3+.n-seg-i{color:#fff}
+.sg-dg .n-sel{fill:var(--accent)}
+.sg-dg .n-fim{fill:var(--accent)}
+.sg-dg .n-fim-i{color:var(--brand)}
+
+/* o fecho do slide em faixa verde, para o slide claro terminar com peso */
+.note.sg-nota{background:var(--brand);color:#fff;border-left-color:var(--accent)}
 
 /* os quatro passos, com o ícone no lugar do número */
 .sg-trilha{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);column-gap:8mm}
@@ -1090,9 +1111,9 @@ CSS_SLIDE += """
 .sg-med{position:relative;width:30mm;height:30mm;border-radius:50%;margin:10mm 0 12mm 10mm;
   background:linear-gradient(225deg,var(--brand) 0%,#000 100%);color:#fff;
   display:flex;align-items:center;justify-content:center}
-.sg-med::before,.sg-med::after{content:"";position:absolute;border-radius:50%;border:1px solid var(--line)}
-.sg-med::before{inset:-5mm}
-.sg-med::after{inset:-10mm;opacity:.6}
+.sg-med::before,.sg-med::after{content:"";position:absolute;border-radius:50%}
+.sg-med::before{inset:-5mm;border:1.33px solid var(--tom-2)}
+.sg-med::after{inset:-10mm;border:1px solid var(--tom-1)}
 .sg-med .sg-ic{width:15mm;height:15mm;stroke-width:1.2}
 .sg-esq h1.t{margin-bottom:5mm}
 .sg-esq .lead{max-width:none;margin-bottom:4mm}
@@ -1109,6 +1130,15 @@ CSS_SLIDE += """
 .sg-cob.grande li{flex-direction:column;align-items:flex-start;gap:6mm;padding:8mm 6mm;min-height:50mm;font-size:13pt}
 .sg-cob.grande .sg-bola{width:18mm;height:18mm}
 .sg-cob.grande .sg-bola .sg-ic{width:10mm;height:10mm}
+
+/* o mesmo molde no negativo */
+.slide.dark .sg-nav span{border-color:rgba(255,255,255,.3);color:rgba(255,255,255,.75)}
+.slide.dark .sg-nav span.on{border-color:var(--accent);color:var(--brand)}
+.slide.dark .sg-med{background:var(--tom-3)}
+.slide.dark .sg-med::after{border-color:rgba(255,255,255,.22)}
+.slide.dark .sg-cob li{background:rgba(255,255,255,.07);border-top-color:var(--accent)}
+.slide.dark .sg-bola.t1,.slide.dark .sg-bola.t2{color:var(--brand)}
+.slide.dark .sg-bola.t4{background:#fff;color:var(--brand)}
 """
 
 ALTURA_LONGA = 1420

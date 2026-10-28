@@ -94,7 +94,8 @@ def diagrama_unico():
 
 def diagrama_amplo():
     """O mesmo perfil cotado em cinco seguradoras ao mesmo tempo, e uma só
-    recomendação no fim. O caminho escolhido sai na cor da marca."""
+    recomendação no fim. As seguradoras saem nos tons da marca, e o caminho
+    escolhido e a recomendação, no dourado de destaque."""
     ys = [5, 14.5, 24, 33.5, 43]
     # o caminho escolhido por último, para passar por cima dos outros
     fios = ""
@@ -102,7 +103,8 @@ def diagrama_amplo():
         y, cls = ys[j], "fio" + (" sel" if j == 2 else "")
         fios += '<path class="%s" d="M16 24C38 24 38 %g 54 %gM66 %gC82 %g 82 24 103.5 24"/>' % (
             cls, y, y, y, y)
-    nos = "".join(_no("escudo", 60, y, 4.5, "n-sel" if j == 2 else "n-seg") for j, y in enumerate(ys))
+    nos = "".join(_no("escudo", 60, y, 4.5, "n-sel" if j == 2 else "n-seg t%d" % (j % 3 + 1))
+                  for j, y in enumerate(ys))
     return ('<svg class="sg-dg" viewBox="0 0 120 48" aria-hidden="true">%s%s%s%s</svg>') % (
         fios, _no("pessoa", 9, 24, 7, "n-pes"), nos, _no("recomendacao", 111, 24, 7.5, "n-fim"))
 
@@ -117,14 +119,19 @@ def navegacao(atual):
         for p in PRODUTOS)
 
 
+def bola(nome, j):
+    """O disco do ícone, num dos quatro tons, em rodízio: menta, sálvia,
+    verde-médio e o verde da marca."""
+    return '<span class="sg-bola t%d">%s</span>' % (j % 4 + 1, icone(nome))
+
+
 def coberturas(itens, grande=False):
     cls = "sg-cob" + (" grande" if grande else "") + (" impar" if len(itens) % 2 else "")
     return '<ul class="%s">%s</ul>' % (cls, "".join(
-        '<li><span class="sg-bola">%s</span><span>%s</span></li>' % (icone(i), txt)
-        for i, txt in itens))
+        '<li>%s<span>%s</span></li>' % (bola(i, j), txt) for j, (i, txt) in enumerate(itens)))
 
 
-def produto(t, no, nome, chave, textos, titulo_lista, itens, grande=False):
+def produto(t, no, nome, chave, textos, titulo_lista, itens, grande=False, dark=False):
     corpo = """<div class="sg-prod">
   <div class="sg-esq">
     <div class="sg-med">%(med)s</div>
@@ -139,7 +146,8 @@ def produto(t, no, nome, chave, textos, titulo_lista, itens, grande=False):
                  textos="".join('<p class="%s">%s</p>' % ("lead" if j == 0 else "sg-apoio", p)
                                 for j, p in enumerate(textos)),
                  cob=coberturas(itens, grande))
-    return slide(t, nome, no, corpo, data=False, topo=navegacao(chave), rodape=t["nome_full"])
+    return slide(t, nome, no, corpo, dark=dark, data=False, topo=navegacao(chave),
+                 rodape=t["nome_full"])
 
 
 PILARES = [
@@ -154,6 +162,8 @@ PILARES = [
 
 
 def build(t, seg):
+    # O fundo alterna desde a capa: verde, branco, verde, branco. Os seguros 3 e
+    # 5 saem no negativo, e o molde é o mesmo nos dois fundos.
     S = []
 
     # ------------------------------------------------------------------ capa
@@ -177,11 +187,11 @@ def build(t, seg):
   </div>
   <ol class="sg-trilha">%(pilares)s</ol>
 </div>
-<div class="note"><p>Integrada ao ecossistema financeiro da AUVP, cada decisão de proteção
+<div class="note sg-nota"><p>Integrada ao ecossistema financeiro da AUVP, cada decisão de proteção
 conversa com seus investimentos e com a construção do seu patrimônio.</p></div>""" % dict(
         unico=diagrama_unico(), amplo=diagrama_amplo(),
-        pilares="".join('<li><span class="sg-bola">%s</span><h4>%s</h4><p>%s</p></li>' % (
-            icone(i), a, b) for i, a, b in PILARES)),
+        pilares="".join('<li>%s<h4>%s</h4><p>%s</p></li>' % (
+            bola(i, j), a, b) for j, (i, a, b) in enumerate(PILARES))),
         data=False, rodape=t["nome_full"]))
 
     # ----------------------------------------------------------------- vida
@@ -197,7 +207,7 @@ conversa com seus investimentos e com a construção do seu patrimônio.</p></di
         ("diaria", "Diária por incapacidade temporária"),
         ("cirurgia", "Cirurgias"),
         ("internacao", "Internação hospitalar"),
-    ]))
+    ], dark=True))
 
     # ----------------------------------------------------------------- auto
     S.append(produto(t, 4, "Seguro Auto", "auto", [
@@ -224,7 +234,7 @@ conversa com seus investimentos e com a construção do seu patrimônio.</p></di
         ("indenizacao", "Indenizações por danos materiais, corporais e morais a pacientes"),
         ("acordos", "Acordos judiciais e extrajudiciais"),
         ("pericias", "Despesas com perícias"),
-    ]))
+    ], dark=True))
 
     # --------------------------------------------------------------- saúde
     S.append(produto(t, 6, "Planos de Saúde", "saude", [
