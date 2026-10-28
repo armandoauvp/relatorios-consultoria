@@ -431,31 +431,89 @@ table.tb{width:100%;border-collapse:collapse;font-size:9.5pt}
 .sg-trilha h4{font-size:10.5pt;font-weight:700;margin:0 0 1mm}
 .sg-trilha p{font-size:9pt;color:var(--ink-2);margin:0;line-height:1.45}
 
-/* página de produto: o seguro à esquerda, as coberturas à direita */
+/* ---------- páginas de produto ----------
+   As quatro dividem o medalhão, os ícones e as peças de cobertura, e cada uma
+   tem o seu arranjo: Vida no negativo, Auto em faixa, RC com a citação, Saúde
+   dividida. Rótulo curto de cobertura não se justifica nem se hifeniza. */
 .sg-prod{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:1fr 1.15fr;gap:16mm;align-items:center}
 .sg-prod>*{min-width:0}
-.sg-med{position:relative;width:30mm;height:30mm;border-radius:50%;margin:10mm 0 12mm 10mm;
+.sg-med{position:relative;flex:0 0 auto;width:30mm;height:30mm;border-radius:50%;margin:10mm 0 12mm 10mm;
   background:linear-gradient(225deg,var(--brand) 0%,#000 100%);color:#fff;
   display:flex;align-items:center;justify-content:center}
 .sg-med::before,.sg-med::after{content:"";position:absolute;border-radius:50%;border:1px solid var(--line)}
 .sg-med::before{inset:-5mm}
 .sg-med::after{inset:-10mm;opacity:.6}
 .sg-med .sg-ic{width:15mm;height:15mm;stroke-width:1.2}
+.sg-med.pq{width:22mm;height:22mm;margin:8mm}
+.sg-med.pq::before{inset:-4mm}
+.sg-med.pq::after{inset:-8mm}
+.sg-med.pq .sg-ic{width:11mm;height:11mm}
+.sg-tit{display:flex;align-items:center;gap:8mm;margin:0 0 5mm}
+.sg-tit h1.t{margin:0}
 .sg-esq h1.t{margin-bottom:5mm}
 .sg-esq .lead{max-width:none;margin-bottom:4mm}
 .sg-apoio{font-size:10pt;margin:0}
 .sg-dir h2{margin-top:0}
+
 .sg-cob{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:5mm}
-/* rótulo curto não se justifica nem se hifeniza */
-.sg-cob li{display:flex;align-items:center;gap:5mm;margin:0;padding:6mm 6mm;background:var(--soft);
+.sg-cob li{display:flex;align-items:center;gap:5mm;margin:0;padding:6mm;background:var(--soft);
   border-top:1.33px solid var(--brand);font-size:11pt;font-weight:600;line-height:1.3;
   text-align:left;hyphens:manual;-webkit-hyphens:manual}
 .sg-cob .sg-bola{width:12mm;height:12mm}
 .sg-cob li>span:last-child{min-width:0}
-.sg-cob.impar li:last-child{grid-column:span 2}
 .sg-cob.grande li{flex-direction:column;align-items:flex-start;gap:6mm;padding:8mm 6mm;min-height:50mm;font-size:13pt}
 .sg-cob.grande .sg-bola{width:18mm;height:18mm}
 .sg-cob.grande .sg-bola .sg-ic{width:10mm;height:10mm}
+/* em três colunas, com o ícone em cima do nome */
+.sg-cob.vert{grid-template-columns:repeat(3,1fr)}
+.sg-cob.vert li{flex-direction:column;align-items:flex-start;gap:5mm;min-height:38mm}
+
+/* Vida: no negativo, com os arcos da capa sangrando pelo canto */
+.slide.dark .sg-nav span{border-color:rgba(255,255,255,.3);color:rgba(255,255,255,.75)}
+.slide.dark .sg-nav span.on{background:#fff;border-color:#fff;color:var(--brand)}
+.slide.dark .sg-bola{background:none;border-color:rgba(255,255,255,.55);color:#fff}
+.slide.dark .sg-cob li{background:rgba(255,255,255,.06);border-top-color:#fff}
+.slide.dark .sg-med,.sg-bloco .sg-med{background:rgba(255,255,255,.08);box-shadow:inset 0 0 0 1px rgba(255,255,255,.5)}
+.slide.dark .sg-med::before,.slide.dark .sg-med::after,
+.sg-bloco .sg-med::before,.sg-bloco .sg-med::after{border-color:rgba(255,255,255,.22)}
+
+/* Auto: título e texto no alto, as coberturas numa faixa ligada por um fio */
+.sg-topo{display:grid;grid-template-columns:1fr 1.25fr;gap:16mm;align-items:center}
+.sg-topo>*{min-width:0}
+.sg-topo .sg-tit{margin-bottom:0}
+.sg-topo .lead{margin:0;max-width:none}
+.sg-faixa{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:6mm}
+.sg-faixa li{position:relative;min-width:0;margin:0;padding:0 2mm;display:flex;flex-direction:column;
+  align-items:center;gap:5mm;text-align:center;font-size:11pt;font-weight:600;line-height:1.3;
+  hyphens:manual;-webkit-hyphens:manual}
+.sg-faixa li::before{content:"";position:absolute;top:9mm;left:-3mm;right:-3mm;height:1px;background:var(--line)}
+.sg-faixa li:first-child::before{left:50%}
+.sg-faixa li:last-child::before{right:50%}
+.sg-faixa .sg-bola{position:relative;width:18mm;height:18mm}
+.sg-faixa .sg-bola .sg-ic{width:9mm;height:9mm}
+
+/* RC: a frase mais forte vira citação, e as coberturas uma lista numerada */
+.sg-cit{margin:7mm 0 0;padding:1mm 0 1mm 6mm;border-left:1.33px solid var(--brand)}
+.sg-cit p{margin:0;font-size:15pt;line-height:1.35;font-weight:600;text-align:left;hyphens:manual;-webkit-hyphens:manual}
+.sg-rc .painel{padding:7mm 8mm}
+.sg-lista{list-style:none;margin:0;padding:0;counter-reset:sl}
+.sg-lista li{display:grid;grid-template-columns:9mm 12mm 1fr;align-items:center;gap:4mm;margin:0;padding:4mm 0;
+  border-bottom:1px solid var(--line);font-size:11pt;font-weight:600;line-height:1.3;
+  text-align:left;hyphens:manual;-webkit-hyphens:manual}
+.sg-lista li:last-child{border-bottom:0;padding-bottom:0}
+.sg-lista li::before{counter-increment:sl;content:counter(sl,decimal-leading-zero);
+  font-size:14pt;font-weight:800;color:var(--brand);letter-spacing:-.02em}
+.sg-lista .sg-bola{width:12mm;height:12mm}
+
+/* Saúde: um painel escuro com o seguro, o texto e as modalidades ao lado */
+.sg-saude{grid-template-columns:.85fr 1.15fr;align-items:stretch;margin-bottom:5mm}
+.sg-bloco{position:relative;overflow:hidden;color:#fff;padding:0 12mm 12mm;
+  background:linear-gradient(225deg,var(--brand) 0%,#000 100%);display:flex;flex-direction:column}
+.sg-bloco>:not(.grain){position:relative}
+.sg-bloco .sg-med{margin:20mm 0 auto 10mm}
+.sg-bloco h1.t{margin:0}
+.sg-saude .sg-dir{display:flex;flex-direction:column;justify-content:center}
+.sg-saude .lead{max-width:none;margin-bottom:8mm}
 
 </style>
 </head>
