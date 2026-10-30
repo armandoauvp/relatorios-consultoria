@@ -188,7 +188,14 @@ premissas.</p>""" % dict(
 
     # --------------------------------------------------------------- disclaimer
     S.append(slide(t, "Avisos", 7, """<h1 class="t">Disclaimer legal e de responsabilidade profissional</h1>
-<div class="center"><div class="cols2" style="align-items:start">
+<div class="center">%s</div>""" % DISCLAIMER))
+
+    return S
+
+
+# O disclaimer em duas colunas. Fica fora do `build` porque o kit dos parceiros
+# (`kit_wealth.py`) fecha com ele os documentos em branco da Wealth.
+DISCLAIMER = """<div class="cols2" style="align-items:start">
   <div>
     <p class="legal">Os trabalhos da AUVP Wealth são concebidos e executados em estrita
     observância à legislação brasileira aplicável e às normas das demais jurisdições pertinentes
@@ -216,6 +223,4 @@ premissas.</p>""" % dict(
     incompletas, inexatas ou não reveladas, tampouco por autuações, glosas ou exigências
     fundadas em fatos anteriores à contratação ou alheios ao escopo contratado.</p>
   </div>
-</div></div>"""))
-
-    return S
+</div>"""

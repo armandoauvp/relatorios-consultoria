@@ -279,7 +279,7 @@ const AMOSTRAS = {
   'alta-renda': ['#010F08', '#EFBF4F'],
   private: ['#666666', '#8C939A'],
   assessoria: ['#005F45', '#EFBF4F'],
-  seguros: ['#023620', '#EFBF4F'],
+  'protecao-patrimonial': ['#023620', '#EFBF4F'],
 };
 
 /** As variantes de um documento que pertencem a este produto.
@@ -1438,8 +1438,11 @@ function inserirMontadas(doc, originais, modo = 'previa') {
   // que ainda faltam.
   // Na prévia a página sem bloco entra também, em branco: quem acabou de
   // clicar em "Nova página" precisa vê-la. No arquivo exportado ela não sai.
+  // Na mesma posição, a criada por último entra primeiro: cada `after()` põe a
+  // página colada na âncora, e assim as novas saem na ordem em que foram feitas.
+  const ordem = (pg) => estado.paginas.indexOf(pg);
   const pedidos = [...estado.paginas].filter((pg) => pg.blocos.length || modo === 'previa')
-    .sort((a, b) => b.depois - a.depois);
+    .sort((a, b) => b.depois - a.depois || ordem(b) - ordem(a));
   for (const pg of pedidos) {
     const nova = molde.cloneNode(true);
     // A marca diz que a página é montada, e é por ela que a prévia a encontra.

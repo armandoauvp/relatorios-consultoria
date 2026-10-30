@@ -181,7 +181,7 @@ capa_linha_livre                  data_documento
 
 ## undefined
 
-Arquivos: `modelos/apresentacao-produtos-seguros.html`
+Arquivos: `modelos/apresentacao-produtos-protecao-patrimonial.html`
 
 Variantes: — &middot; 0 variáveis
 

@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Apresentação de produtos: AUVP Seguros</title>
+<title>Apresentação de produtos: AUVP Proteção Patrimonial</title>
 <style>
 :root{
   --brand:#023620; --accent:#EFBF4F; --accent-dk:#EFBF4F;
   --ph:rgba(239,191,79,.24); --ph-dk:rgba(239,191,79,.26);
   --warn-bg:rgba(239,191,79,.18); --warn-fg:#8A6A12; --warn-bd:rgba(239,191,79,.5);
-  --c1:#023620; --c2:#8FBFA3; --c3:#5E6A64; --c4:#3F7D5C; --c5:#C3CBC6; --c6:#7E8A84; --c7:#1C2621; --c8:#D6E8DD;
+  --c1:#023620; --c2:#8FBFA3; --c3:#5E6A64; --c4:#3F7D5C; --c5:#C3CBC6; --c6:#7E8A84; --c7:#1C2621; --c8:#D6E8DD; --tom-1:#D6E8DD; --tom-2:#8FBFA3; --tom-3:#3F7D5C;
   --ink:#12160F; --ink-2:#4A5248; --line:#E3E6E1; --soft:#F5F7F4;
   --paper:#FFFFFF; --pos:#1F7A4C; --neg:#B3402F;
   --g-pos:#1F7A4C; --g-neg:#B3402F; --g-neu:#F1EDE4;
@@ -376,22 +376,40 @@ table.tb{width:100%;border-collapse:collapse;font-size:9.5pt}
 .nc-centro .disco .ph{background:rgba(255,255,255,.18);color:#fff}
 .nc-centro .disco .ph.pronto{background:none;text-transform:inherit;letter-spacing:inherit}
 
-/* ---------- AUVP Seguros ----------
+/* nota de rodapé: o mesmo do A4, na escala do slide */
+.notas{flex:0 0 auto;margin:auto 0 4mm;padding-top:6mm;font-size:8.6pt;line-height:1.5;color:var(--ink-2)}
+.notas::before{content:"";display:block;width:50mm;height:1px;background:var(--line);margin-bottom:3mm}
+.notas p{margin:0 0 1mm;padding-left:3.5mm;text-indent:-3.5mm;text-align:left;hyphens:manual;-webkit-hyphens:manual}
+.notas p:last-child{margin-bottom:0}
+sup.nr{font-size:.65em;line-height:0;vertical-align:super;font-weight:700;color:var(--brand)}
+.notas sup.nr{display:inline-block;width:3.5mm;text-indent:0}
+.slide.dark .notas{color:rgba(255,255,255,.7)}
+.slide.dark .notas::before{background:rgba(255,255,255,.25)}
+.slide.dark sup.nr{color:#fff}
+
+/* ---------- AUVP Proteção Patrimonial ----------
    O tom mais leve do material vem daqui, e não do texto: ícone em traço fino
    em cada cobertura, um diagrama sem palavras e a fileira dos quatro seguros
-   no cabeçalho. Tudo na cor da marca; o dourado fica de fora, como nos
-   gráficos. */
+   no cabeçalho. A cor sai dos verdes da marca (`--tom-1` a `--tom-3`) e o
+   dourado só destaca: o seguro aceso, o caminho escolhido e a recomendação.
+   O fundo alterna entre verde e branco. */
 .sg-ic{display:block;width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:1.4;
   stroke-linecap:round;stroke-linejoin:round}
 .sg-bola{flex:0 0 auto;width:11mm;height:11mm;border-radius:50%;border:1px solid var(--brand);
   background:var(--paper);color:var(--brand);display:flex;align-items:center;justify-content:center}
 .sg-bola .sg-ic{width:6.2mm;height:6.2mm}
+/* os discos em rodízio de tons; no claro o ícone é verde-escuro, no escuro é branco */
+.sg-bola.t1,.sg-bola.t2,.sg-bola.t3,.sg-bola.t4{border:0}
+.sg-bola.t1{background:var(--tom-1)}
+.sg-bola.t2{background:var(--tom-2)}
+.sg-bola.t3{background:var(--tom-3);color:#fff}
+.sg-bola.t4{background:var(--brand);color:#fff}
 
 /* em qual dos quatro seguros se está */
 .sg-nav{display:flex;gap:2mm}
 .sg-nav span{width:6.5mm;height:6.5mm;border-radius:50%;border:1px solid var(--line);color:var(--ink-2);
   display:flex;align-items:center;justify-content:center}
-.sg-nav span.on{background:var(--brand);border-color:var(--brand);color:#fff}
+.sg-nav span.on{background:var(--accent);border-color:var(--accent);color:var(--brand)}
 .sg-nav .sg-ic{width:4mm;height:4mm}
 
 /* Capa sem a régua: o título e o subtítulo, centrados na altura da área
@@ -412,15 +430,23 @@ table.tb{width:100%;border-collapse:collapse;font-size:9.5pt}
 .sg-dg svg{fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;overflow:visible}
 .sg-dg .fio{fill:none;stroke:var(--line);stroke-width:.5}
 .sg-dg .fio.mudo{stroke:var(--ink-2);stroke-dasharray:1.5 1.5;opacity:.5}
-.sg-dg .fio.sel{stroke:var(--brand);stroke-width:.7}
-.sg-dg .n-pes{fill:var(--paper);stroke:var(--brand);stroke-width:.5}
-.sg-dg .n-pes-i,.sg-dg .n-sel-i{color:var(--brand)}
+.sg-dg .fio.sel{stroke:var(--accent);stroke-width:.9}
+.sg-dg .n-pes{fill:var(--brand)}
+.sg-dg .n-pes-i{color:#fff}
+.sg-dg .n-sel-i{color:var(--brand)}
 .sg-dg .n-mudo{fill:var(--soft);stroke:var(--line);stroke-width:.5}
-.sg-dg .n-mudo-i,.sg-dg .n-seg-i{color:var(--ink-2)}
-.sg-dg .n-seg{fill:var(--paper);stroke:var(--line);stroke-width:.5}
-.sg-dg .n-sel{fill:var(--paper);stroke:var(--brand);stroke-width:.7}
-.sg-dg .n-fim{fill:var(--brand)}
-.sg-dg .n-fim-i{color:#fff}
+.sg-dg .n-mudo-i{color:var(--ink-2)}
+.sg-dg .n-seg-i{color:var(--brand)}
+.sg-dg .n-seg.t1{fill:var(--tom-1)}
+.sg-dg .n-seg.t2{fill:var(--tom-2)}
+.sg-dg .n-seg.t3{fill:var(--tom-3)}
+.sg-dg .n-seg.t3+.n-seg-i{color:#fff}
+.sg-dg .n-sel{fill:var(--accent)}
+.sg-dg .n-fim{fill:var(--accent)}
+.sg-dg .n-fim-i{color:var(--brand)}
+
+/* o fecho do slide em faixa verde, para o slide claro terminar com peso */
+.note.sg-nota{background:var(--brand);color:#fff;border-left-color:var(--accent)}
 
 /* os quatro passos, com o ícone no lugar do número */
 .sg-trilha{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);column-gap:8mm}
@@ -437,9 +463,9 @@ table.tb{width:100%;border-collapse:collapse;font-size:9.5pt}
 .sg-med{position:relative;width:30mm;height:30mm;border-radius:50%;margin:10mm 0 12mm 10mm;
   background:linear-gradient(225deg,var(--brand) 0%,#000 100%);color:#fff;
   display:flex;align-items:center;justify-content:center}
-.sg-med::before,.sg-med::after{content:"";position:absolute;border-radius:50%;border:1px solid var(--line)}
-.sg-med::before{inset:-5mm}
-.sg-med::after{inset:-10mm;opacity:.6}
+.sg-med::before,.sg-med::after{content:"";position:absolute;border-radius:50%}
+.sg-med::before{inset:-5mm;border:1.33px solid var(--tom-2)}
+.sg-med::after{inset:-10mm;border:1px solid var(--tom-1)}
 .sg-med .sg-ic{width:15mm;height:15mm;stroke-width:1.2}
 .sg-esq h1.t{margin-bottom:5mm}
 .sg-esq .lead{max-width:none;margin-bottom:4mm}
@@ -456,6 +482,38 @@ table.tb{width:100%;border-collapse:collapse;font-size:9.5pt}
 .sg-cob.grande li{flex-direction:column;align-items:flex-start;gap:6mm;padding:8mm 6mm;min-height:50mm;font-size:13pt}
 .sg-cob.grande .sg-bola{width:18mm;height:18mm}
 .sg-cob.grande .sg-bola .sg-ic{width:10mm;height:10mm}
+
+/* o mesmo molde no negativo */
+.slide.dark .sg-nav span{border-color:rgba(255,255,255,.3);color:rgba(255,255,255,.75)}
+.slide.dark .sg-nav span.on{border-color:var(--accent);color:var(--brand)}
+.slide.dark .sg-med{background:var(--tom-3)}
+.slide.dark .sg-med::after{border-color:rgba(255,255,255,.22)}
+.slide.dark .sg-cob li{background:rgba(255,255,255,.07);border-top-color:#fff}
+.slide.dark .sg-bola.t1,.slide.dark .sg-bola.t2{color:var(--brand)}
+.slide.dark .sg-bola.t4{background:#fff;color:var(--brand)}
+
+/* ---------- lista com marcador em fio, e esboço do gráfico de linha ----------
+   Os dois nasceram na folha do A4 e ficaram só lá: no 16:9 a lista saía com a
+   bolinha do navegador e a moldura do gráfico de linha, vazia. Aqui na escala
+   do slide (corpo de 11 pt), com o ritmo em px inteiros pelo mesmo motivo do
+   A4: o traço de cada item cai na mesma fase de subpixel e sai igual. */
+.lista{list-style:none;margin:0;padding:0;line-height:22px}
+.lista li{position:relative;padding-left:6mm;margin-bottom:10px}
+.lista li:last-child{margin-bottom:0}
+.lista li::before{content:"";position:absolute;left:0;top:11px;width:3mm;height:1.33px;background:var(--accent)}
+.lista.small{line-height:18px}
+.lista.small li{margin-bottom:8px}
+.lista.small li::before{top:9px}
+.lista.mut li{color:var(--ink-2)}
+.lista+p{margin-top:3mm}
+.slide.dark .lista li::before{background:rgba(255,255,255,.55)}
+.sk-line{width:75%;height:16mm;opacity:.42;border-bottom:1px solid var(--ink-2);position:relative}
+.sk-line::after{content:'';position:absolute;inset:0;
+  clip-path:polygon(0 82%,14% 66%,28% 74%,42% 48%,56% 55%,70% 30%,85% 36%,100% 12%,100% 100%,0 100%);
+  background:linear-gradient(180deg,var(--brand),rgba(255,255,255,0) 92%)}
+/* no negativo a cor base some no próprio degradê: o esboço passa a branco */
+.slide.dark .sk-line{border-color:rgba(255,255,255,.6)}
+.slide.dark .sk-line::after{background:linear-gradient(180deg,#fff,rgba(255,255,255,0) 92%)}
 
 </style>
 </head>
@@ -643,7 +701,7 @@ table.tb{width:100%;border-collapse:collapse;font-size:9.5pt}
 </svg></div></div>
   <div class="cv-block">
     <div class="rule"></div>
-    <h1 class="cv-t"><span class="lt">AUVP </span>Seguros</h1>
+    <h1 class="cv-t"><span class="lt">AUVP </span>Proteção&nbsp;Patrimonial</h1>
     <div class="cv-sub">As melhores seguradoras do mercado,<br>comparadas para&nbsp;você.</div>
   </div>
   <div class="cv-foot"><div class="cf"></div><div class="id"><div><div class="sg-capa"><span><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 6.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2z"/><path d="M7 11.5h2.5l1.2-2 2 4 1.3-2H17"/></svg></span><span><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.8 16H3.5v-3.6L6 8h9.4l3.6 4.4 1.5.5V16h-1.3"/><path d="M9 16h6"/><circle cx="7" cy="16.3" r="2"/><circle cx="17" cy="16.3" r="2"/><path d="M6.3 12.4h12.4"/></svg></span><span><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.5H5v5a4 4 0 0 0 8 0v-5h-1.5"/><path d="M9 12.5v2a5 5 0 0 0 10 0v-2.2"/><circle cx="19" cy="10.2" r="2.1"/></svg></span><span><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 4h5v5.5H20v5h-5.5V20h-5v-5.5H4v-5h5.5z"/></svg></span></div></div></div></div>
@@ -698,25 +756,25 @@ table.tb{width:100%;border-collapse:collapse;font-size:9.5pt}
     <p class="mut">Quem contrata seguro direto com uma única seguradora fica com opções limitadas e
     dificilmente sabe se está pagando o preço justo pela cobertura&nbsp;certa.</p>
     <svg class="sg-dg" viewBox="0 0 120 24" aria-hidden="true"><path class="fio mudo" d="M17 12H53M67 12H103"/><circle class="n-pes" cx="9" cy="12" r="7"/><svg class="n-pes-i" x="4.975" y="7.975" width="8.05" height="8.05" viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="3.5"/><path d="M5 20a7 7 0 0 1 14 0"/></svg><circle class="n-mudo" cx="60" cy="12" r="6"/><svg class="n-mudo-i" x="56.55" y="8.55" width="6.9" height="6.9" viewBox="0 0 24 24"><path d="M12 3.5 19 6v5.5c0 4.4-3 7.6-7 9-4-1.4-7-4.6-7-9V6z"/></svg><circle class="n-mudo" cx="111" cy="12" r="7"/><svg class="n-mudo-i" x="106.975" y="7.975" width="8.05" height="8.05" viewBox="0 0 24 24"><path d="M9.3 9.3a2.8 2.8 0 1 1 3.9 2.6c-.8.4-1.2 1-1.2 1.8v.8"/><circle cx="12" cy="17.4" r=".4"/></svg></svg>
-    <p><strong>Na AUVP Seguros, fazemos esse trabalho por&nbsp;você:</strong> cotamos nas principais seguradoras e
+    <p><strong>Na AUVP Proteção Patrimonial, fazemos esse trabalho por&nbsp;você:</strong> cotamos nas principais seguradoras e
     operadoras do mercado, comparamos coberturas, condições e preços, e apresentamos a opção com o
     melhor custo-benefício para o seu momento de&nbsp;vida.</p>
-    <svg class="sg-dg" viewBox="0 0 120 48" aria-hidden="true"><path class="fio" d="M16 24C38 24 38 5 54 5M66 5C82 5 82 24 103.5 24"/><path class="fio" d="M16 24C38 24 38 14.5 54 14.5M66 14.5C82 14.5 82 24 103.5 24"/><path class="fio" d="M16 24C38 24 38 33.5 54 33.5M66 33.5C82 33.5 82 24 103.5 24"/><path class="fio" d="M16 24C38 24 38 43 54 43M66 43C82 43 82 24 103.5 24"/><path class="fio sel" d="M16 24C38 24 38 24 54 24M66 24C82 24 82 24 103.5 24"/><circle class="n-pes" cx="9" cy="24" r="7"/><svg class="n-pes-i" x="4.975" y="19.975" width="8.05" height="8.05" viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="3.5"/><path d="M5 20a7 7 0 0 1 14 0"/></svg><circle class="n-seg" cx="60" cy="5" r="4.5"/><svg class="n-seg-i" x="57.4125" y="2.4125" width="5.175" height="5.175" viewBox="0 0 24 24"><path d="M12 3.5 19 6v5.5c0 4.4-3 7.6-7 9-4-1.4-7-4.6-7-9V6z"/></svg><circle class="n-seg" cx="60" cy="14.5" r="4.5"/><svg class="n-seg-i" x="57.4125" y="11.9125" width="5.175" height="5.175" viewBox="0 0 24 24"><path d="M12 3.5 19 6v5.5c0 4.4-3 7.6-7 9-4-1.4-7-4.6-7-9V6z"/></svg><circle class="n-sel" cx="60" cy="24" r="4.5"/><svg class="n-sel-i" x="57.4125" y="21.4125" width="5.175" height="5.175" viewBox="0 0 24 24"><path d="M12 3.5 19 6v5.5c0 4.4-3 7.6-7 9-4-1.4-7-4.6-7-9V6z"/></svg><circle class="n-seg" cx="60" cy="33.5" r="4.5"/><svg class="n-seg-i" x="57.4125" y="30.9125" width="5.175" height="5.175" viewBox="0 0 24 24"><path d="M12 3.5 19 6v5.5c0 4.4-3 7.6-7 9-4-1.4-7-4.6-7-9V6z"/></svg><circle class="n-seg" cx="60" cy="43" r="4.5"/><svg class="n-seg-i" x="57.4125" y="40.4125" width="5.175" height="5.175" viewBox="0 0 24 24"><path d="M12 3.5 19 6v5.5c0 4.4-3 7.6-7 9-4-1.4-7-4.6-7-9V6z"/></svg><circle class="n-fim" cx="111" cy="24" r="7.5"/><svg class="n-fim-i" x="106.688" y="19.6875" width="8.625" height="8.625" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M8 12.2l2.7 2.7L16 9.5"/></svg></svg>
+    <svg class="sg-dg" viewBox="0 0 120 48" aria-hidden="true"><path class="fio" d="M16 24C38 24 38 5 54 5M66 5C82 5 82 24 103.5 24"/><path class="fio" d="M16 24C38 24 38 14.5 54 14.5M66 14.5C82 14.5 82 24 103.5 24"/><path class="fio" d="M16 24C38 24 38 33.5 54 33.5M66 33.5C82 33.5 82 24 103.5 24"/><path class="fio" d="M16 24C38 24 38 43 54 43M66 43C82 43 82 24 103.5 24"/><path class="fio sel" d="M16 24C38 24 38 24 54 24M66 24C82 24 82 24 103.5 24"/><circle class="n-pes" cx="9" cy="24" r="7"/><svg class="n-pes-i" x="4.975" y="19.975" width="8.05" height="8.05" viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="3.5"/><path d="M5 20a7 7 0 0 1 14 0"/></svg><circle class="n-seg t1" cx="60" cy="5" r="4.5"/><svg class="n-seg t1-i" x="57.4125" y="2.4125" width="5.175" height="5.175" viewBox="0 0 24 24"><path d="M12 3.5 19 6v5.5c0 4.4-3 7.6-7 9-4-1.4-7-4.6-7-9V6z"/></svg><circle class="n-seg t2" cx="60" cy="14.5" r="4.5"/><svg class="n-seg t2-i" x="57.4125" y="11.9125" width="5.175" height="5.175" viewBox="0 0 24 24"><path d="M12 3.5 19 6v5.5c0 4.4-3 7.6-7 9-4-1.4-7-4.6-7-9V6z"/></svg><circle class="n-sel" cx="60" cy="24" r="4.5"/><svg class="n-sel-i" x="57.4125" y="21.4125" width="5.175" height="5.175" viewBox="0 0 24 24"><path d="M12 3.5 19 6v5.5c0 4.4-3 7.6-7 9-4-1.4-7-4.6-7-9V6z"/></svg><circle class="n-seg t1" cx="60" cy="33.5" r="4.5"/><svg class="n-seg t1-i" x="57.4125" y="30.9125" width="5.175" height="5.175" viewBox="0 0 24 24"><path d="M12 3.5 19 6v5.5c0 4.4-3 7.6-7 9-4-1.4-7-4.6-7-9V6z"/></svg><circle class="n-seg t2" cx="60" cy="43" r="4.5"/><svg class="n-seg t2-i" x="57.4125" y="40.4125" width="5.175" height="5.175" viewBox="0 0 24 24"><path d="M12 3.5 19 6v5.5c0 4.4-3 7.6-7 9-4-1.4-7-4.6-7-9V6z"/></svg><circle class="n-fim" cx="111" cy="24" r="7.5"/><svg class="n-fim-i" x="106.688" y="19.6875" width="8.625" height="8.625" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M8 12.2l2.7 2.7L16 9.5"/></svg></svg>
   </div>
-  <ol class="sg-trilha"><li><span class="sg-bola"><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4 3.5 8.5 12 13l8.5-4.5z"/><path d="M3.5 12.5 12 17l8.5-4.5"/><path d="M3.5 16.2 12 20.7l8.5-4.5"/></svg></span><h4>Cotação&nbsp;ampla</h4><p>O mesmo perfil é cotado em várias seguradoras ao mesmo&nbsp;tempo.</p></li><li><span class="sg-bola"><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="6.5" height="14" rx="1"/><rect x="13.5" y="5" width="6.5" height="14" rx="1"/><path d="M6 9h2.5M6 12h2.5M15.5 9h2.5M15.5 12h2.5"/></svg></span><h4>Comparação&nbsp;transparente</h4><p>Mostramos lado a lado o que cada opção cobre e quanto&nbsp;custa.</p></li><li><span class="sg-bola"><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M8 12.2l2.7 2.7L16 9.5"/></svg></span><h4>Recomendação&nbsp;imparcial</h4><p>Indicamos o que faz mais sentido para você, e não para a&nbsp;seguradora.</p></li><li><span class="sg-bola"><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 14v-2a7.5 7.5 0 0 1 15 0v2"/><rect x="3.5" y="13" width="4" height="6" rx="1.5"/><rect x="16.5" y="13" width="4" height="6" rx="1.5"/><path d="M18.5 19c0 1.4-1.6 2-4 2H13"/></svg></span><h4>Acompanhamento</h4><p>Estamos com você da cotação à contratação e no pós-venda, inclusive em caso de&nbsp;sinistro.</p></li></ol>
+  <ol class="sg-trilha"><li><span class="sg-bola t1"><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4 3.5 8.5 12 13l8.5-4.5z"/><path d="M3.5 12.5 12 17l8.5-4.5"/><path d="M3.5 16.2 12 20.7l8.5-4.5"/></svg></span><h4>Cotação&nbsp;ampla</h4><p>O mesmo perfil é cotado em várias seguradoras ao mesmo&nbsp;tempo.</p></li><li><span class="sg-bola t2"><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="6.5" height="14" rx="1"/><rect x="13.5" y="5" width="6.5" height="14" rx="1"/><path d="M6 9h2.5M6 12h2.5M15.5 9h2.5M15.5 12h2.5"/></svg></span><h4>Comparação&nbsp;transparente</h4><p>Mostramos lado a lado o que cada opção cobre e quanto&nbsp;custa.</p></li><li><span class="sg-bola t3"><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M8 12.2l2.7 2.7L16 9.5"/></svg></span><h4>Recomendação&nbsp;imparcial</h4><p>Indicamos o que faz mais sentido para você, e não para a&nbsp;seguradora.</p></li><li><span class="sg-bola t4"><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 14v-2a7.5 7.5 0 0 1 15 0v2"/><rect x="3.5" y="13" width="4" height="6" rx="1.5"/><rect x="16.5" y="13" width="4" height="6" rx="1.5"/><path d="M18.5 19c0 1.4-1.6 2-4 2H13"/></svg></span><h4>Acompanhamento</h4><p>Estamos com você da cotação à contratação e no pós-venda, inclusive em caso de&nbsp;sinistro.</p></li></ol>
 </div>
-<div class="note"><p>Integrada ao ecossistema financeiro da AUVP, cada decisão de proteção
+<div class="note sg-nota"><p>Integrada ao ecossistema financeiro da AUVP, cada decisão de proteção
 conversa com seus investimentos e com a construção do seu&nbsp;patrimônio.</p></div>
     </div>
-    <footer class="pg-foot"><span class="no">01</span><span>AUVP&nbsp;Seguros</span></footer>
+    <footer class="pg-foot"><span class="no">01</span><span>AUVP Proteção&nbsp;Patrimonial</span></footer>
   </div>
 </section>
-<section class="slide">
-  
+<section class="slide dark">
+  <div class="grain"></div>
   <div class="in">
     <header class="pg-head">
       <div class="sec">Seguro de&nbsp;Vida</div>
-      <div class="rt"><div class="sg-nav"><span class="on"><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 6.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2z"/><path d="M7 11.5h2.5l1.2-2 2 4 1.3-2H17"/></svg></span><span><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.8 16H3.5v-3.6L6 8h9.4l3.6 4.4 1.5.5V16h-1.3"/><path d="M9 16h6"/><circle cx="7" cy="16.3" r="2"/><circle cx="17" cy="16.3" r="2"/><path d="M6.3 12.4h12.4"/></svg></span><span><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.5H5v5a4 4 0 0 0 8 0v-5h-1.5"/><path d="M9 12.5v2a5 5 0 0 0 10 0v-2.2"/><circle cx="19" cy="10.2" r="2.1"/></svg></span><span><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 4h5v5.5H20v5h-5.5V20h-5v-5.5H4v-5h5.5z"/></svg></span></div><div class="logo logo-ink" style="width:24.0mm"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1044.44 274.67">
+      <div class="rt"><div class="sg-nav"><span class="on"><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 6.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2z"/><path d="M7 11.5h2.5l1.2-2 2 4 1.3-2H17"/></svg></span><span><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.8 16H3.5v-3.6L6 8h9.4l3.6 4.4 1.5.5V16h-1.3"/><path d="M9 16h6"/><circle cx="7" cy="16.3" r="2"/><circle cx="17" cy="16.3" r="2"/><path d="M6.3 12.4h12.4"/></svg></span><span><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.5H5v5a4 4 0 0 0 8 0v-5h-1.5"/><path d="M9 12.5v2a5 5 0 0 0 10 0v-2.2"/><circle cx="19" cy="10.2" r="2.1"/></svg></span><span><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 4h5v5.5H20v5h-5.5V20h-5v-5.5H4v-5h5.5z"/></svg></span></div><div class="logo" style="width:24.0mm"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1044.44 274.67">
   <defs>
     <style>
       .lg-1 {
@@ -763,11 +821,11 @@ conversa com seus investimentos e com a construção do seu&nbsp;patrimônio.</p
   </div>
   <div class="sg-dir">
     <h2>Principais&nbsp;coberturas</h2>
-    <ul class="sg-cob"><li><span class="sg-bola"><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 12a8.5 8.5 0 0 1 17 0z"/><path d="M12 12v6a2 2 0 0 1-4 0"/><path d="M12 3.5v-1"/></svg></span><span>Morte</span></li><li><span class="sg-bola"><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="8.5" width="19" height="7" rx="3.5" transform="rotate(-45 12 12)"/><rect x="9.5" y="9.5" width="5" height="5" rx=".6" transform="rotate(-45 12 12)"/></svg></span><span>Invalidez por acidente ou&nbsp;doença</span></li><li><span class="sg-bola"><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 12.5h4l1.6-3.5 3 7 1.8-3.5h6.6"/><path d="M5.4 8.6A4.3 4.3 0 0 1 12 6.6a4.3 4.3 0 0 1 7.3 4.4M6.8 16c1.9 2 4.2 3.5 5.2 4 1-.5 3.3-2 5.2-4"/></svg></span><span>Doenças&nbsp;graves</span></li><li><span class="sg-bola"><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5.5" width="16" height="14" rx="2"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/><path d="M8 14h3"/></svg></span><span>Diária por incapacidade&nbsp;temporária</span></li><li><span class="sg-bola"><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="15.8" width="10" height="3" rx="1.5" transform="rotate(-45 7 17.3)"/><path d="M9.5 12.7 18.8 4.6c.6 3.6-1.8 7.2-7.2 10.2z"/></svg></span><span>Cirurgias</span></li><li><span class="sg-bola"><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6v13M3 15.5h18V19M21 15.5v-3a3 3 0 0 0-3-3h-8v6"/><circle cx="6.5" cy="12" r="2"/></svg></span><span>Internação&nbsp;hospitalar</span></li></ul>
+    <ul class="sg-cob"><li><span class="sg-bola t1"><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 12a8.5 8.5 0 0 1 17 0z"/><path d="M12 12v6a2 2 0 0 1-4 0"/><path d="M12 3.5v-1"/></svg></span><span>Morte</span></li><li><span class="sg-bola t2"><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="8.5" width="19" height="7" rx="3.5" transform="rotate(-45 12 12)"/><rect x="9.5" y="9.5" width="5" height="5" rx=".6" transform="rotate(-45 12 12)"/></svg></span><span>Invalidez por acidente ou&nbsp;doença</span></li><li><span class="sg-bola t3"><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 12.5h4l1.6-3.5 3 7 1.8-3.5h6.6"/><path d="M5.4 8.6A4.3 4.3 0 0 1 12 6.6a4.3 4.3 0 0 1 7.3 4.4M6.8 16c1.9 2 4.2 3.5 5.2 4 1-.5 3.3-2 5.2-4"/></svg></span><span>Doenças&nbsp;graves</span></li><li><span class="sg-bola t4"><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5.5" width="16" height="14" rx="2"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/><path d="M8 14h3"/></svg></span><span>Diária por incapacidade&nbsp;temporária</span></li><li><span class="sg-bola t1"><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="15.8" width="10" height="3" rx="1.5" transform="rotate(-45 7 17.3)"/><path d="M9.5 12.7 18.8 4.6c.6 3.6-1.8 7.2-7.2 10.2z"/></svg></span><span>Cirurgias</span></li><li><span class="sg-bola t2"><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6v13M3 15.5h18V19M21 15.5v-3a3 3 0 0 0-3-3h-8v6"/><circle cx="6.5" cy="12" r="2"/></svg></span><span>Internação&nbsp;hospitalar</span></li></ul>
   </div>
 </div>
     </div>
-    <footer class="pg-foot"><span class="no">02</span><span>AUVP&nbsp;Seguros</span></footer>
+    <footer class="pg-foot"><span class="no">02</span><span>AUVP Proteção&nbsp;Patrimonial</span></footer>
   </div>
 </section>
 <section class="slide">
@@ -822,19 +880,19 @@ conversa com seus investimentos e com a construção do seu&nbsp;patrimônio.</p
   </div>
   <div class="sg-dir">
     <h2>Principais&nbsp;coberturas</h2>
-    <ul class="sg-cob impar"><li><span class="sg-bola"><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/><path d="M12 14.5v2"/></svg></span><span>Colisão, roubo e&nbsp;furto</span></li><li><span class="sg-bola"><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3.5 19.5a5.5 5.5 0 0 1 11 0"/><circle cx="16.5" cy="9" r="2.5"/><path d="M15.6 14.1a4.5 4.5 0 0 1 4.9 5.4"/></svg></span><span>Danos a terceiros (materiais e&nbsp;corporais)</span></li><li><span class="sg-bola"><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></span><span>Assistência 24h e&nbsp;guincho</span></li><li><span class="sg-bola"><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="15" r="4"/><path d="M11 12l8-8M16 7l2.5 2.5M14 9l2 2"/></svg></span><span>Carro&nbsp;reserva</span></li><li><span class="sg-bola"><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 17 6.5 8h11L20 17z"/><path d="M9 14.5l3-3M12 15l4-4"/></svg></span><span>Vidros, faróis e&nbsp;retrovisores</span></li></ul>
+    <ul class="sg-cob impar"><li><span class="sg-bola t1"><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/><path d="M12 14.5v2"/></svg></span><span>Colisão, roubo e&nbsp;furto</span></li><li><span class="sg-bola t2"><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3.5 19.5a5.5 5.5 0 0 1 11 0"/><circle cx="16.5" cy="9" r="2.5"/><path d="M15.6 14.1a4.5 4.5 0 0 1 4.9 5.4"/></svg></span><span>Danos a terceiros (materiais e&nbsp;corporais)</span></li><li><span class="sg-bola t3"><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></span><span>Assistência 24h e&nbsp;guincho</span></li><li><span class="sg-bola t4"><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="15" r="4"/><path d="M11 12l8-8M16 7l2.5 2.5M14 9l2 2"/></svg></span><span>Carro&nbsp;reserva</span></li><li><span class="sg-bola t1"><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 17 6.5 8h11L20 17z"/><path d="M9 14.5l3-3M12 15l4-4"/></svg></span><span>Vidros, faróis e&nbsp;retrovisores</span></li></ul>
   </div>
 </div>
     </div>
-    <footer class="pg-foot"><span class="no">03</span><span>AUVP&nbsp;Seguros</span></footer>
+    <footer class="pg-foot"><span class="no">03</span><span>AUVP Proteção&nbsp;Patrimonial</span></footer>
   </div>
 </section>
-<section class="slide">
-  
+<section class="slide dark">
+  <div class="grain"></div>
   <div class="in">
     <header class="pg-head">
       <div class="sec">RC Profissional para&nbsp;Médicos</div>
-      <div class="rt"><div class="sg-nav"><span><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 6.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2z"/><path d="M7 11.5h2.5l1.2-2 2 4 1.3-2H17"/></svg></span><span><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.8 16H3.5v-3.6L6 8h9.4l3.6 4.4 1.5.5V16h-1.3"/><path d="M9 16h6"/><circle cx="7" cy="16.3" r="2"/><circle cx="17" cy="16.3" r="2"/><path d="M6.3 12.4h12.4"/></svg></span><span class="on"><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.5H5v5a4 4 0 0 0 8 0v-5h-1.5"/><path d="M9 12.5v2a5 5 0 0 0 10 0v-2.2"/><circle cx="19" cy="10.2" r="2.1"/></svg></span><span><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 4h5v5.5H20v5h-5.5V20h-5v-5.5H4v-5h5.5z"/></svg></span></div><div class="logo logo-ink" style="width:24.0mm"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1044.44 274.67">
+      <div class="rt"><div class="sg-nav"><span><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 6.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2z"/><path d="M7 11.5h2.5l1.2-2 2 4 1.3-2H17"/></svg></span><span><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.8 16H3.5v-3.6L6 8h9.4l3.6 4.4 1.5.5V16h-1.3"/><path d="M9 16h6"/><circle cx="7" cy="16.3" r="2"/><circle cx="17" cy="16.3" r="2"/><path d="M6.3 12.4h12.4"/></svg></span><span class="on"><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.5H5v5a4 4 0 0 0 8 0v-5h-1.5"/><path d="M9 12.5v2a5 5 0 0 0 10 0v-2.2"/><circle cx="19" cy="10.2" r="2.1"/></svg></span><span><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 4h5v5.5H20v5h-5.5V20h-5v-5.5H4v-5h5.5z"/></svg></span></div><div class="logo" style="width:24.0mm"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1044.44 274.67">
   <defs>
     <style>
       .lg-1 {
@@ -881,11 +939,11 @@ conversa com seus investimentos e com a construção do seu&nbsp;patrimônio.</p
   </div>
   <div class="sg-dir">
     <h2>Principais&nbsp;coberturas</h2>
-    <ul class="sg-cob"><li><span class="sg-bola"><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v16M8 20h8M5 7h14"/><path d="M5 7l-3 6a3 3 0 0 0 6 0zM19 7l-3 6a3 3 0 0 0 6 0z"/></svg></span><span>Custos de defesa jurídica e honorários&nbsp;advocatícios</span></li><li><span class="sg-bola"><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6.5" width="18" height="11" rx="1.5"/><circle cx="12" cy="12" r="2.5"/><path d="M6.5 9.5v5M17.5 9.5v5"/></svg></span><span>Indenizações por danos materiais, corporais e morais a&nbsp;pacientes</span></li><li><span class="sg-bola"><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3.5H6.5A1.5 1.5 0 0 0 5 5v14a1.5 1.5 0 0 0 1.5 1.5h11A1.5 1.5 0 0 0 19 19V8.5z"/><path d="M14 3.5v5h5"/><path d="M8 16c1.2-1.6 2-1.6 2.6 0s1.6 1.4 2.4 0 1.6-1 3 0"/></svg></span><span>Acordos judiciais e&nbsp;extrajudiciais</span></li><li><span class="sg-bola"><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5"/></svg></span><span>Despesas com&nbsp;perícias</span></li></ul>
+    <ul class="sg-cob"><li><span class="sg-bola t1"><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v16M8 20h8M5 7h14"/><path d="M5 7l-3 6a3 3 0 0 0 6 0zM19 7l-3 6a3 3 0 0 0 6 0z"/></svg></span><span>Custos de defesa jurídica e honorários&nbsp;advocatícios</span></li><li><span class="sg-bola t2"><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6.5" width="18" height="11" rx="1.5"/><circle cx="12" cy="12" r="2.5"/><path d="M6.5 9.5v5M17.5 9.5v5"/></svg></span><span>Indenizações por danos materiais, corporais e morais a&nbsp;pacientes</span></li><li><span class="sg-bola t3"><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3.5H6.5A1.5 1.5 0 0 0 5 5v14a1.5 1.5 0 0 0 1.5 1.5h11A1.5 1.5 0 0 0 19 19V8.5z"/><path d="M14 3.5v5h5"/><path d="M8 16c1.2-1.6 2-1.6 2.6 0s1.6 1.4 2.4 0 1.6-1 3 0"/></svg></span><span>Acordos judiciais e&nbsp;extrajudiciais</span></li><li><span class="sg-bola t4"><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5"/></svg></span><span>Despesas com&nbsp;perícias</span></li></ul>
   </div>
 </div>
     </div>
-    <footer class="pg-foot"><span class="no">04</span><span>AUVP&nbsp;Seguros</span></footer>
+    <footer class="pg-foot"><span class="no">04</span><span>AUVP Proteção&nbsp;Patrimonial</span></footer>
   </div>
 </section>
 <section class="slide">
@@ -940,11 +998,11 @@ conversa com seus investimentos e com a construção do seu&nbsp;patrimônio.</p
   </div>
   <div class="sg-dir">
     <h2>Modalidades</h2>
-    <ul class="sg-cob grande"><li><span class="sg-bola"><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="7.5" cy="7" r="2.5"/><circle cx="16.5" cy="7" r="2.5"/><circle cx="12" cy="13" r="1.8"/><path d="M3.5 19a4 4 0 0 1 6-3.5M20.5 19a4 4 0 0 0-6-3.5M9 20.5a3 3 0 0 1 6 0"/></svg></span><span>Individual e&nbsp;familiar</span></li><li><span class="sg-bola"><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 20.5h17M6 20.5v-16h8v16M14 9.5h4v11"/><path d="M8.5 8h3M8.5 11.5h3M8.5 15h3"/></svg></span><span>Empresarial</span></li></ul>
+    <ul class="sg-cob grande"><li><span class="sg-bola t1"><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="7.5" cy="7" r="2.5"/><circle cx="16.5" cy="7" r="2.5"/><circle cx="12" cy="13" r="1.8"/><path d="M3.5 19a4 4 0 0 1 6-3.5M20.5 19a4 4 0 0 0-6-3.5M9 20.5a3 3 0 0 1 6 0"/></svg></span><span>Individual e&nbsp;familiar</span></li><li><span class="sg-bola t2"><svg class="sg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 20.5h17M6 20.5v-16h8v16M14 9.5h4v11"/><path d="M8.5 8h3M8.5 11.5h3M8.5 15h3"/></svg></span><span>Empresarial</span></li></ul>
   </div>
 </div>
     </div>
-    <footer class="pg-foot"><span class="no">05</span><span>AUVP&nbsp;Seguros</span></footer>
+    <footer class="pg-foot"><span class="no">05</span><span>AUVP Proteção&nbsp;Patrimonial</span></footer>
   </div>
 </section>
 </body>
