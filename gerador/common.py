@@ -998,7 +998,9 @@ ol.romano>li::before{counter-increment:ro;content:counter(ro,lower-roman) ")"}
 ol.pontos>li::before,ol.alfa>li::before,ol.romano>li::before{position:absolute;left:-7mm;
   color:var(--brand);font-weight:700}
 .apos-tab{margin-top:4mm}
-.apos-lista{margin-top:3mm}
+/* a lista não tem margem, e o parágrafo só tem a de baixo: sem isto o texto
+   que vem depois da lista encosta no último item */
+.lista+p,.apos-lista{margin-top:3mm}
 .item-tab{margin:4mm 0 2mm;font-weight:700}
 .item-tab.topo,h3.topo{margin-top:0}
 h3.cenario{margin-top:0;color:var(--brand);letter-spacing:.06em}
@@ -1033,6 +1035,34 @@ CSS_A4 += """
 .painel{background:var(--soft);border-top:1.33px solid var(--brand);padding:4mm 5mm}
 .painel>:last-child{margin-bottom:0}
 .painel h3:first-child{margin-top:0}
+
+/* ---------- nota de rodapé ----------
+   O bloco vai por último no corpo da página e o `margin-top:auto` o desce até
+   o pé, logo acima do rodapé. O número é escrito à mão, no texto e na nota: a
+   numeração corre pelo documento inteiro e não recomeça a cada página.
+   Citação de lei não se hifeniza nem se justifica. */
+.notas{flex:0 0 auto;margin:auto 0 4mm;padding-top:5mm;font-size:7.2pt;line-height:1.5;color:var(--ink-2)}
+.notas::before{content:"";display:block;width:40mm;height:1px;background:var(--line);margin-bottom:2.5mm}
+.notas p{margin:0 0 1mm;padding-left:3mm;text-indent:-3mm;text-align:left;hyphens:manual;-webkit-hyphens:manual}
+.notas p:last-child{margin-bottom:0}
+sup.nr{font-size:.65em;line-height:0;vertical-align:super;font-weight:700;color:var(--brand)}
+.notas sup.nr{display:inline-block;width:3mm;text-indent:0}
+.page.dark .notas{color:rgba(255,255,255,.6)}
+.page.dark .notas::before{background:rgba(255,255,255,.25)}
+.page.dark sup.nr{color:#fff}
+"""
+
+CSS_SLIDE += """
+/* nota de rodapé: o mesmo do A4, na escala do slide */
+.notas{flex:0 0 auto;margin:auto 0 4mm;padding-top:6mm;font-size:8.6pt;line-height:1.5;color:var(--ink-2)}
+.notas::before{content:"";display:block;width:50mm;height:1px;background:var(--line);margin-bottom:3mm}
+.notas p{margin:0 0 1mm;padding-left:3.5mm;text-indent:-3.5mm;text-align:left;hyphens:manual;-webkit-hyphens:manual}
+.notas p:last-child{margin-bottom:0}
+sup.nr{font-size:.65em;line-height:0;vertical-align:super;font-weight:700;color:var(--brand)}
+.notas sup.nr{display:inline-block;width:3.5mm;text-indent:0}
+.slide.dark .notas{color:rgba(255,255,255,.7)}
+.slide.dark .notas::before{background:rgba(255,255,255,.25)}
+.slide.dark sup.nr{color:#fff}
 """
 
 CSS_SLIDE += """
@@ -1212,6 +1242,7 @@ CSS_LONGA = """
 .longa .cols2u .corrido,.longa .cols2 .corrido{max-width:none}
 .longa .lista{font-size:9.4pt;line-height:20px}
 .longa .lista li{padding-left:6mm;margin-bottom:14px}
+.longa .lista+p{margin-top:5mm}
 .longa .lista li::before{top:9px;width:3.2mm}
 .longa .principios{gap:7mm 12mm}
 .longa .principios p{font-size:9.2pt;line-height:1.62}
@@ -1257,3 +1288,28 @@ CSS_LONGA = """
 .lg-assina .data{font-size:8pt;letter-spacing:.08em;text-transform:uppercase;
   color:rgba(255,255,255,.72)}
 """ % dict(h=ALTURA_LONGA)
+
+CSS_SLIDE += """
+/* ---------- lista com marcador em fio, e esboço do gráfico de linha ----------
+   Os dois nasceram na folha do A4 e ficaram só lá: no 16:9 a lista saía com a
+   bolinha do navegador e a moldura do gráfico de linha, vazia. Aqui na escala
+   do slide (corpo de 11 pt), com o ritmo em px inteiros pelo mesmo motivo do
+   A4: o traço de cada item cai na mesma fase de subpixel e sai igual. */
+.lista{list-style:none;margin:0;padding:0;line-height:22px}
+.lista li{position:relative;padding-left:6mm;margin-bottom:10px}
+.lista li:last-child{margin-bottom:0}
+.lista li::before{content:"";position:absolute;left:0;top:11px;width:3mm;height:1.33px;background:var(--accent)}
+.lista.small{line-height:18px}
+.lista.small li{margin-bottom:8px}
+.lista.small li::before{top:9px}
+.lista.mut li{color:var(--ink-2)}
+.lista+p{margin-top:3mm}
+.slide.dark .lista li::before{background:rgba(255,255,255,.55)}
+.sk-line{width:75%;height:16mm;opacity:.42;border-bottom:1px solid var(--ink-2);position:relative}
+.sk-line::after{content:'';position:absolute;inset:0;
+  clip-path:polygon(0 82%,14% 66%,28% 74%,42% 48%,56% 55%,70% 30%,85% 36%,100% 12%,100% 100%,0 100%);
+  background:linear-gradient(180deg,var(--brand),rgba(255,255,255,0) 92%)}
+/* no negativo a cor base some no próprio degradê: o esboço passa a branco */
+.slide.dark .sk-line{border-color:rgba(255,255,255,.6)}
+.slide.dark .sk-line::after{background:linear-gradient(180deg,#fff,rgba(255,255,255,0) 92%)}
+"""

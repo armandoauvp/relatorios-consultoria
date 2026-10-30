@@ -376,6 +376,17 @@ table.tb{width:100%;border-collapse:collapse;font-size:9.5pt}
 .nc-centro .disco .ph{background:rgba(255,255,255,.18);color:#fff}
 .nc-centro .disco .ph.pronto{background:none;text-transform:inherit;letter-spacing:inherit}
 
+/* nota de rodapé: o mesmo do A4, na escala do slide */
+.notas{flex:0 0 auto;margin:auto 0 4mm;padding-top:6mm;font-size:8.6pt;line-height:1.5;color:var(--ink-2)}
+.notas::before{content:"";display:block;width:50mm;height:1px;background:var(--line);margin-bottom:3mm}
+.notas p{margin:0 0 1mm;padding-left:3.5mm;text-indent:-3.5mm;text-align:left;hyphens:manual;-webkit-hyphens:manual}
+.notas p:last-child{margin-bottom:0}
+sup.nr{font-size:.65em;line-height:0;vertical-align:super;font-weight:700;color:var(--brand)}
+.notas sup.nr{display:inline-block;width:3.5mm;text-indent:0}
+.slide.dark .notas{color:rgba(255,255,255,.7)}
+.slide.dark .notas::before{background:rgba(255,255,255,.25)}
+.slide.dark sup.nr{color:#fff}
+
 /* ---------- AUVP Proteção Patrimonial ----------
    O tom mais leve do material vem daqui, e não do texto: ícone em traço fino
    em cada cobertura, um diagrama sem palavras e a fileira dos quatro seguros
@@ -480,6 +491,29 @@ table.tb{width:100%;border-collapse:collapse;font-size:9.5pt}
 .slide.dark .sg-cob li{background:rgba(255,255,255,.07);border-top-color:#fff}
 .slide.dark .sg-bola.t1,.slide.dark .sg-bola.t2{color:var(--brand)}
 .slide.dark .sg-bola.t4{background:#fff;color:var(--brand)}
+
+/* ---------- lista com marcador em fio, e esboço do gráfico de linha ----------
+   Os dois nasceram na folha do A4 e ficaram só lá: no 16:9 a lista saía com a
+   bolinha do navegador e a moldura do gráfico de linha, vazia. Aqui na escala
+   do slide (corpo de 11 pt), com o ritmo em px inteiros pelo mesmo motivo do
+   A4: o traço de cada item cai na mesma fase de subpixel e sai igual. */
+.lista{list-style:none;margin:0;padding:0;line-height:22px}
+.lista li{position:relative;padding-left:6mm;margin-bottom:10px}
+.lista li:last-child{margin-bottom:0}
+.lista li::before{content:"";position:absolute;left:0;top:11px;width:3mm;height:1.33px;background:var(--accent)}
+.lista.small{line-height:18px}
+.lista.small li{margin-bottom:8px}
+.lista.small li::before{top:9px}
+.lista.mut li{color:var(--ink-2)}
+.lista+p{margin-top:3mm}
+.slide.dark .lista li::before{background:rgba(255,255,255,.55)}
+.sk-line{width:75%;height:16mm;opacity:.42;border-bottom:1px solid var(--ink-2);position:relative}
+.sk-line::after{content:'';position:absolute;inset:0;
+  clip-path:polygon(0 82%,14% 66%,28% 74%,42% 48%,56% 55%,70% 30%,85% 36%,100% 12%,100% 100%,0 100%);
+  background:linear-gradient(180deg,var(--brand),rgba(255,255,255,0) 92%)}
+/* no negativo a cor base some no próprio degradê: o esboço passa a branco */
+.slide.dark .sk-line{border-color:rgba(255,255,255,.6)}
+.slide.dark .sk-line::after{background:linear-gradient(180deg,#fff,rgba(255,255,255,0) 92%)}
 
 </style>
 </head>

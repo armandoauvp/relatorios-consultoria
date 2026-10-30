@@ -121,8 +121,10 @@ def renumera(html):
     return NUMERO.sub(proximo, html)
 
 
-def monta(doc, sufixo, rotulo, tema):
-    t = THEMES[tema]
+def monta(doc, sufixo, rotulo, tema, out=OUT, nome=None):
+    # O kit da Wealth (`kit_wealth.py`) monta com tema próprio e grava fora de
+    # `modelos/`: aceita o dicionário do tema no lugar da chave.
+    t = THEMES[tema] if isinstance(tema, str) else tema
     reset_img()
     paginas = doc["builder"](t, sufixo)
     # A folha longa é o A4 com a altura da página trocada: ela reaproveita a
@@ -130,7 +132,7 @@ def monta(doc, sufixo, rotulo, tema):
     css = {"a4": CSS_A4, "slide": CSS_SLIDE, "longa": CSS_A4 + CSS_LONGA}[doc["formato"]]
     html = head(doc["titulo"] % rotulo, tokens(t) + "\n" + css) + \
         renumera(sem_viuvas("\n".join(paginas))) + "\n" + FOOT
-    caminho = os.path.join(OUT, "%s-%s.html" % (doc["chave"], sufixo))
+    caminho = os.path.join(out, nome or "%s-%s.html" % (doc["chave"], sufixo))
     with open(caminho, "w", encoding="utf-8") as f:
         f.write(html)
     return caminho, len(paginas)

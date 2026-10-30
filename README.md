@@ -52,6 +52,25 @@ examinar) vem escrito e editável. Os próximos materiais da Wealth entram do me
 um módulo `gerador/d_wealth_*.py` cada, ou são montados na apresentação em branco do
 Private com os blocos "Inclui e não inclui", "Etapas em linha" e "Perfil e indicadores".
 
+### O kit dos parceiros da Wealth
+
+Os parceiros externos que tocam a AUVP Wealth produzem os próprios documentos com o Claude
+Code, fora da ferramenta. O que eles recebem é o **kit**, que `npm run kit` monta em
+`kit/auvp-wealth/` e compacta em `kit/auvp-wealth.zip`: uma pasta que funciona sozinha, com
+o `CLAUDE.md` e a skill que o Claude Code deles lê, o guia de marca, os modelos, os PDFs de
+referência e um script que desenha os gráficos, confere estouro de página e exporta o PDF.
+
+Os modelos saem em duas identidades: **Private**, para a família do Private Banking, e
+**verde**, o tema da consultoria sem o rótulo na capa, para cliente da consultoria ou de
+fora da casa. A versão verde só existe no kit: a ferramenta continua oferecendo a Wealth só no
+Private. São a proposta, o snapshot, um em branco em cada formato (que fecha com o
+disclaimer da Wealth) e um catálogo de componentes, um por página, de onde o Claude Code do
+parceiro copia a marcação.
+
+O texto do kit está em `gerador/kit_wealth/` e a montagem em `gerador/kit_wealth.py`. As
+cores do guia saem dos temas. Mudou a marca ou um modelo da Wealth: rode `npm run kit` e
+mande o zip novo. A pasta `kit/` não vai para o repositório.
+
 Nomes de arquivo: `modelos/<documento>-<variante>.html`. Na maioria a variante é o
 segmento — `consultoria`, `alta-renda`, `private`, `assessoria`. Na apresentação do
 consultor pode ser também um plano (`se-vira-ai`, `me-diz-o-que-fazer`, `resolve-ai`), e

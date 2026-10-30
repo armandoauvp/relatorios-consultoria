@@ -13,7 +13,8 @@
     "servir": "python3 -m http.server 8099 --directory docs",
     "all": "npm run build && npm run altura -- --ajustar && npm run vars && npm run check && npm run site && npm run macro -- --modelo && npm run pdf",
     "altura": "node scripts/altura.mjs",
-    "macro": "node scripts/macro.mjs"
+    "macro": "node scripts/macro.mjs",
+    "kit": "python3 gerador/kit_wealth.py"
   },
   "devDependencies": {
     "playwright": "^1.49.1"

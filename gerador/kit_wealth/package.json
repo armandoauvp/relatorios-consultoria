@@ -1,0 +1,14 @@
+{
+  "name": "kit-auvp-wealth",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Modelos e guia de marca da AUVP Wealth para os parceiros",
+  "type": "module",
+  "scripts": {
+    "pdf": "node ferramentas/pdf.mjs",
+    "conferir": "node ferramentas/pdf.mjs --conferir"
+  },
+  "devDependencies": {
+    "playwright": "^1.49.1"
+  }
+}

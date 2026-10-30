@@ -1,4 +1,7 @@
 node_modules/
+
+# o kit da Wealth para os parceiros: sai de `npm run kit` e vai por zip
+kit/
 package-lock.json
 
 # bytecode do gerador
